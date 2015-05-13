@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A3435F31B01A9D600FD28C4 /* EditItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */; };
+		9A3435F51B01A9E800FD28C4 /* EditNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */; };
+		9A4D0E4C1AFF1DB100BEBE0C /* PasswordListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */; };
 		9A9F0DDA1AE8438300A28806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0DD91AE8438300A28806 /* AppDelegate.swift */; };
 		9A9F0DDC1AE8438300A28806 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0DDB1AE8438300A28806 /* ViewController.swift */; };
 		9A9F0DDF1AE8438300A28806 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A9F0DDD1AE8438300A28806 /* Main.storyboard */; };
@@ -18,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemCell.swift; sourceTree = "<group>"; };
+		9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNoteCell.swift; sourceTree = "<group>"; };
+		9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
 		9A9F0DD41AE8438300A28806 /* Password Depot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Password Depot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9F0DD81AE8438300A28806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A9F0DD91AE8438300A28806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +75,9 @@
 				9A9F0DE21AE8438300A28806 /* LaunchScreen.xib */,
 				9A9F0DD71AE8438300A28806 /* Supporting Files */,
 				9A9F0DFD1AE877F100A28806 /* CreatePasswordViewController.swift */,
+				9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */,
+				9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */,
+				9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */,
 			);
 			path = "Password Depot";
 			sourceTree = "<group>";
@@ -152,10 +161,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A9F0DDC1AE8438300A28806 /* ViewController.swift in Sources */,
+				9A3435F51B01A9E800FD28C4 /* EditNoteCell.swift in Sources */,
 				9A9F0DDA1AE8438300A28806 /* AppDelegate.swift in Sources */,
 				9A9F0DFC1AE8441400A28806 /* PasswordDetailsViewController.swift in Sources */,
 				9A9F0DFA1AE843F200A28806 /* PasswordItem.swift in Sources */,
 				9A9F0DFE1AE877F100A28806 /* CreatePasswordViewController.swift in Sources */,
+				9A4D0E4C1AFF1DB100BEBE0C /* PasswordListItemCell.swift in Sources */,
+				9A3435F31B01A9D600FD28C4 /* EditItemCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
