@@ -6,16 +6,22 @@
 //  Copyright (c) 2015 It21Learning. All rights reserved.
 //
 
+//logic:  
+//when the app starts, it check whether password file exists, if not, prompt user to set passcode and
+//then create the empty password list
+//if password file already exists,  first time starts the app will ask user to create the passcode
+
 import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var passwordManager : PasswordManager!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        passwordManager = PasswordManager();
+        
         return true
     }
 

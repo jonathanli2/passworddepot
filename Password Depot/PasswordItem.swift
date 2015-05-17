@@ -36,15 +36,17 @@ class PasswordItem {
         self.password = password
         self.link = nil
     }
+}
+
+class PasswordManager{
+     var passwordList : [PasswordItem]?
     
-    static var passwordList : [PasswordItem]?
-    
-    class func getPasswordItemList() -> [PasswordItem] {
+     func getPasswordItemList() -> [PasswordItem]? {
         if let list = passwordList {
             return list
         }
         else{
-            passwordList =  [];
+        /*    passwordList =  [];
              passwordList!.append(PasswordItem(id: "git", userName: "jonathanli2", password: "Qpalmzmz9", link:"https://github.com/jonathanli2", note:"old password: Abcd1234"))
             passwordList!.append(PasswordItem(id: "gmail", userName: "jonathanli2000@gmail.com", password: "Qpalmzmz9", link:"https://mail.google.com"))
             passwordList!.append(PasswordItem(id: "yahoo", userName: "Andrew", password: "Abcd"))
@@ -52,15 +54,17 @@ class PasswordItem {
             passwordList!.append(PasswordItem(id: "it21learning", userName: "macbook", password: "cable"))
             passwordList!.append(PasswordItem(id: "Rogers", userName: "Elena", password: "toronto"))
             return passwordList!
+            */
+            return nil;
         }
     }
     
-    class func addPasswordItem(item: PasswordItem) -> [PasswordItem]{
+    func addPasswordItem(item: PasswordItem) -> [PasswordItem]{
         passwordList?.append(item)
         return passwordList!
     }
     
-    class func deletePasswordItem(item : PasswordItem){
+    func deletePasswordItem(item : PasswordItem){
     
         for (var index = 0; index < self.passwordList!.count; index++) {
             if ( item.id == self.passwordList![index].id){
@@ -70,4 +74,41 @@ class PasswordItem {
         }
         
     }
+    
+    func isPasswordFileExisting() -> Bool{
+        return false;
+    }
+    
+    func loadPasswordFile(passcode : String) -> [PasswordItem]?{
+        return nil
+    }
+    
+    func unloadPasswordFile() {
+    }
+    
+    func setBackgroundTimeout(timeout : Int){
+    }
+    
+    func createPasswordFile(passcode: String){
+        passwordList = [];
+        
+        let data : NSData? = NSJSONSerialization.dataWithJSONObject(passwordList!, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        
+    }
+    
+  //  func getKeyFromPassword(password : String, salt:NSData) {
+   /*     var derivedKey = NSMutableData(length: kCCKeySizeAES128];
+    
+    CCKeyDerivationPBKDF(kCCPBKDF2, // algorithm
+                         password.UTF8String, // password
+                         password.length, // passwordLength
+                         salt.bytes, // salt
+                         salt.length, // saltLen
+                         kCCPRFHmacAlgSHA1, // PRF
+                         kSMPRounds,  // rounds
+                         derivedKey.mutableBytes, // derivedKey
+                         derivedKey.length); // derivedKeyLen
+    
+    return derivedKey;*/
+//}
 }

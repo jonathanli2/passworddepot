@@ -8,14 +8,56 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     
     @IBOutlet weak var passwordTableView: UITableView!
     
+     func showAlert(){//ask user to create the password file
+            var createPasscodeDlg : UIAlertController = UIAlertController(title: "Create Passcode", message: "Pleaes set your logon passcode before using the application", preferredStyle: UIAlertControllerStyle.Alert)
+            var passwcodeField : UITextField?
+            var confirmPasscodeField: UITextField?
+            createPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                        textField.placeholder = "passcode"
+                        textField.secureTextEntry = true
+                        passwcodeField = textField
+                        })
+            
+            createPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                        textField.placeholder = "confirm Passcode"
+                        textField.secureTextEntry = true
+                        confirmPasscodeField = textField
+                        })
+            
+            var okAction : UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){  (alert) in
+                var passcode = passwcodeField!.text
+                var confirmPassCode = confirmPasscodeField!.text
+                if (passcode == confirmPassCode){
+                    //create password file
+                    (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.createPasswordFile(passcode)
+                }
+                else{
+                    self.showAlert()
+                }
+            }
+            
+            createPasscodeDlg.addAction(okAction)
+            self.presentViewController(createPasscodeDlg, animated: false, completion: nil)
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileExisting()){
+            //ask user to input passcode to load the password file
+        }
+        else{
+            //ask user to create the password file
+            self.showAlert()
+            
+        }
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
     
     override func viewDidAppear(animated: Bool) {
         self.passwordTableView.reloadData()
@@ -27,13 +69,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
    
     let cellIdentifier = "password"
-    
-    @IBAction func addNewPassword(sender: AnyObject) {
-        print("TODO: add new password")
-    }
-    
+        
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return PasswordItem.getPasswordItemList().count;
+
+        if let list =  (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(){
+            return list.count;
+        }
+        else{
+            return 0;
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -41,18 +85,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         let imageForFinancial = UIImage(named: "bee")
         let imageForOther = UIImage(named:"tip")
-        if (PasswordItem.getPasswordItemList()[indexPath.row].id == "CIBC"){
+        if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].id == "CIBC"){
             cell!.itemImage?.image = imageForFinancial;
         }
         else{
             cell!.itemImage?.image = imageForOther;
         }
         
-        cell!.name?.text = PasswordItem.getPasswordItemList()[indexPath.row].id
-        cell?.userName.setTitle( PasswordItem.getPasswordItemList()[indexPath.row].userName, forState: .Normal)
+        cell!.name?.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].id
+        cell?.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].userName, forState: .Normal)
         
-        cell!.password.setTitle( PasswordItem.getPasswordItemList()[indexPath.row].password, forState:.Normal)
-        cell?.link.setTitle(PasswordItem.getPasswordItemList()[indexPath.row].link, forState: .Normal)
+        cell!.password.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].password, forState:.Normal)
+        cell?.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
         return cell!
     }
     
@@ -63,22 +107,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == "showDetailSegue") {
             var destinationController : PasswordDetailsViewController = segue.destinationViewController as! PasswordDetailsViewController;
-            var passwordItem = PasswordItem.getPasswordItemList()[self.passwordTableView.indexPathForSelectedRow()!.row];
+            var passwordItem = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![self.passwordTableView.indexPathForSelectedRow()!.row];
              destinationController.setPasswordItem(passwordItem);
         }
-    }
-    
-    @IBAction func saveNewPassword(segue: UIStoryboardSegue) {
-        println("from segue id: %@", segue.identifier);
-         if (segue.identifier == "unwind") {
-            var destinationController : CreatePasswordViewController = segue.sourceViewController  as! CreatePasswordViewController;
-            var passwordItem = destinationController.newPassword
-            if let pass = passwordItem{
-                PasswordItem.addPasswordItem(pass)
-                self.passwordTableView.reloadData()
-            }
+        else if (segue.identifier == "newPassword"){
+            var destinationController : PasswordDetailsViewController = segue.destinationViewController as! PasswordDetailsViewController;
+            destinationController.bNewPassword = true
         }
-
     }
     
     @IBAction func onPasswordItemLinkClicked(sender: AnyObject) {
@@ -128,26 +163,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         });
     }
     
-  /*  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let rowValue = PasswordItem.getPasswordItemList()[indexPath.row].id
-    
-        let controller = UIAlertController(title: rowValue,
-                                message: "Copy the selected item to clipboard", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Username",
-                                style: .Default, handler: nil)
-        controller.addAction(action)
-        
-        let action2 = UIAlertAction(title: "Password",
-                                style: .Default, handler: nil)
-        controller.addAction(action2)
-        presentViewController(controller, animated: true, completion: nil)
-    }*/
-    
+     
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue)
     {
         let sourceViewController : PasswordDetailsViewController = sender.sourceViewController as! PasswordDetailsViewController
         if (sourceViewController.bDelete){
-            PasswordItem.deletePasswordItem(sourceViewController.passwordItem!)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.deletePasswordItem(sourceViewController.passwordItem!)
+            self.passwordTableView!.reloadData()
+        }
+        else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
+            (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.addPasswordItem(sourceViewController.passwordItem!)
             self.passwordTableView!.reloadData()
         }
         

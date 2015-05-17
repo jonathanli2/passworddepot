@@ -17,7 +17,6 @@
 		9A9F0DE41AE8438300A28806 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9F0DE21AE8438300A28806 /* LaunchScreen.xib */; };
 		9A9F0DFA1AE843F200A28806 /* PasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0DF91AE843F200A28806 /* PasswordItem.swift */; };
 		9A9F0DFC1AE8441400A28806 /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0DFB1AE8441400A28806 /* PasswordDetailsViewController.swift */; };
-		9A9F0DFE1AE877F100A28806 /* CreatePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0DFD1AE877F100A28806 /* CreatePasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		9A9F0DE31AE8438300A28806 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9A9F0DF91AE843F200A28806 /* PasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordItem.swift; sourceTree = "<group>"; };
 		9A9F0DFB1AE8441400A28806 /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
-		9A9F0DFD1AE877F100A28806 /* CreatePasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreatePasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,7 +72,6 @@
 				9A9F0DE01AE8438300A28806 /* Images.xcassets */,
 				9A9F0DE21AE8438300A28806 /* LaunchScreen.xib */,
 				9A9F0DD71AE8438300A28806 /* Supporting Files */,
-				9A9F0DFD1AE877F100A28806 /* CreatePasswordViewController.swift */,
 				9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */,
 				9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */,
 				9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */,
@@ -165,7 +162,6 @@
 				9A9F0DDA1AE8438300A28806 /* AppDelegate.swift in Sources */,
 				9A9F0DFC1AE8441400A28806 /* PasswordDetailsViewController.swift in Sources */,
 				9A9F0DFA1AE843F200A28806 /* PasswordItem.swift in Sources */,
-				9A9F0DFE1AE877F100A28806 /* CreatePasswordViewController.swift in Sources */,
 				9A4D0E4C1AFF1DB100BEBE0C /* PasswordListItemCell.swift in Sources */,
 				9A3435F31B01A9D600FD28C4 /* EditItemCell.swift in Sources */,
 			);
