@@ -23,6 +23,7 @@
 		9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemCell.swift; sourceTree = "<group>"; };
 		9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNoteCell.swift; sourceTree = "<group>"; };
 		9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
+		9A5A9A7E1B08C34200BB5294 /* Password Depot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Password Depot-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A9F0DD41AE8438300A28806 /* Password Depot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Password Depot.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9F0DD81AE8438300A28806 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A9F0DD91AE8438300A28806 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 				9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */,
 				9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */,
 				9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */,
+				9A5A9A7E1B08C34200BB5294 /* Password Depot-Bridging-Header.h */,
 			);
 			path = "Password Depot";
 			sourceTree = "<group>";
@@ -276,9 +278,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Password Depot/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Password Depot/Password Depot-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -286,9 +291,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Password Depot/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Password Depot/Password Depot-Bridging-Header.h";
 			};
 			name = Release;
 		};

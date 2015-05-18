@@ -111,8 +111,37 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         if (parent == nil){
             // parent is nil if this view controller was removed
             // update password item
-            if bNewPassword {
-                
+
+            
+                for (var index = 0; index < 4; index++) {
+                    var indexPath = NSIndexPath(forRow: index, inSection: 0 )
+                    var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
+                    if (index == 0){
+                        passwordItem?.userName = cell.txtValue!.text
+                    }
+                    else if (index == 1 ){
+                        passwordItem?.password = cell.txtValue!.text
+                    }
+                    else if (index == 2){
+                        passwordItem?.link = cell.txtValue!.text
+                    }
+                    else{
+                        passwordItem?.note = cell.txtValue!.text
+                    }
+                }
+            }
+    }
+    
+    //methods to handle new password
+   func cancel(sender: UIBarButtonItem) {
+        println("cancel clicked")
+        self.bCancelled = true
+        self.performSegueWithIdentifier("returnToPasswordList", sender: self)
+
+     }
+    
+     func save(sender: UIBarButtonItem) {
+        println("save clicked")
                 for (var index = 0; index < 5; index++) {
                     var indexPath = NSIndexPath(forRow: index, inSection: 0 )
                     var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
@@ -134,39 +163,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     }
                 }
 
-            }
-            else{
-            
-                for (var index = 0; index < 4; index++) {
-                    var indexPath = NSIndexPath(forRow: index, inSection: 0 )
-                    var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
-                    if (index == 0){
-                        passwordItem?.userName = cell.txtValue!.text
-                    }
-                    else if (index == 1 ){
-                        passwordItem?.password = cell.txtValue!.text
-                    }
-                    else if (index == 2){
-                        passwordItem?.link = cell.txtValue!.text
-                    }
-                    else{
-                        passwordItem?.note = cell.txtValue!.text
-                    }
-                }
-            }
-        }
-    }
-    
-    //methods to handle new password
-   func cancel(sender: UIBarButtonItem) {
-        println("cancel clicked")
-        self.bCancelled = true
-        self.performSegueWithIdentifier("returnToPasswordList", sender: self)
 
-     }
-    
-     func save(sender: UIBarButtonItem) {
-        println("save clicked")
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
      }
 

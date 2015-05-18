@@ -5,24 +5,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="d32-eQ-2gd">
-            <objects>
-                <viewController id="Duc-DX-zBf" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="zdu-ma-SD3"/>
-                        <viewControllerLayoutGuide type="bottom" id="fnH-Jm-oEw"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fBh-c6-OyL">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aSU-1i-3Fm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1284" y="-144"/>
-        </scene>
         <!--Details-->
         <scene sceneID="xBq-le-dNP">
             <objects>
@@ -312,10 +294,15 @@
                                                 <constraint firstItem="1vI-3L-4kP" firstAttribute="top" secondItem="sTy-Pz-BYi" secondAttribute="bottom" constant="-1" id="HtB-QC-fFU"/>
                                                 <constraint firstItem="sLj-G6-XIl" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="1" id="LQ6-nV-fsU"/>
                                                 <constraint firstItem="ZpC-Vf-ouX" firstAttribute="leading" secondItem="8jA-rR-RiJ" secondAttribute="leadingMargin" constant="9" id="Vg3-pg-0Et"/>
+                                                <constraint firstItem="sTy-Pz-BYi" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="37" id="XSz-mC-G3s"/>
+                                                <constraint firstItem="1vI-3L-4kP" firstAttribute="top" secondItem="sTy-Pz-BYi" secondAttribute="bottom" constant="-1" id="YvY-En-fkM"/>
+                                                <constraint firstItem="tEM-U9-ske" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="42" id="aRG-eP-7Zg"/>
                                                 <constraint firstItem="sTy-Pz-BYi" firstAttribute="top" secondItem="sLj-G6-XIl" secondAttribute="bottom" constant="6" id="dGa-73-yPg"/>
                                                 <constraint firstItem="sLj-G6-XIl" firstAttribute="leading" secondItem="Em6-kC-xQq" secondAttribute="trailing" constant="20" id="dak-Tp-mHr"/>
                                                 <constraint firstItem="ZpC-Vf-ouX" firstAttribute="top" secondItem="tEM-U9-ske" secondAttribute="bottom" constant="8" id="dgZ-Oh-z3C"/>
                                                 <constraint firstItem="tEM-U9-ske" firstAttribute="leading" secondItem="8jA-rR-RiJ" secondAttribute="leadingMargin" constant="9" id="nAf-NZ-rLM"/>
+                                                <constraint firstAttribute="centerX" secondItem="sTy-Pz-BYi" secondAttribute="centerX" constant="120" id="nGe-lc-e6t"/>
+                                                <constraint firstItem="1vI-3L-4kP" firstAttribute="top" secondItem="sTy-Pz-BYi" secondAttribute="bottom" constant="-1" id="p1Z-X7-WeM"/>
                                                 <constraint firstItem="Em6-kC-xQq" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="6" id="rPn-vd-NSf"/>
                                                 <constraint firstItem="sTy-Pz-BYi" firstAttribute="leading" secondItem="8jA-rR-RiJ" secondAttribute="leadingMargin" constant="100" id="soc-x7-0WS"/>
                                                 <constraint firstItem="Em6-kC-xQq" firstAttribute="leading" secondItem="tEM-U9-ske" secondAttribute="trailing" constant="-41" id="tJ0-Lr-hxk"/>
@@ -325,11 +312,13 @@
                                             </constraints>
                                             <variation key="default">
                                                 <mask key="constraints">
+                                                    <exclude reference="2cu-RD-aKm"/>
                                                     <exclude reference="5Gg-A3-AGn"/>
                                                     <exclude reference="0R0-jX-D3F"/>
                                                     <exclude reference="tJ0-Lr-hxk"/>
                                                     <exclude reference="1IC-XN-ENq"/>
                                                     <exclude reference="dGa-73-yPg"/>
+                                                    <exclude reference="yco-RV-n3e"/>
                                                     <exclude reference="6Qm-Mn-210"/>
                                                     <exclude reference="vXT-Jt-qYZ"/>
                                                 </mask>
@@ -350,12 +339,20 @@
                                     <outlet property="delegate" destination="Qbn-3P-5M1" id="LrE-xv-KCW"/>
                                 </connections>
                             </tableView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5Qz-i2-uIb">
-                                <rect key="frame" x="0.0" y="278" width="600" height="44"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qz-i2-uIb">
+                                <rect key="frame" x="0.0" y="512" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Update Passcode" id="atM-cM-P8U"/>
+                                    <barButtonItem title="Change Passcode" id="atM-cM-P8U">
+                                        <connections>
+                                            <action selector="onChangePasscode:" destination="Qbn-3P-5M1" id="zaW-G5-LGS"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="B3J-ka-fXC"/>
-                                    <barButtonItem title="Export" id="L9h-5P-fm5"/>
+                                    <barButtonItem title="Export" id="L9h-5P-fm5">
+                                        <connections>
+                                            <action selector="onExport:" destination="Qbn-3P-5M1" id="Nes-7R-vp6"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -374,7 +371,7 @@
                     <navigationItem key="navigationItem" title="Password" id="DSk-Ul-7bE">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="hXR-mw-Ocd">
                             <connections>
-                                <segue destination="Duc-DX-zBf" kind="show" identifier="showSettings" id="kz8-Nq-K63"/>
+                                <action selector="onLogout:" destination="Qbn-3P-5M1" id="0AF-7d-dwT"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1ra-NO-zuP">

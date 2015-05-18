@@ -4,6 +4,21 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeIconFiles</key>
+			<array/>
+			<key>CFBundleTypeName</key>
+			<string>password depot document</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>mobilesolution.passworddepot</string>
+			</array>
+            <key>LSHandlerRank</key>
+            <string>Owner</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -42,6 +57,32 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>CFBundleName</key>
+			<string></string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>password depot document</string>
+			<key>UTTypeIdentifier</key>
+			<string>mobilesolution.passworddepot</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>passworddepot</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>passworddepot</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>passworddepot</string>
+			</dict>
+		</dict>
 	</array>
 </dict>
 </plist>

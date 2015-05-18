@@ -7,13 +7,19 @@
 //
 
 import UIKit
+import MessageUI
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var passwordTableView: UITableView!
     
-     func showAlert(){//ask user to create the password file
+     func showCreatePasscodeAlert(bForCreatePasscode : Bool){//ask user to create the password file
+     
             var createPasscodeDlg : UIAlertController = UIAlertController(title: "Create Passcode", message: "Pleaes set your logon passcode before using the application", preferredStyle: UIAlertControllerStyle.Alert)
+        
+            if (!bForCreatePasscode){
+                createPasscodeDlg = UIAlertController(title: "Change Passcode", message: "Pleaes enter your new passcode", preferredStyle: UIAlertControllerStyle.Alert)
+            }
             var passwcodeField : UITextField?
             var confirmPasscodeField: UITextField?
             createPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
@@ -27,37 +33,93 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         textField.secureTextEntry = true
                         confirmPasscodeField = textField
                         })
-            
-            var okAction : UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){  (alert) in
+        
+            var okAction : UIAlertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default){  (alert) in
                 var passcode = passwcodeField!.text
                 var confirmPassCode = confirmPasscodeField!.text
                 if (passcode == confirmPassCode){
-                    //create password file
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.createPasswordFile(passcode)
+                    if (bForCreatePasscode){
+                        //create password file
+                        (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.createPasswordFile(passcode)
+                        self.passwordTableView.reloadData()
+                    }
+                    else{
+                       (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.changePassword(passcode)
+                    }
+
                 }
                 else{
-                    self.showAlert()
+                    self.showCreatePasscodeAlert(bForCreatePasscode)
+                }
+            }
+             createPasscodeDlg.addAction(okAction)
+        
+        
+            //change passcode is cancellable
+            if (!bForCreatePasscode){
+                var cancelAction : UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Default){ (alert) in}
+
+                createPasscodeDlg.addAction(cancelAction)
+            }
+
+            self.presentViewController(createPasscodeDlg, animated: false, completion: nil)
+        }
+ 
+        func showEnterPasscodeAlert(){//ask user to enter the passcode
+            var enterPasscodeDlg : UIAlertController = UIAlertController(title: "Enter Passcode", message: "Pleaes enter passcode to log on", preferredStyle: UIAlertControllerStyle.Alert)
+            var passwcodeField : UITextField?
+            enterPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                        textField.placeholder = "passcode"
+                        textField.secureTextEntry = true
+                        passwcodeField = textField
+                        })
+            
+            var okAction : UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){  (alert) in
+                var passcode = passwcodeField!.text
+                
+                var loaded = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.loadPasswordFile(passcode)
+                if (loaded){
+                    self.passwordTableView.reloadData()
+                }
+                else{
+                    self.showEnterPasscodeAlert()
                 }
             }
             
-            createPasscodeDlg.addAction(okAction)
-            self.presentViewController(createPasscodeDlg, animated: false, completion: nil)
+            enterPasscodeDlg.addAction(okAction)
+            self.presentViewController(enterPasscodeDlg, animated: false, completion: nil)
         }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "passwordFileChanged:",
+            name: "passwordFileChanged",
+            object: nil)
+        
         if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileExisting()){
             //ask user to input passcode to load the password file
+            self.showEnterPasscodeAlert()
         }
         else{
             //ask user to create the password file
-            self.showAlert()
+            self.showCreatePasscodeAlert(true)
             
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
     
+    
+   /* override func viewDidDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: "passwordFileChanged", object: nil)
+    }
+    */
+    @objc func passwordFileChanged(notification: NSNotification){
+        self.passwordTableView.reloadData()
+        self.viewDidLoad()
+    }
     
     override func viewDidAppear(animated: Bool) {
         self.passwordTableView.reloadData()
@@ -116,6 +178,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    @IBAction func onChangePasscode(sender: AnyObject) {
+        showCreatePasscodeAlert(false)
+    }
+ 
     @IBAction func onPasswordItemLinkClicked(sender: AnyObject) {
         var link : UIButton = sender as! UIButton;
         var urlString = link.titleLabel?.text;
@@ -163,7 +229,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         });
     }
     
-     
+    
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue)
     {
         let sourceViewController : PasswordDetailsViewController = sender.sourceViewController as! PasswordDetailsViewController
@@ -177,6 +243,50 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
     // Pull any data from the view controller which initiated the unwind segue.
+    }
+    @IBAction func onLogout(sender: AnyObject) {
+         (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.unloadPasswordFile()
+         self.passwordTableView!.reloadData()
+         self.showEnterPasscodeAlert()
+    }
+
+
+    
+    //send the encrypted file to email
+    @IBAction func onExport(sender: AnyObject) {
+       
+        
+            let mailComposerVC = MFMailComposeViewController()
+            mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+            
+            //mailComposerVC.setToRecipients([receipt])
+            mailComposerVC.setSubject("Data backup email from Password Depot application")
+            mailComposerVC.setMessageBody("To import the data back into the application, just open the attachement from your iphone's inbox application.", isHTML: false)
+            
+            //load the password file data before decryption
+            
+            var data =  (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordFileContent()
+            mailComposerVC.addAttachmentData(data, mimeType: "passworddepot", fileName: "data.passworddepot")
+        
+            // Fill out the email body text
+            self.presentViewController(mailComposerVC, animated: true, completion:nil)
+        
+    }
+    
+    func mailComposeController(controller:MFMailComposeViewController, didFinishWithResult result:MFMailComposeResult, error:NSError) {
+        switch result.value {
+        case MFMailComposeResultCancelled.value:
+            println("Mail cancelled")
+        case MFMailComposeResultSaved.value:
+            println("Mail saved")
+        case MFMailComposeResultSent.value:
+            println("Mail sent")
+        case MFMailComposeResultFailed.value:
+            println("Mail sent failure: \(error.localizedDescription)")
+        default:
+            break
+        }
+        self.dismissViewControllerAnimated(false, completion: nil)
     }
 
     
