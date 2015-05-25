@@ -15,7 +15,10 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     var bDelete: Bool = false
     var bNewPassword: Bool = false
     var bCancelled = false
-    
+    let imageForFinancial = UIImage(named: "financial")
+    let imageForPersonal = UIImage(named:"personal")
+    let imageForGeneral = UIImage(named:"general")
+
     func setPasswordItem(item:PasswordItem){
         self.passwordItem = item ;
     }
@@ -59,52 +62,64 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
         if (bNewPassword){
-            return 5
+            return 6
         }
         else{
-            return 4
+            return 5
         }
     }
  
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var editcell : EditItemCell!
-        var notecell : EditNoteCell!
+       // var notecell : EditNoteCell!
         editcell = tableView.dequeueReusableCellWithIdentifier("edititem") as? EditItemCell
-        var indexDiff = 0
-        if bNewPassword {
-            indexDiff = 1
-        }
-        else{
-            indexDiff = 0
-        }
         
         if (editcell == nil){
             editcell = tableView.dequeueReusableCellWithIdentifier("edititem") as! EditItemCell
         }
         
-        if ( indexDiff > 0 && indexPath.row == -1 + indexDiff){
+        if ( bNewPassword && indexPath.row == 0){
             editcell.labelName?.text = "ID"
             editcell.txtValue?.text = passwordItem?.id
         }
-        else if (indexPath.row == 0 + indexDiff){
+        else if ( (bNewPassword && indexPath.row == 1) || (!bNewPassword && indexPath.row == 0)) {
             editcell.labelName?.text = "UserID"
             editcell.txtValue?.text = passwordItem?.userName
         }
-        else if (indexPath.row == 1 + indexDiff){
+        else if ( (bNewPassword && indexPath.row == 2) || (!bNewPassword && indexPath.row == 1)) {
             editcell.labelName?.text = "Password"
             editcell.txtValue?.text = passwordItem?.password
         }
-        else if (indexPath.row == 2 + indexDiff){
+        else if ( (bNewPassword && indexPath.row == 3) || (!bNewPassword && indexPath.row == 2)) {
             editcell.labelName?.text = "Link"
             editcell.txtValue?.text = passwordItem?.link
         }
-        else {
+        else if ( (bNewPassword && indexPath.row == 4) || (!bNewPassword && indexPath.row == 3)){
             editcell.labelName?.text = "Note"
             editcell.txtValue?.text = passwordItem?.note
+        } else {
+            var categorycell : CategoryCell!
+            categorycell = tableView.dequeueReusableCellWithIdentifier("categoryitem") as? CategoryCell
+
+            categorycell.categoryButton.setTitle(passwordItem?.category, forState: .Normal)
+           if (passwordItem?.category == "Personal"){
+                categorycell.categoryImage?.image = imageForPersonal
+            }
+            else if (passwordItem?.category == "Financial"){
+                categorycell.categoryImage?.image = imageForFinancial
+            }
+            else{
+                categorycell.categoryImage?.image = imageForGeneral
+            }
+            return categorycell
         }
         return editcell
     }
     
+    
+    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        println(indexPath);
+}
     // MARK: - Navigation
     
     override func didMoveToParentViewController(parent: UIViewController?){
@@ -167,4 +182,43 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
      }
 
+    @IBAction func onClickCategory(sender: AnyObject) {
+        var rowId = 4;
+        if (bNewPassword ){
+            rowId = 5
+        }
+        let rows = [NSIndexPath(forRow: rowId, inSection: 0)]
+        
+        //show actionsheet to let user select the category
+        let alertController = UIAlertController(title: "Category", message: "Select the category for the password item", preferredStyle: .Alert)
+
+        let generalAction = UIAlertAction(title: "General", style: .Default) { (action) in
+            self.passwordItem?.category = "General"
+            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+        }
+        alertController.addAction(generalAction)
+
+        let financialAction = UIAlertAction(title: "Financial", style: .Default) { (action) in
+            self.passwordItem?.category = "Financial"
+            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+        }
+        alertController.addAction(financialAction)
+        
+        let personalAction = UIAlertAction(title: "Personal", style: .Default) { (action) in
+            self.passwordItem?.category="Personal"
+            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+
+        }
+        alertController.addAction(personalAction)
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+        }
+        alertController.addAction(cancelAction)
+    
+
+
+        self.presentViewController(alertController, animated: true) {
+            // ...
+        }
+    }
 }

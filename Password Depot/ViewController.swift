@@ -131,7 +131,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
    
     let cellIdentifier = "password"
-        
+    let imageForFinancial = UIImage(named: "financial")
+    let imageForPersonal = UIImage(named:"personal")
+    let imageForGeneral = UIImage(named:"general")
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if let list =  (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(){
@@ -145,20 +148,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? PasswordListItemCell
         
-        let imageForFinancial = UIImage(named: "bee")
-        let imageForOther = UIImage(named:"tip")
-        if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].id == "CIBC"){
+     
+        if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "Financial"){
             cell!.itemImage?.image = imageForFinancial;
         }
+        else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "Personal") {
+            cell!.itemImage?.image = imageForPersonal;
+        }
         else{
-            cell!.itemImage?.image = imageForOther;
+            cell!.itemImage?.image = imageForGeneral;
         }
         
         cell!.name?.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].id
-        cell?.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].userName, forState: .Normal)
-        
+      //  cell!.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].userName, forState: .Normal)
+         cell!.userName.setTitle("ddd", forState: .Normal)
         cell!.password.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].password, forState:.Normal)
-        cell?.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
+        cell!.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
         return cell!
     }
     
