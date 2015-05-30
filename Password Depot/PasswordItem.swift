@@ -14,7 +14,7 @@ class PasswordItem {
     var id : String
     var link : String? = nil
     var note : String? = nil
-    var category : String? = "General"
+    var category : String? = "Other"
     
     func toDictionary () -> NSDictionary{
         var dic : NSMutableDictionary = ["id":self.id, "userName":self.userName, "password":self.password]

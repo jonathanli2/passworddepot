@@ -131,9 +131,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
    
     let cellIdentifier = "password"
-    let imageForFinancial = UIImage(named: "financial")
-    let imageForPersonal = UIImage(named:"personal")
-    let imageForGeneral = UIImage(named:"general")
+    let imageForFinancial = UIImage(named: "Financial")
+    let imageForPersonal = UIImage(named:"Personal")
+    let imageForOther = UIImage(named:"Other")
+    let imageForSchool = UIImage(named:"School")
+    let imageForWork = UIImage(named:"Work")
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
@@ -155,15 +157,31 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "Personal") {
             cell!.itemImage?.image = imageForPersonal;
         }
+        else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "School") {
+            cell!.itemImage?.image = imageForSchool;
+        }
+        else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "Work") {
+            cell!.itemImage?.image = imageForWork;
+        }
         else{
-            cell!.itemImage?.image = imageForGeneral;
+            cell!.itemImage?.image = imageForOther;
         }
         
         cell!.name?.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].id
-      //  cell!.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].userName, forState: .Normal)
-         cell!.userName.setTitle("ddd", forState: .Normal)
-        cell!.password.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].password, forState:.Normal)
-        cell!.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
+        cell!.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].userName, forState: .Normal)
+         cell!.password.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].password, forState:.Normal)
+       // cell!.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
+         var linkUrl = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link
+        
+         cell!.link.tag = 1
+         if (linkUrl == "" || linkUrl == nil){
+             cell!.link.hidden = true
+             cell!.textLabel?.text = nil
+         }
+         else{
+             cell!.textLabel?.hidden = true
+             cell!.textLabel!.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link
+        }
         return cell!
     }
     
@@ -187,18 +205,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         showCreatePasscodeAlert(false)
     }
  
-    @IBAction func onPasswordItemLinkClicked(sender: AnyObject) {
-        var link : UIButton = sender as! UIButton;
-        var urlString = link.titleLabel?.text;
-        //open mobile safari on the link
-        var url : NSURL? = NSURL(string: urlString!)
-        var bOK = UIApplication.sharedApplication().openURL(url!)
-        if (!bOK){
-            var alert: UIAlertView  = UIAlertView (title: "Error", message: "Unable to open the URL, please check URL.", delegate: nil, cancelButtonTitle:"OK" )
-            
-            alert.show()
-        }
-    }
     
     @IBAction func onCopyUserIDClicked(sender: AnyObject) {
         var link : UIButton = sender as! UIButton;
@@ -292,6 +298,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             break
         }
         self.dismissViewControllerAnimated(false, completion: nil)
+    }
+
+    @IBAction func onOpenLink(sender: AnyObject) {
+      let linkButton : UIButton = sender as! UIButton
+      var superView = linkButton.superview
+      while (true){
+        if (superView is UITableViewCell){
+            break;
+        }
+        else{
+            superView = superView?.superview
+        }
+     }
+     
+     var cell : PasswordListItemCell = superView as! PasswordListItemCell;
+     
+     var urlString = cell.textLabel?.text
+     
+     
+      var url : NSURL? = NSURL(string: urlString!)
+      var bOK = UIApplication.sharedApplication().openURL(url!)
+        if (!bOK){
+            var alert: UIAlertView  = UIAlertView (title: "Error", message: "Unable to open the URL of '" + urlString! + "', please check the URL is value.", delegate: nil, cancelButtonTitle:"OK" )
+            
+            alert.show()
+        }
     }
 
     

@@ -8,21 +8,33 @@
 
 import UIKit
 
-class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate{
+class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate, UITableViewDelegate{
 
     @IBOutlet weak var tableView: UITableView!
     var passwordItem : PasswordItem?
     var bDelete: Bool = false
     var bNewPassword: Bool = false
     var bCancelled = false
-    let imageForFinancial = UIImage(named: "financial")
-    let imageForPersonal = UIImage(named:"personal")
-    let imageForGeneral = UIImage(named:"general")
+    let imageForFinancial = UIImage(named: "Financial")
+    let imageForPersonal = UIImage(named:"Personal")
+    let imageForWork = UIImage(named:"Work")
+    let imageForSchool = UIImage(named:"School")
+    let imageForOther = UIImage(named:"Other")
 
     func setPasswordItem(item:PasswordItem){
         self.passwordItem = item ;
     }
     
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
+       textField.resignFirstResponder()
+       return true
+    }
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.01
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +91,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         }
         
         if ( bNewPassword && indexPath.row == 0){
-            editcell.labelName?.text = "ID"
+            editcell.labelName?.text = "ID (required)"
             editcell.txtValue?.text = passwordItem?.id
         }
         else if ( (bNewPassword && indexPath.row == 1) || (!bNewPassword && indexPath.row == 0)) {
@@ -93,6 +105,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         else if ( (bNewPassword && indexPath.row == 3) || (!bNewPassword && indexPath.row == 2)) {
             editcell.labelName?.text = "Link"
             editcell.txtValue?.text = passwordItem?.link
+            editcell.txtValue?.placeholder = "https://"
         }
         else if ( (bNewPassword && indexPath.row == 4) || (!bNewPassword && indexPath.row == 3)){
             editcell.labelName?.text = "Note"
@@ -108,8 +121,14 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             else if (passwordItem?.category == "Financial"){
                 categorycell.categoryImage?.image = imageForFinancial
             }
+            else if (passwordItem?.category == "Work"){
+                categorycell.categoryImage?.image = imageForWork
+            }
+            else if (passwordItem?.category == "School"){
+                categorycell.categoryImage?.image = imageForSchool
+            }
             else{
-                categorycell.categoryImage?.image = imageForGeneral
+                categorycell.categoryImage?.image = imageForOther
             }
             return categorycell
         }
@@ -121,9 +140,10 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         println(indexPath);
 }
     // MARK: - Navigation
-    
+    //this method is called when closing the detail screen and returning to parent screen.
+    //it is used to handle password item update only. As new password is handled in onSave method
     override func didMoveToParentViewController(parent: UIViewController?){
-        if (parent == nil){
+        if (parent == nil && !bCancelled && !bNewPassword && !bDelete){
             // parent is nil if this view controller was removed
             // update password item
 
@@ -156,27 +176,56 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
      }
     
      func save(sender: UIBarButtonItem) {
-        println("save clicked")
-                for (var index = 0; index < 5; index++) {
-                    var indexPath = NSIndexPath(forRow: index, inSection: 0 )
-                    var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
-                    
-                    if (index == 0){
-                        passwordItem?.id = cell.txtValue!.text
-                    }
-                    else if (index == 1){
-                        passwordItem?.userName = cell.txtValue!.text
-                    }
-                    else if (index == 2 ){
-                        passwordItem?.password = cell.txtValue!.text
-                    }
-                    else if (index == 3){
-                        passwordItem?.link = cell.txtValue!.text
-                    }
-                    else{
-                        passwordItem?.note = cell.txtValue!.text
+        var cell : EditItemCell?
+        var categorycell : CategoryCell?
+        
+        for (var index = 0; index < 5; index++) {
+            var indexPath = NSIndexPath(forRow: index, inSection: 0 )
+           
+            if ( index <= 4){
+                cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
+            }
+            else{
+                categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+            }
+            
+            if (index == 0){
+             //validate password id to be unique
+                let list =  (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()!
+                for p in list {
+                   
+                    if p.id == cell!.txtValue!.text {
+                        var alert = UIAlertController(title: "Warning", message: "Password ID '"+"'" + cell!.txtValue!.text + "' already exist, please select a different ID.", preferredStyle: UIAlertControllerStyle.Alert)
+                        
+                        let okAction = UIAlertAction(title: "Ok", style:UIAlertActionStyle.Default ) { (action) in
+                            }
+                        alert.addAction(okAction)
+    
+                        self.presentViewController(alert, animated: true) {
+                        }
+                        return
+
                     }
                 }
+            
+                passwordItem?.id = cell!.txtValue!.text
+            }
+            else if (index == 1){
+                passwordItem?.userName = cell!.txtValue!.text
+            }
+            else if (index == 2 ){
+                passwordItem?.password = cell!.txtValue!.text
+            }
+            else if (index == 3){
+                passwordItem?.link = cell!.txtValue!.text
+            }
+            else if (index == 4){
+                passwordItem?.note = cell!.txtValue!.text
+            }
+            else if (index == 5){
+                passwordItem?.category = categorycell!.categoryButton.titleLabel?.text
+            }
+        }
 
 
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
@@ -192,12 +241,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         //show actionsheet to let user select the category
         let alertController = UIAlertController(title: "Category", message: "Select the category for the password item", preferredStyle: .Alert)
 
-        let generalAction = UIAlertAction(title: "General", style: .Default) { (action) in
-            self.passwordItem?.category = "General"
-            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
-        }
-        alertController.addAction(generalAction)
-
+    
         let financialAction = UIAlertAction(title: "Financial", style: .Default) { (action) in
             self.passwordItem?.category = "Financial"
             self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
@@ -207,9 +251,27 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         let personalAction = UIAlertAction(title: "Personal", style: .Default) { (action) in
             self.passwordItem?.category="Personal"
             self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
-
         }
         alertController.addAction(personalAction)
+
+        let workAction = UIAlertAction(title: "Work", style: .Default) { (action) in
+            self.passwordItem?.category="Work"
+            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+        }
+        alertController.addAction(workAction)
+
+        let schoolAction = UIAlertAction(title: "School", style: .Default) { (action) in
+            self.passwordItem?.category="School"
+            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+        }
+        alertController.addAction(schoolAction)
+
+        let otherAction = UIAlertAction(title: "Other", style: .Default) { (action) in
+            self.passwordItem?.category = "Other"
+            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+        }
+        alertController.addAction(otherAction)
+
 
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
         }
