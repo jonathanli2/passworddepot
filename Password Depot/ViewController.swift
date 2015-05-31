@@ -13,23 +13,42 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var passwordTableView: UITableView!
     
+      func showAlert(title: String, message: String, buttonTitle: String, handler:((UIAlertAction!) -> Void )!){
+         //first show the warning message and then show the createpasscodealert againg
+         var alertDlg : UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+
+                var okAction : UIAlertAction = UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.Default, handler:handler);
+                
+                alertDlg.addAction(okAction)
+                self.presentViewController(alertDlg, animated: false, completion: nil)
+        }
+
      func showCreatePasscodeAlert(bForCreatePasscode : Bool){//ask user to create the password file
      
-            var createPasscodeDlg : UIAlertController = UIAlertController(title: "Create Passcode", message: "Pleaes set your logon passcode before using the application", preferredStyle: UIAlertControllerStyle.Alert)
+            var createPasscodeDlg : UIAlertController = UIAlertController(title: "Create Passcode", message: "Pleaes create your logon passcode before using the application", preferredStyle: UIAlertControllerStyle.Alert)
         
             if (!bForCreatePasscode){
-                createPasscodeDlg = UIAlertController(title: "Change Passcode", message: "Pleaes enter your new passcode", preferredStyle: UIAlertControllerStyle.Alert)
+                createPasscodeDlg = UIAlertController(title: "Change Passcode", message: "Pleaes enter your old and new passcode", preferredStyle: UIAlertControllerStyle.Alert)
             }
+            var oldPasscodeField : UITextField?
             var passwcodeField : UITextField?
             var confirmPasscodeField: UITextField?
+            if (!bForCreatePasscode){
+                createPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
+                            textField.placeholder = "Old passcode"
+                            textField.secureTextEntry = true
+                            oldPasscodeField = textField
+                            })
+            }
+
             createPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-                        textField.placeholder = "passcode"
+                        textField.placeholder = "New passcode"
                         textField.secureTextEntry = true
                         passwcodeField = textField
                         })
             
             createPasscodeDlg.addTextFieldWithConfigurationHandler({(textField: UITextField!) in
-                        textField.placeholder = "confirm Passcode"
+                        textField.placeholder = "Confirm new passcode"
                         textField.secureTextEntry = true
                         confirmPasscodeField = textField
                         })
@@ -37,7 +56,28 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             var okAction : UIAlertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default){  (alert) in
                 var passcode = passwcodeField!.text
                 var confirmPassCode = confirmPasscodeField!.text
-                if (passcode == confirmPassCode){
+                
+                //validate old passcode first if not for creating
+                if (!bForCreatePasscode){
+                    var oldPasscode = oldPasscodeField!.text
+
+                    var loaded = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.loadPasswordFile(oldPasscode)
+                    if (!loaded){
+                         //first show the warning message and then show the createpasscodealert againg
+                        self.showAlert("Warning", message:"Current passcode is invalid. Please try again.", buttonTitle: "Ok", handler: {  (alert) in
+                                    self.showCreatePasscodeAlert(bForCreatePasscode)
+                                })
+                    }
+            
+                }
+                
+                if (passcode != confirmPassCode){
+                    //first show the warning message and then show the createpasscodealert againg
+                    self.showAlert("warning", message: "Passcode and confirm Passcode have different value. Please try again.", buttonTitle: "Ok",handler: {  (alert) in
+                                    self.showCreatePasscodeAlert(bForCreatePasscode)
+                                })
+                }
+                else{
                     if (bForCreatePasscode){
                         //create password file
                         (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.createPasswordFile(passcode)
@@ -46,14 +86,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     else{
                        (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.changePassword(passcode)
                     }
-
-                }
-                else{
-                    self.showCreatePasscodeAlert(bForCreatePasscode)
                 }
             }
-             createPasscodeDlg.addAction(okAction)
-        
+            createPasscodeDlg.addAction(okAction)
         
             //change passcode is cancellable
             if (!bForCreatePasscode){
@@ -64,7 +99,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
             self.presentViewController(createPasscodeDlg, animated: false, completion: nil)
         }
- 
+    
+   
         func showEnterPasscodeAlert(){//ask user to enter the passcode
             var enterPasscodeDlg : UIAlertController = UIAlertController(title: "Enter Passcode", message: "Pleaes enter passcode to log on", preferredStyle: UIAlertControllerStyle.Alert)
             var passwcodeField : UITextField?
@@ -82,7 +118,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     self.passwordTableView.reloadData()
                 }
                 else{
-                    self.showEnterPasscodeAlert()
+                
+                    self.showAlert("Warning", message: "The entered passcode is invalid, please try again", buttonTitle: "Ok", handler: {(alert) in
+                             println("ok pressed")
+                             self.showEnterPasscodeAlert()}
+                    )
                 }
             }
             
@@ -108,14 +148,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.showCreatePasscodeAlert(true)
             
         }
-        // Do any additional setup after loading the view, typically from a nib.
     }
     
-    
-   /* override func viewDidDisappear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: "passwordFileChanged", object: nil)
-    }
-    */
     @objc func passwordFileChanged(notification: NSNotification){
         self.passwordTableView.reloadData()
         self.viewDidLoad()

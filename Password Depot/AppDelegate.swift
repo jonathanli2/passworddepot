@@ -18,7 +18,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var passwordManager : PasswordManager!
-
+    var logoutTimer : NSTimer?
+    var bgTask :UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+ 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         passwordManager = PasswordManager();
         
@@ -45,12 +47,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        //after device enters background, after waiting for 3 min, logout automatically
+        bgTask = application.beginBackgroundTaskWithName("logout", expirationHandler: { () in
+            //logout before expiration
+            if let timer = self.logoutTimer {
+              timer.invalidate()
+              self.logoutTimer = nil
+            }
+           self.unloadPassword()
+        });
+        
+        logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*60, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
+    }
+
+    func unloadPassword() {
+        self.logoutTimer = nil
+        (UIApplication.sharedApplication()).endBackgroundTask(self.bgTask)
+        self.bgTask = UIBackgroundTaskInvalid;
+
+        (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.unloadPasswordFile()
+        NSNotificationCenter.defaultCenter().postNotificationName("passwordFileChanged", object: nil)
+
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
-        // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+         if let timer = self.logoutTimer {
+              timer.invalidate()
+              self.logoutTimer = nil
+         }
     }
 
     func applicationDidBecomeActive(application: UIApplication) {

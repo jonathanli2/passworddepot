@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		9A3435F31B01A9D600FD28C4 /* EditItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */; };
 		9A3435F51B01A9E800FD28C4 /* EditNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */; };
-		9A37EEBF1B18276900F1C56E /* PasswordDepot_General.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EEBE1B18276900F1C56E /* PasswordDepot_General.bmp */; };
 		9A37EEC11B18289E00F1C56E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EEC01B18289E00F1C56E /* Images.xcassets */; };
 		9A4D0E4C1AFF1DB100BEBE0C /* PasswordListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */; };
 		9A9F0DDA1AE8438300A28806 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9F0DD91AE8438300A28806 /* AppDelegate.swift */; };
@@ -25,7 +24,6 @@
 /* Begin PBXFileReference section */
 		9A3435F21B01A9D600FD28C4 /* EditItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemCell.swift; sourceTree = "<group>"; };
 		9A3435F41B01A9E800FD28C4 /* EditNoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNoteCell.swift; sourceTree = "<group>"; };
-		9A37EEBE1B18276900F1C56E /* PasswordDepot_General.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = PasswordDepot_General.bmp; sourceTree = "<group>"; };
 		9A37EEC01B18289E00F1C56E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
 		9A5A9A7E1B08C34200BB5294 /* Password Depot-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Password Depot-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -77,7 +75,6 @@
 				9A9F0DD91AE8438300A28806 /* AppDelegate.swift */,
 				9A9F0DDB1AE8438300A28806 /* ViewController.swift */,
 				9A9F0DDD1AE8438300A28806 /* Main.storyboard */,
-				9A37EEBE1B18276900F1C56E /* PasswordDepot_General.bmp */,
 				9A9F0DE21AE8438300A28806 /* LaunchScreen.xib */,
 				9A9F0DD71AE8438300A28806 /* Supporting Files */,
 				9A4D0E4B1AFF1DB100BEBE0C /* PasswordListItemCell.swift */,
@@ -158,7 +155,6 @@
 				9A9F0DDF1AE8438300A28806 /* Main.storyboard in Resources */,
 				9A37EEC11B18289E00F1C56E /* Images.xcassets in Resources */,
 				9A9F0DE41AE8438300A28806 /* LaunchScreen.xib in Resources */,
-				9A37EEBF1B18276900F1C56E /* PasswordDepot_General.bmp in Resources */,
 				9AE33ECB1B136AC10002AE90 /* Readme.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
