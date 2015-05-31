@@ -2,27 +2,56 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>en</string>
-	<key>CFBundleDocumentTypes</key>
+	<key>CFBundleDisplayName</key>
+	<string>Password Booklet</string>
+    	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
 			<key>CFBundleTypeIconFiles</key>
 			<array/>
 			<key>CFBundleTypeName</key>
-			<string>password depot document</string>
+			<string>password booklet document</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>mobilesolution.passworddepot</string>
+				<string>mobilesolution.passwordbooklet</string>
 			</array>
-            <key>LSHandlerRank</key>
-            <string>Owner</string>
 		</dict>
 	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>CFBundleName</key>
+			<string></string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>password booklet document</string>
+			<key>UTTypeIdentifier</key>
+			<string>mobilesolution.passwordbooklet</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>com.apple.ostype</key>
+				<string>passwordbooklet</string>
+				<key>public.filename-extension</key>
+				<array>
+					<string>passwordbooklet</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>passwordbooklet</string>
+			</dict>
+		</dict>
+	</array>
+
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>It21Learning.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>mobisolution.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -57,32 +86,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UTExportedTypeDeclarations</key>
-	<array>
-		<dict>
-			<key>CFBundleName</key>
-			<string></string>
-			<key>UTTypeConformsTo</key>
-			<array>
-				<string>public.data</string>
-			</array>
-			<key>UTTypeDescription</key>
-			<string>password depot document</string>
-			<key>UTTypeIdentifier</key>
-			<string>mobilesolution.passworddepot</string>
-			<key>UTTypeTagSpecification</key>
-			<dict>
-				<key>com.apple.ostype</key>
-				<string>passworddepot</string>
-				<key>public.filename-extension</key>
-				<array>
-					<string>passworddepot</string>
-				</array>
-				<key>public.mime-type</key>
-				<string>passworddepot</string>
-			</dict>
-		</dict>
 	</array>
 </dict>
 </plist>

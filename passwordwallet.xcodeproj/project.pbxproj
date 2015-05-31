@@ -1,0 +1,334 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9A37EED41B1B884100F1C56E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EED31B1B884100F1C56E /* AppDelegate.swift */; };
+		9A37EED91B1B884100F1C56E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EED71B1B884100F1C56E /* Main.storyboard */; };
+		9A37EEDB1B1B884100F1C56E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EEDA1B1B884100F1C56E /* Images.xcassets */; };
+		9A37EEDE1B1B884100F1C56E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EEDC1B1B884100F1C56E /* LaunchScreen.xib */; };
+		9A37EEF41B1B88A300F1C56E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEF31B1B88A300F1C56E /* ViewController.swift */; };
+		9A37EEF61B1B88BA00F1C56E /* PasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEF51B1B88BA00F1C56E /* PasswordItem.swift */; };
+		9A37EEF81B1B88CD00F1C56E /* CagetoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEF71B1B88CD00F1C56E /* CagetoryCell.swift */; };
+		9A37EEFB1B1B88DC00F1C56E /* EditItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFA1B1B88DC00F1C56E /* EditItemCell.swift */; };
+		9A37EEFD1B1B88E300F1C56E /* EditNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFC1B1B88E300F1C56E /* EditNoteCell.swift */; };
+		9A37EEFF1B1B88EB00F1C56E /* PasswordListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */; };
+		9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		9A37EECE1B1B884100F1C56E /* passwordwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = passwordwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A37EED21B1B884100F1C56E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A37EED31B1B884100F1C56E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		9A37EED81B1B884100F1C56E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9A37EEDA1B1B884100F1C56E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9A37EEDD1B1B884100F1C56E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9A37EEF31B1B88A300F1C56E /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9A37EEF51B1B88BA00F1C56E /* PasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordItem.swift; sourceTree = "<group>"; };
+		9A37EEF71B1B88CD00F1C56E /* CagetoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CagetoryCell.swift; sourceTree = "<group>"; };
+		9A37EEFA1B1B88DC00F1C56E /* EditItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditItemCell.swift; sourceTree = "<group>"; };
+		9A37EEFC1B1B88E300F1C56E /* EditNoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNoteCell.swift; sourceTree = "<group>"; };
+		9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
+		9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "passwordwallet-Bridging-Header.h"; sourceTree = "<group>"; };
+		9A37EF011B1B898100F1C56E /* temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = temp.h; sourceTree = "<group>"; };
+		9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9A37EECB1B1B884100F1C56E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9A37EEC51B1B884100F1C56E = {
+			isa = PBXGroup;
+			children = (
+				9A37EED01B1B884100F1C56E /* passwordwallet */,
+				9A37EECF1B1B884100F1C56E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9A37EECF1B1B884100F1C56E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9A37EECE1B1B884100F1C56E /* passwordwallet.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9A37EED01B1B884100F1C56E /* passwordwallet */ = {
+			isa = PBXGroup;
+			children = (
+				9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */,
+				9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */,
+				9A37EEFC1B1B88E300F1C56E /* EditNoteCell.swift */,
+				9A37EEFA1B1B88DC00F1C56E /* EditItemCell.swift */,
+				9A37EEF71B1B88CD00F1C56E /* CagetoryCell.swift */,
+				9A37EEF51B1B88BA00F1C56E /* PasswordItem.swift */,
+				9A37EF011B1B898100F1C56E /* temp.h */,
+				9A37EEF31B1B88A300F1C56E /* ViewController.swift */,
+				9A37EED31B1B884100F1C56E /* AppDelegate.swift */,
+				9A37EED71B1B884100F1C56E /* Main.storyboard */,
+				9A37EEDA1B1B884100F1C56E /* Images.xcassets */,
+				9A37EEDC1B1B884100F1C56E /* LaunchScreen.xib */,
+				9A37EED11B1B884100F1C56E /* Supporting Files */,
+				9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */,
+			);
+			path = passwordwallet;
+			sourceTree = "<group>";
+		};
+		9A37EED11B1B884100F1C56E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				9A37EED21B1B884100F1C56E /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9A37EECD1B1B884100F1C56E /* passwordwallet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A37EEED1B1B884100F1C56E /* Build configuration list for PBXNativeTarget "passwordwallet" */;
+			buildPhases = (
+				9A37EECA1B1B884100F1C56E /* Sources */,
+				9A37EECB1B1B884100F1C56E /* Frameworks */,
+				9A37EECC1B1B884100F1C56E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = passwordwallet;
+			productName = passwordwallet;
+			productReference = 9A37EECE1B1B884100F1C56E /* passwordwallet.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9A37EEC61B1B884100F1C56E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Mobi Solution";
+				TargetAttributes = {
+					9A37EECD1B1B884100F1C56E = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = TP4S3WKBFP;
+					};
+				};
+			};
+			buildConfigurationList = 9A37EEC91B1B884100F1C56E /* Build configuration list for PBXProject "passwordwallet" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 9A37EEC51B1B884100F1C56E;
+			productRefGroup = 9A37EECF1B1B884100F1C56E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9A37EECD1B1B884100F1C56E /* passwordwallet */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9A37EECC1B1B884100F1C56E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A37EED91B1B884100F1C56E /* Main.storyboard in Resources */,
+				9A37EEDE1B1B884100F1C56E /* LaunchScreen.xib in Resources */,
+				9A37EEDB1B1B884100F1C56E /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9A37EECA1B1B884100F1C56E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A37EEF41B1B88A300F1C56E /* ViewController.swift in Sources */,
+				9A37EED41B1B884100F1C56E /* AppDelegate.swift in Sources */,
+				9A37EEFF1B1B88EB00F1C56E /* PasswordListItemCell.swift in Sources */,
+				9A37EEF61B1B88BA00F1C56E /* PasswordItem.swift in Sources */,
+				9A37EEFB1B1B88DC00F1C56E /* EditItemCell.swift in Sources */,
+				9A37EEF81B1B88CD00F1C56E /* CagetoryCell.swift in Sources */,
+				9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */,
+				9A37EEFD1B1B88E300F1C56E /* EditNoteCell.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		9A37EED71B1B884100F1C56E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A37EED81B1B884100F1C56E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		9A37EEDC1B1B884100F1C56E /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9A37EEDD1B1B884100F1C56E /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		9A37EEEB1B1B884100F1C56E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		9A37EEEC1B1B884100F1C56E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9A37EEEE1B1B884100F1C56E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = passwordwallet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "passwordwallet/passwordwallet-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		9A37EEEF1B1B884100F1C56E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = passwordwallet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "passwordwallet/passwordwallet-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9A37EEC91B1B884100F1C56E /* Build configuration list for PBXProject "passwordwallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A37EEEB1B1B884100F1C56E /* Debug */,
+				9A37EEEC1B1B884100F1C56E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A37EEED1B1B884100F1C56E /* Build configuration list for PBXNativeTarget "passwordwallet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A37EEEE1B1B884100F1C56E /* Debug */,
+				9A37EEEF1B1B884100F1C56E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9A37EEC61B1B884100F1C56E /* Project object */;
+}

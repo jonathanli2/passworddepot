@@ -19,30 +19,28 @@ class PasswordItem {
     func toDictionary () -> NSDictionary{
         var dic : NSMutableDictionary = ["id":self.id, "userName":self.userName, "password":self.password]
         if ((self.link) != nil) {
-            dic.setValue(self.link, forKey: "link")
+            dic.setValue(self.link, forKey: "url")
         }
         
         if ((self.note) != nil) {
             dic.setValue(self.note, forKey: "note")
         }
         
+        if ((self.category) != nil) {
+            dic.setValue(self.category, forKey: "category")
+        }
         return dic;
     }
     
-    init(id:String, userName:String, password:String, link:String, note:String){
+    init(id:String, userName:String, password:String, link:String, note:String, category:String){
         self.id = id
         self.userName = userName
         self.password = password
         self.link = link
         self.note = note
+        self.category = category
     }
     
-      init(id:String, userName:String, password:String, link:String){
-        self.id = id
-        self.userName = userName
-        self.password = password
-        self.link = link
-    }
 
       init(id:String, userName:String, password:String){
         self.id = id
@@ -133,10 +131,9 @@ class PasswordManager{
             var dic = passwords[index] as! NSDictionary
             var pass = PasswordItem(id: dic.valueForKey("id") as! String, userName: dic.valueForKey("userName") as! String, password: dic.valueForKey("password") as! String)
             
-            pass.link = dic.valueForKey("link") as? String
+            pass.link = dic.valueForKey("url") as? String
             pass.note = dic.valueForKey("note") as? String
-            
-            //, link: pass.valueForKey("link"), note: pass.valueForKey("note"))
+            pass.category = dic.valueForKey("category") as? String
             arr!.append(pass)
         }
         self.passwordList = arr as [PasswordItem]?
@@ -165,7 +162,7 @@ class PasswordManager{
         }
     }
     
-    private func toDictionaryArray() ->  NSMutableArray {
+    private func convertToDictionaryArray() ->  NSMutableArray {
         var arr : NSMutableArray = [];
         for (var index : Int = 0; index < passwordList?.count; index++){
             var pass = self.passwordList![index]
@@ -183,9 +180,9 @@ class PasswordManager{
     func setBackgroundTimeout(timeout : Int){
     }
     
-    private func savePasswordFile(){
+    func savePasswordFile(){
 
-        let dicArray = toDictionaryArray();
+        let dicArray = convertToDictionaryArray();
         let data : NSData? = NSJSONSerialization.dataWithJSONObject(dicArray, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
       
         let encryptedData = encryptData(data!, key: encryptionKey!);

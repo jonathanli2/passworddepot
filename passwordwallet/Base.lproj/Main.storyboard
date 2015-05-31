@@ -10,7 +10,7 @@
         <!--Details-->
         <scene sceneID="xBq-le-dNP">
             <objects>
-                <viewController title="Details" id="Id5-Gg-DlD" customClass="PasswordDetailsViewController" customModule="Password_Depot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Details" id="Id5-Gg-DlD" customClass="PasswordDetailsViewController" customModule="passwordwallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FA2-Vk-Vbu"/>
                         <viewControllerLayoutGuide type="bottom" id="hKZ-pM-cne"/>
@@ -23,7 +23,7 @@
                                 <rect key="frame" x="5" y="0.0" width="590" height="556"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="edititem" id="BLi-Me-CfD" customClass="EditItemCell" customModule="Password_Depot" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="edititem" id="BLi-Me-CfD" customClass="EditItemCell" customModule="passwordwallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="578" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BLi-Me-CfD" id="pxZ-Nv-2NH">
@@ -44,7 +44,7 @@
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="KqW-xD-R4p"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                     <variation key="default">
                                                         <mask key="constraints">
                                                             <exclude reference="KqW-xD-R4p"/>
@@ -78,7 +78,7 @@
                                             <outlet property="txtValue" destination="Xtw-4I-XOp" id="rJ5-aG-luG"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteitem" id="WVI-3A-9EG" customClass="EditNoteCell" customModule="Password_Depot" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="noteitem" id="WVI-3A-9EG" customClass="EditNoteCell" customModule="passwordwallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="578" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WVI-3A-9EG" id="s4Y-6G-8sq">
@@ -92,7 +92,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Data" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fhW-jZ-srY">
                                                     <rect key="frame" x="132" y="5" width="449" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                                 </textField>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -101,7 +101,7 @@
                                             <outlet property="noteValue" destination="fhW-jZ-srY" id="LAF-Vt-kwY"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryitem" id="eBw-ni-ZFq" customClass="CategoryCell" customModule="Password_Depot" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryitem" id="eBw-ni-ZFq" customClass="CategoryCell" customModule="passwordwallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eBw-ni-ZFq" id="sTh-gq-p8n">
@@ -179,7 +179,7 @@
         <!--Password-->
         <scene sceneID="KWP-TG-jU4">
             <objects>
-                <viewController title="Password" id="Qbn-3P-5M1" customClass="ViewController" customModule="Password_Depot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Password" id="Qbn-3P-5M1" customClass="ViewController" customModule="passwordwallet" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YsF-cF-dkk"/>
                         <viewControllerLayoutGuide type="bottom" id="ksK-rE-3vc"/>
@@ -192,7 +192,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="password" rowHeight="100" id="p53-4M-HIR" customClass="PasswordListItemCell" customModule="Password_Depot" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="password" rowHeight="100" id="p53-4M-HIR" customClass="PasswordListItemCell" customModule="passwordwallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p53-4M-HIR" id="8jA-rR-RiJ">
@@ -307,13 +307,13 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qz-i2-uIb">
                                 <rect key="frame" x="0.0" y="512" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem title="Change Passcode" id="atM-cM-P8U">
+                                    <barButtonItem title="Passcode" id="atM-cM-P8U">
                                         <connections>
                                             <action selector="onChangePasscode:" destination="Qbn-3P-5M1" id="zaW-G5-LGS"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="B3J-ka-fXC"/>
-                                    <barButtonItem title="Export" id="L9h-5P-fm5">
+                                    <barButtonItem title="Backup" id="L9h-5P-fm5">
                                         <connections>
                                             <action selector="onExport:" destination="Qbn-3P-5M1" id="Nes-7R-vp6"/>
                                         </connections>
@@ -333,7 +333,7 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Password Depot" id="DSk-Ul-7bE">
+                    <navigationItem key="navigationItem" title="Password Booklet" id="DSk-Ul-7bE">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="hXR-mw-Ocd">
                             <connections>
                                 <action selector="onLogout:" destination="Qbn-3P-5M1" id="0AF-7d-dwT"/>

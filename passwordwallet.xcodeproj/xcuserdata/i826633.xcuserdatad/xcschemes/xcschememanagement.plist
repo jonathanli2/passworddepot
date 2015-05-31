@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Password Depot.xcscheme</key>
+		<key>passwordwallet.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>9A9F0DD31AE8438300A28806</key>
+		<key>9A37EECD1B1B884100F1C56E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9A9F0DE81AE8438300A28806</key>
+		<key>9A37EEE21B1B884100F1C56E</key>
 		<dict>
 			<key>primary</key>
 			<true/>

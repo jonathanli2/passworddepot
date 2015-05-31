@@ -53,7 +53,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                         confirmPasscodeField = textField
                         })
         
-            var okAction : UIAlertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default){  (alert) in
+            var okAction : UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default){  (alert) in
                 var passcode = passwcodeField!.text
                 var confirmPassCode = confirmPasscodeField!.text
                 
@@ -64,7 +64,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     var loaded = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.loadPasswordFile(oldPasscode)
                     if (!loaded){
                          //first show the warning message and then show the createpasscodealert againg
-                        self.showAlert("Warning", message:"Current passcode is invalid. Please try again.", buttonTitle: "Ok", handler: {  (alert) in
+                        self.showAlert("Warning", message:"Current passcode is invalid. Please try again.", buttonTitle: "OK", handler: {  (alert) in
                                     self.showCreatePasscodeAlert(bForCreatePasscode)
                                 })
                     }
@@ -73,7 +73,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 
                 if (passcode != confirmPassCode){
                     //first show the warning message and then show the createpasscodealert againg
-                    self.showAlert("warning", message: "Passcode and confirm Passcode have different value. Please try again.", buttonTitle: "Ok",handler: {  (alert) in
+                    self.showAlert("warning", message: "Passcode and confirm Passcode have different value. Please try again.", buttonTitle: "OK",handler: {  (alert) in
                                     self.showCreatePasscodeAlert(bForCreatePasscode)
                                 })
                 }
@@ -119,7 +119,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
                 else{
                 
-                    self.showAlert("Warning", message: "The entered passcode is invalid, please try again", buttonTitle: "Ok", handler: {(alert) in
+                    self.showAlert("Warning", message: "The entered passcode is invalid, please try again", buttonTitle: "OK", handler: {(alert) in
                              println("ok pressed")
                              self.showEnterPasscodeAlert()}
                     )
@@ -280,6 +280,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let sourceViewController : PasswordDetailsViewController = sender.sourceViewController as! PasswordDetailsViewController
         if (sourceViewController.bDelete){
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.deletePasswordItem(sourceViewController.passwordItem!)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
+
             self.passwordTableView!.reloadData()
         }
         else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
@@ -305,13 +307,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
             
             //mailComposerVC.setToRecipients([receipt])
-            mailComposerVC.setSubject("Data backup email from Password Depot application")
-            mailComposerVC.setMessageBody("To import the data back into the application, just open the attachement from your iphone's inbox application.", isHTML: false)
+            mailComposerVC.setSubject("Data backup email from Password Booklet application")
+            mailComposerVC.setMessageBody("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", isHTML: false)
             
             //load the password file data before decryption
             
             var data =  (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordFileContent()
-            mailComposerVC.addAttachmentData(data, mimeType: "passworddepot", fileName: "data.passworddepot")
+            mailComposerVC.addAttachmentData(data, mimeType: "passwordbooklet", fileName: "data.passwordbooklet")
         
             // Fill out the email body text
             self.presentViewController(mailComposerVC, animated: true, completion:nil)

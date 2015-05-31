@@ -47,7 +47,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             
             var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
             self.navigationItem.leftBarButtonItem = leftButton
-            passwordItem = PasswordItem(id: "", userName: "", password: "", link: "", note: "")
+            passwordItem = PasswordItem(id: "", userName: "", password: "", link: "https://", note: "", category:"Other")
 
         }
         else{
@@ -103,7 +103,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             editcell.txtValue?.text = passwordItem?.password
         }
         else if ( (bNewPassword && indexPath.row == 3) || (!bNewPassword && indexPath.row == 2)) {
-            editcell.labelName?.text = "Link"
+            editcell.labelName?.text = "URL"
             editcell.txtValue?.text = passwordItem?.link
             editcell.txtValue?.placeholder = "https://"
         }
@@ -138,7 +138,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
         println(indexPath);
-}
+    }
     // MARK: - Navigation
     //this method is called when closing the detail screen and returning to parent screen.
     //it is used to handle password item update only. As new password is handled in onSave method
@@ -146,10 +146,9 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         if (parent == nil && !bCancelled && !bNewPassword && !bDelete){
             // parent is nil if this view controller was removed
             // update password item
-
-            
-                for (var index = 0; index < 4; index++) {
-                    var indexPath = NSIndexPath(forRow: index, inSection: 0 )
+            for (var index = 0; index < 5; index++) {
+                var indexPath = NSIndexPath(forRow: index, inSection: 0 )
+                if ( index < 4){
                     var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
                     if (index == 0){
                         passwordItem?.userName = cell.txtValue!.text
@@ -160,11 +159,17 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     else if (index == 2){
                         passwordItem?.link = cell.txtValue!.text
                     }
-                    else{
+                    else if (index == 3) {
                         passwordItem?.note = cell.txtValue!.text
                     }
                 }
+                else {
+                    var categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+                    passwordItem?.category = categorycell.categoryButton!.titleLabel?.text
+                }
             }
+            (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
+        }
     }
     
     //methods to handle new password
@@ -183,10 +188,10 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             var indexPath = NSIndexPath(forRow: index, inSection: 0 )
            
             if ( index <= 4){
-                cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
+                cell = self.tableView.cellForRowAtIndexPath(indexPath) as? EditItemCell
             }
             else{
-                categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+                categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as? CategoryCell
             }
             
             if (index == 0){
@@ -197,7 +202,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     if p.id == cell!.txtValue!.text {
                         var alert = UIAlertController(title: "Warning", message: "Password ID '"+"'" + cell!.txtValue!.text + "' already exist, please select a different ID.", preferredStyle: UIAlertControllerStyle.Alert)
                         
-                        let okAction = UIAlertAction(title: "Ok", style:UIAlertActionStyle.Default ) { (action) in
+                        let okAction = UIAlertAction(title: "OK", style:UIAlertActionStyle.Default ) { (action) in
                             }
                         alert.addAction(okAction)
     
