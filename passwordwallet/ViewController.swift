@@ -167,8 +167,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let cellIdentifier = "password"
     let imageForFinancial = UIImage(named: "Financial")
     let imageForPersonal = UIImage(named:"Personal")
-    let imageForOther = UIImage(named:"Other")
-    let imageForSchool = UIImage(named:"School")
+    let imageForOther = UIImage(named:"Others")
+   // let imageForSchool = UIImage(named:"School")
     let imageForWork = UIImage(named:"Work")
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -191,9 +191,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "Personal") {
             cell!.itemImage?.image = imageForPersonal;
         }
-        else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "School") {
+      /*  else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "School") {
             cell!.itemImage?.image = imageForSchool;
-        }
+        }*/
         else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "Work") {
             cell!.itemImage?.image = imageForWork;
         }
@@ -362,6 +362,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
 
+    @IBAction func onCategorySelected(sender: AnyObject) {
+    }
     
 }
 

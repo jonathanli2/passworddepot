@@ -14,7 +14,7 @@ class PasswordItem {
     var id : String
     var link : String? = nil
     var note : String? = nil
-    var category : String? = "Other"
+    var category : String? = "Personal"
     
     func toDictionary () -> NSDictionary{
         var dic : NSMutableDictionary = ["id":self.id, "userName":self.userName, "password":self.password]
@@ -59,15 +59,6 @@ class PasswordManager{
             return list
         }
         else{
-        /*    passwordList =  [];
-             passwordList!.append(PasswordItem(id: "git", userName: "jonathanli2", password: "Qpalmzmz9", link:"https://github.com/jonathanli2", note:"old password: Abcd1234"))
-            passwordList!.append(PasswordItem(id: "gmail", userName: "jonathanli2000@gmail.com", password: "Qpalmzmz9", link:"https://mail.google.com"))
-            passwordList!.append(PasswordItem(id: "yahoo", userName: "Andrew", password: "Abcd"))
-            passwordList!.append(PasswordItem(id: "CIBC", userName: "John", password: "money$$$", link:"https://www.cibc.com/login"))
-            passwordList!.append(PasswordItem(id: "it21learning", userName: "macbook", password: "cable"))
-            passwordList!.append(PasswordItem(id: "Rogers", userName: "Elena", password: "toronto"))
-            return passwordList!
-            */
             return nil;
         }
     }

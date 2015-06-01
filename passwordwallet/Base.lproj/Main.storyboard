@@ -189,7 +189,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="1" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="lcl-o7-jaZ">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="30" width="600" height="556"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="password" rowHeight="100" id="p53-4M-HIR" customClass="PasswordListItemCell" customModule="passwordwallet" customModuleProvider="target">
@@ -221,10 +221,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sgi-SN-Csw">
-                                                    <rect key="frame" x="27" y="13" width="25" height="25"/>
+                                                    <rect key="frame" x="27" y="14" width="23" height="23"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="25" id="BiG-Pl-xMq"/>
-                                                        <constraint firstAttribute="width" constant="25" id="k4g-3j-Tn2"/>
+                                                        <constraint firstAttribute="height" constant="23" id="BiG-Pl-xMq"/>
+                                                        <constraint firstAttribute="width" constant="23" id="k4g-3j-Tn2"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tEM-U9-ske">
@@ -272,15 +272,15 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Sgi-SN-Csw" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="5" id="4Eq-tB-CSU"/>
+                                                <constraint firstItem="Sgi-SN-Csw" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="6" id="4Eq-tB-CSU"/>
                                                 <constraint firstItem="sLj-G6-XIl" firstAttribute="trailing" secondItem="8jA-rR-RiJ" secondAttribute="trailingMargin" id="5Qn-xc-z9a"/>
-                                                <constraint firstItem="tEM-U9-ske" firstAttribute="top" secondItem="Sgi-SN-Csw" secondAttribute="bottom" constant="10" id="H8R-9S-Hgp"/>
+                                                <constraint firstItem="tEM-U9-ske" firstAttribute="top" secondItem="Sgi-SN-Csw" secondAttribute="bottom" constant="11" id="H8R-9S-Hgp"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="leading" secondItem="ZpC-Vf-ouX" secondAttribute="leading" constant="10" id="Ls6-EW-ALa"/>
-                                                <constraint firstItem="Sgi-SN-Csw" firstAttribute="top" secondItem="sLj-G6-XIl" secondAttribute="top" constant="3" id="NyF-dm-5Zt"/>
+                                                <constraint firstItem="Sgi-SN-Csw" firstAttribute="top" secondItem="sLj-G6-XIl" secondAttribute="top" constant="4" id="NyF-dm-5Zt"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="leading" secondItem="tEM-U9-ske" secondAttribute="leading" constant="10" id="PPz-fl-P4A"/>
                                                 <constraint firstItem="sTy-Pz-BYi" firstAttribute="top" secondItem="Em6-kC-xQq" secondAttribute="bottom" constant="3" id="W4q-yf-wKx"/>
                                                 <constraint firstItem="Em6-kC-xQq" firstAttribute="firstBaseline" secondItem="sLj-G6-XIl" secondAttribute="baseline" id="WBd-wY-0FG"/>
-                                                <constraint firstItem="Em6-kC-xQq" firstAttribute="leading" secondItem="Sgi-SN-Csw" secondAttribute="trailing" constant="56" id="e8E-na-2A7"/>
+                                                <constraint firstItem="Em6-kC-xQq" firstAttribute="leading" secondItem="Sgi-SN-Csw" secondAttribute="trailing" constant="58" id="e8E-na-2A7"/>
                                                 <constraint firstItem="1vI-3L-4kP" firstAttribute="leading" secondItem="ZpC-Vf-ouX" secondAttribute="trailing" constant="10" id="hlk-p4-5gV"/>
                                                 <constraint firstItem="ZpC-Vf-ouX" firstAttribute="trailing" secondItem="tEM-U9-ske" secondAttribute="trailing" id="jbe-J1-NCi"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="leading" secondItem="8jA-rR-RiJ" secondAttribute="leadingMargin" constant="19" id="o3O-ZK-8xf"/>
@@ -320,17 +320,40 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="E3k-mV-EqU">
+                                <rect key="frame" x="5" y="64" width="590" height="29"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Personal"/>
+                                    <segment title="Work"/>
+                                    <segment title="Financial"/>
+                                    <segment title="Others"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onCategorySelected:" destination="Qbn-3P-5M1" eventType="valueChanged" id="9Ey-7C-eLI"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="5Qz-i2-uIb" secondAttribute="trailing" id="AZn-Zd-551"/>
                             <constraint firstAttribute="trailing" secondItem="lcl-o7-jaZ" secondAttribute="trailing" id="Bwu-4P-3ww"/>
+                            <constraint firstAttribute="trailing" secondItem="E3k-mV-EqU" secondAttribute="trailing" constant="5" id="Cjs-ce-kP0"/>
+                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="-62" id="LDE-kR-bSy"/>
                             <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="5Qz-i2-uIb" secondAttribute="bottom" id="PCQ-Ri-iT1"/>
+                            <constraint firstItem="E3k-mV-EqU" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" id="cYi-Lb-nVo"/>
                             <constraint firstItem="lcl-o7-jaZ" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="gQU-Iv-tro"/>
                             <constraint firstItem="5Qz-i2-uIb" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="ofG-sw-XOt"/>
-                            <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="lcl-o7-jaZ" secondAttribute="bottom" id="wr1-F6-Wff"/>
-                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" id="yeY-QP-WRo"/>
+                            <constraint firstItem="E3k-mV-EqU" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" constant="5" id="v96-hM-XLU"/>
+                            <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="lcl-o7-jaZ" secondAttribute="bottom" constant="-30" id="wr1-F6-Wff"/>
+                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" constant="30" id="yeY-QP-WRo"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="cYi-Lb-nVo"/>
+                            </mask>
+                        </variation>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Password Booklet" id="DSk-Ul-7bE">
@@ -352,7 +375,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1O-d6-mh8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="531" y="529"/>
+            <point key="canvasLocation" x="498" y="515"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="po2-JS-nRU">
@@ -365,7 +388,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Qbn-3P-5M1" kind="relationship" relationship="rootViewController" id="1u9-k6-gsD"/>
+                        <segue destination="Qbn-3P-5M1" kind="relationship" relationship="rootViewController" id="b1H-Zg-eOO"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Ow-3e-hhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
