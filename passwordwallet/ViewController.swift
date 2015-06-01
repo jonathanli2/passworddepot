@@ -66,9 +66,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 var loaded = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.loadPasswordFile(oldPasscode)
                 if (!loaded){
                     //first show the warning message and then show the createpasscodealert againg
-                    self.showAlert("Warning", message:"Current passcode is invalid. Please try again.", buttonTitle: "OK", handler: {  (alert) in
+                    self.showAlert("Warning", message:"Invalid old passcode entered. Please try again.", buttonTitle: "OK", handler: {  (alert) in
                         self.showCreatePasscodeAlert(bForCreatePasscode)
                     })
+                    return;
                 }
                 
             }
