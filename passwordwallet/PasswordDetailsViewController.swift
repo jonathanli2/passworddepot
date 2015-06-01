@@ -13,6 +13,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var tableView: UITableView!
     var passwordItem : PasswordItem?
     var bDelete: Bool = false
+    var bUpdate: Bool = false
     var bNewPassword: Bool = false
     var bCancelled = false
     let imageForFinancial = UIImage(named: "Financial")
@@ -53,17 +54,19 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         if ( bNewPassword == true){
             self.navigationItem.title = "New Password"
 
-            var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
-            self.navigationItem.rightBarButtonItem = rightButton
-            
-            var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
+            var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
             self.navigationItem.leftBarButtonItem = leftButton
+            
+            var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
+            self.navigationItem.rightBarButtonItem = rightButton
             passwordItem = PasswordItem(id: "", userName: "", password: "", link: "https://", note: "", category:"Personal")
 
         }
         else{
             self.title = passwordItem?.id
             // Do any additional setup after loading the view.
+            var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
+            self.navigationItem.leftBarButtonItem = leftButton
             
             var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.Plain, target: self, action:"deleteItem:");
             self.navigationItem.rightBarButtonItem = rightButton
@@ -73,7 +76,34 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func deleteItem(sender: UIBarButtonItem) {
-        bDelete = true;
+        if (self.navigationItem.rightBarButtonItem?.title == "Save"){
+            bUpdate = true;
+             for (var index = 0; index < 5; index++) {
+                var indexPath = NSIndexPath(forRow: index, inSection: 0 )
+                if ( index < 4){
+                    var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
+                    if (index == 0){
+                        passwordItem?.userName = cell.txtValue!.text
+                    }
+                    else if (index == 1 ){
+                        passwordItem?.password = cell.txtValue!.text
+                    }
+                    else if (index == 2){
+                        passwordItem?.link = cell.txtValue!.text
+                    }
+                    else if (index == 3) {
+                        passwordItem?.note = cell.txtValue!.text
+                    }
+                }
+                else {
+                    var categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+                    passwordItem?.category = categorycell.categoryButton!.titleLabel?.text
+                }
+            }
+        }
+        else{
+            bDelete = true;
+        }
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
     }
 
@@ -151,7 +181,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         println(indexPath);
     }
     // MARK: - Navigation
-    //this method is called when closing the detail screen and returning to parent screen.
+  /*  //this method is called when closing the detail screen and returning to parent screen.
     //it is used to handle password item update only. As new password is handled in onSave method
     override func didMoveToParentViewController(parent: UIViewController?){
         if (parent == nil && !bCancelled && !bNewPassword && !bDelete){
@@ -182,9 +212,9 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
         }
     }
-    
+  */
     //methods to handle new password
-   func cancel(sender: UIBarButtonItem) {
+    func cancel(sender: UIBarButtonItem) {
         println("cancel clicked")
         self.bCancelled = true
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
@@ -211,7 +241,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                 
                  if (itemid == ""){
                 
-                         self.showAlert("Warning", message: "Password ID cannot be empty, please select a valid ID.", buttonTitle: "OK", handler: nil)
+                         self.showAlert("Warning", message: "Password ID cannot be empty, please set a valid ID.", buttonTitle: "OK", handler: nil)
                             return
                  }
                  else {
@@ -220,7 +250,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     for p in list {
                        
                         if p.id == itemid {
-                            self.showAlert("Warning", message: "Password ID '"+"'" + cell!.txtValue!.text + "' already exist, please select a different ID.", buttonTitle: "OK", handler: nil)
+                            self.showAlert("Warning", message: "Password ID '"+"'" + cell!.txtValue!.text + "' already exist, please set a different ID.", buttonTitle: "OK", handler: nil)
                             return
                         }
                     }
@@ -248,6 +278,13 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
 
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
      }
+
+    @IBAction func onPasswordItemEditChanged(sender: AnyObject) {
+        //in update password mode, if user makes any change, then change the top menu from back to cancel, delete to save
+        self.navigationItem.leftBarButtonItem?.title = "Cancel"
+        self.navigationItem.rightBarButtonItem?.title = "Save"
+    }
+
 
     @IBAction func onClickCategory(sender: AnyObject) {
         var rowId = 4;

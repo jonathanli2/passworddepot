@@ -286,6 +286,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             self.passwordTableView!.reloadData()
         }
+        else if ( sourceViewController.bUpdate){
+                    (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
+        }
         else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.addPasswordItem(sourceViewController.passwordItem!)
             self.passwordTableView!.reloadData()

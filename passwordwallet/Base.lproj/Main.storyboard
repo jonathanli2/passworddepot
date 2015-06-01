@@ -51,6 +51,7 @@
                                                         </mask>
                                                     </variation>
                                                     <connections>
+                                                        <action selector="onPasswordItemEditChanged:" destination="Id5-Gg-DlD" eventType="editingChanged" id="Yuf-S5-JWH"/>
                                                         <outlet property="delegate" destination="Id5-Gg-DlD" id="kzf-eU-G5V"/>
                                                     </connections>
                                                 </textField>
