@@ -34,7 +34,6 @@
 		9A37EEFC1B1B88E300F1C56E /* EditNoteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditNoteCell.swift; sourceTree = "<group>"; };
 		9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
 		9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "passwordwallet-Bridging-Header.h"; sourceTree = "<group>"; };
-		9A37EF011B1B898100F1C56E /* temp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = temp.h; sourceTree = "<group>"; };
 		9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -74,7 +73,6 @@
 				9A37EEFA1B1B88DC00F1C56E /* EditItemCell.swift */,
 				9A37EEF71B1B88CD00F1C56E /* CagetoryCell.swift */,
 				9A37EEF51B1B88BA00F1C56E /* PasswordItem.swift */,
-				9A37EF011B1B898100F1C56E /* temp.h */,
 				9A37EEF31B1B88A300F1C56E /* ViewController.swift */,
 				9A37EED31B1B884100F1C56E /* AppDelegate.swift */,
 				9A37EED71B1B884100F1C56E /* Main.storyboard */,
@@ -327,6 +325,7 @@
 				9A37EEEF1B1B884100F1C56E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

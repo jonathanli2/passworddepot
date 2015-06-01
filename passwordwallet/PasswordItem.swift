@@ -51,17 +51,35 @@ class PasswordItem {
 }
 
 class PasswordManager{
-     var passwordList : [PasswordItem]?
-     var encryptionKey : NSData?
+     private var passwordList : [PasswordItem]?
+     private var encryptionKey : NSData?
     
-     func getPasswordItemList() -> [PasswordItem]? {
+     private func getMatchedItemByCategory( categoryFilter : String) -> [PasswordItem] {
+        var filteredPasswordList = [PasswordItem]()
+        for item in self.passwordList! {
+            if ( item.category == categoryFilter ){
+                filteredPasswordList.append(item)
+            }
+        }
+        
+        return filteredPasswordList
+     }
+    
+     //return nil if list does not exist.
+     func getPasswordItemList(categoryFilter: String?) -> [PasswordItem]? {
         if let list = passwordList {
-            return list
+            if ( categoryFilter == nil || categoryFilter == ""){
+                return list
+            }
+            else{ //apply filter
+                return getMatchedItemByCategory(categoryFilter!)
+            }
         }
         else{
             return nil;
         }
-    }
+     }
+    
     
     func getPasswordFileContent()->NSData {
             //load data from file
