@@ -18,6 +18,8 @@
 		9A37EEFD1B1B88E300F1C56E /* EditNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFC1B1B88E300F1C56E /* EditNoteCell.swift */; };
 		9A37EEFF1B1B88EB00F1C56E /* PasswordListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */; };
 		9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */; };
+		9A46CD2D1B23784B001F7797 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A46CD2C1B23784B001F7797 /* iAd.framework */; };
+		9A46CD2F1B239431001F7797 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A46CD2E1B239431001F7797 /* AdSupport.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
 		9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "passwordwallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
+		9A46CD2C1B23784B001F7797 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		9A46CD2E1B239431001F7797 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +46,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A46CD2F1B239431001F7797 /* AdSupport.framework in Frameworks */,
+				9A46CD2D1B23784B001F7797 /* iAd.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +57,8 @@
 		9A37EEC51B1B884100F1C56E = {
 			isa = PBXGroup;
 			children = (
+				9A46CD2E1B239431001F7797 /* AdSupport.framework */,
+				9A46CD2C1B23784B001F7797 /* iAd.framework */,
 				9A37EED01B1B884100F1C56E /* passwordwallet */,
 				9A37EECF1B1B884100F1C56E /* Products */,
 			);
@@ -124,6 +132,11 @@
 					9A37EECD1B1B884100F1C56E = {
 						CreatedOnToolsVersion = 6.3.2;
 						DevelopmentTeam = TP4S3WKBFP;
+						SystemCapabilities = {
+							com.apple.DataProtection = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};

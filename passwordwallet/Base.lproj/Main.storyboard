@@ -20,8 +20,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ic-A3-KVb">
-                                <rect key="frame" x="5" y="0.0" width="590" height="556"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="edititem" id="BLi-Me-CfD" customClass="EditItemCell" customModule="passwordwallet" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="578" height="44"/>
@@ -39,7 +40,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="UserID" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xtw-4I-XOp">
-                                                    <rect key="frame" x="119" y="10" width="453" height="30"/>
+                                                    <rect key="frame" x="119" y="10" width="463" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="KqW-xD-R4p"/>
                                                     </constraints>
@@ -118,7 +119,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eG8-U1-FYx">
-                                                    <rect key="frame" x="488" y="8" width="94" height="30"/>
+                                                    <rect key="frame" x="498" y="8" width="94" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="94" id="UfC-k6-4br"/>
                                                     </constraints>
@@ -130,7 +131,7 @@
                                                     </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E8n-ix-Sxz">
-                                                    <rect key="frame" x="450" y="8" width="30" height="30"/>
+                                                    <rect key="frame" x="460" y="8" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="8da-de-xuC"/>
                                                         <constraint firstAttribute="width" constant="30" id="kla-h4-oVT"/>
@@ -161,8 +162,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="4ic-A3-KVb" secondAttribute="trailing" constant="5" id="Gzw-A4-Wd8"/>
-                            <constraint firstItem="4ic-A3-KVb" firstAttribute="leading" secondItem="ck4-bi-2OU" secondAttribute="leading" constant="5" id="IcN-uG-FXD"/>
+                            <constraint firstAttribute="trailing" secondItem="4ic-A3-KVb" secondAttribute="trailing" id="Gzw-A4-Wd8"/>
+                            <constraint firstItem="4ic-A3-KVb" firstAttribute="leading" secondItem="ck4-bi-2OU" secondAttribute="leading" id="IcN-uG-FXD"/>
                             <constraint firstItem="4ic-A3-KVb" firstAttribute="top" secondItem="ck4-bi-2OU" secondAttribute="top" id="JV1-w8-ndo"/>
                             <constraint firstItem="hKZ-pM-cne" firstAttribute="top" secondItem="4ic-A3-KVb" secondAttribute="bottom" id="K9F-63-j3M"/>
                         </constraints>

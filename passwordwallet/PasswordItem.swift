@@ -198,7 +198,7 @@ class PasswordManager{
         //save file
         var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         var path = paths.stringByAppendingPathComponent("passwords.dat")
-        encryptedData?.writeToFile(path, atomically: true);
+        encryptedData?.writeToFile(path, options:NSDataWritingOptions.DataWritingFileProtectionComplete, error: nil)
      
     }
     

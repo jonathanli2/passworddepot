@@ -135,7 +135,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.canDisplayBannerAds = true
+
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "passwordFileChanged:",
