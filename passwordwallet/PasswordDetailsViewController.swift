@@ -56,9 +56,11 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             self.navigationItem.title = "New Password"
             
             var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
+            leftButton.tintColor = UIColor.whiteColor()
             self.navigationItem.leftBarButtonItem = leftButton
             
             var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
+            rightButton.tintColor = UIColor.whiteColor()
             self.navigationItem.rightBarButtonItem = rightButton
             passwordItem = PasswordItem(id: "", userName: "", password: "", link: "https://", note: "", category:"Personal")
             

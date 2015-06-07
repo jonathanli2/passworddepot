@@ -329,7 +329,7 @@
                                 </items>
                             </toolbar>
                             <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="E3k-mV-EqU">
-                                <rect key="frame" x="5" y="64" width="590" height="29"/>
+                                <rect key="frame" x="5" y="65" width="590" height="29"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="All"/>
@@ -348,7 +348,7 @@
                             <constraint firstAttribute="trailing" secondItem="5Qz-i2-uIb" secondAttribute="trailing" id="AZn-Zd-551"/>
                             <constraint firstAttribute="trailing" secondItem="lcl-o7-jaZ" secondAttribute="trailing" id="Bwu-4P-3ww"/>
                             <constraint firstAttribute="trailing" secondItem="E3k-mV-EqU" secondAttribute="trailing" constant="5" id="Cjs-ce-kP0"/>
-                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="-62" id="LDE-kR-bSy"/>
+                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="-63" id="LDE-kR-bSy"/>
                             <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="5Qz-i2-uIb" secondAttribute="bottom" id="PCQ-Ri-iT1"/>
                             <constraint firstItem="E3k-mV-EqU" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" id="cYi-Lb-nVo"/>
                             <constraint firstItem="lcl-o7-jaZ" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="gQU-Iv-tro"/>
@@ -366,6 +366,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Password Booklet" id="DSk-Ul-7bE">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1ra-NO-zuP">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <segue destination="Id5-Gg-DlD" kind="show" identifier="newPassword" id="lbg-75-33n"/>
                             </connections>
@@ -385,7 +386,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="KRV-bs-crL" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3gc-G8-XVZ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="3gc-G8-XVZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
