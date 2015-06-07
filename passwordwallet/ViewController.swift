@@ -236,6 +236,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         else if (segue.identifier == "newPassword"){
             var destinationController : PasswordDetailsViewController = segue.destinationViewController as! PasswordDetailsViewController;
             destinationController.bNewPassword = true
+            destinationController.defaultCategoryForNewPassword = currentCategory
         }
     }
     

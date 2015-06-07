@@ -17,6 +17,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     var bUpdate: Bool = false
     var bNewPassword: Bool = false
     var bCancelled = false
+    var defaultCategoryForNewPassword : String?
     let imageForFinancial = UIImage(named: "Financial")
     let imageForPersonal = UIImage(named:"Personal")
     let imageForWork = UIImage(named:"Work")
@@ -62,7 +63,10 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
             rightButton.tintColor = UIColor.whiteColor()
             self.navigationItem.rightBarButtonItem = rightButton
-            passwordItem = PasswordItem(id: "", userName: "", password: "", link: "https://", note: "", category:"Personal")
+            if (defaultCategoryForNewPassword == nil){
+                defaultCategoryForNewPassword = "Personal"
+            }
+            passwordItem = PasswordItem(id: "", userName: "", password: "", link: "https://", note: "", category:defaultCategoryForNewPassword!)
             
         }
         else{
