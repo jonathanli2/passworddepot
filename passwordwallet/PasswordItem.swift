@@ -96,6 +96,25 @@ class PasswordManager{
         return passwordList!
     }
     
+    //search all category items based on ID
+    func getPasswordItemByID(passwordID : String) -> PasswordItem?{
+        //validate password id to be unique
+        var selectedItem : PasswordItem? = nil;
+        
+        if (self.passwordList != nil) {
+            for p in self.passwordList! {
+            
+                if p.id == passwordID {
+                    selectedItem = p
+                    break
+                }
+            }
+        }
+        return selectedItem
+
+    }
+    
+    
     func deletePasswordItem(item : PasswordItem){
     
         for (var index = 0; index < self.passwordList!.count; index++) {

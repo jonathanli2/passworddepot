@@ -209,17 +209,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell!.name?.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].id
         cell!.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].userName, forState: .Normal)
         cell!.password.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].password, forState:.Normal)
+        
         // cell!.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
         var linkUrl = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].link
         
-        cell!.link.tag = 1
-        if (linkUrl == "" || linkUrl == nil){
+        if ( linkUrl == nil ){
             cell!.link.hidden = true
             cell!.textLabel?.text = nil
         }
         else{
-            cell!.textLabel?.hidden = true
-            cell!.textLabel!.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].link
+            var nsurl : NSURL? = NSURL(string: linkUrl!)
+            if (nsurl?.host == nil || nsurl?.scheme == nil || nsurl?.path == nil){
+                cell!.link.hidden = true
+                cell!.textLabel?.text = nil
+            }
+            else{
+                cell!.link.hidden = false;
+             //   cell!.link.setTitle(<#title: String?#>, forState: <#UIControlState#>)!.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].link
+            }
         }
         return cell!
     }
@@ -363,13 +370,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         var cell : PasswordListItemCell = superView as! PasswordListItemCell;
         
-        var urlString = cell.textLabel?.text
+        //get the password name based on label
+        var passwordID = cell.name.text
         
-        
-        var url : NSURL? = NSURL(string: urlString!)
+        //get password item based on id
+        var item = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemByID(passwordID!)
+    
+        var url : NSURL? = NSURL(string: item!.link!)
         var bOK = UIApplication.sharedApplication().openURL(url!)
         if (!bOK){
-            var alert: UIAlertView  = UIAlertView (title: "Error", message: "Unable to open the URL of '" + urlString! + "', please check the URL is value.", delegate: nil, cancelButtonTitle:"OK" )
+            var alert: UIAlertView  = UIAlertView (title: "Error", message: "Unable to open the URL of '" + item!.link! + "', please check the URL is value.", delegate: nil, cancelButtonTitle:"OK" )
             
             alert.show()
         }
