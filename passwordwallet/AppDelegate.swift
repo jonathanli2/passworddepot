@@ -28,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        println("application handleopenurl");
         var data = NSData(contentsOfURL: url)
         
         //first log out, then replace the file
@@ -51,16 +52,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         bgTask = application.beginBackgroundTaskWithName("logout", expirationHandler: { () in
             //logout before expiration
             if let timer = self.logoutTimer {
+                println("applicationDidEnterBackground, expirationHandler: invalidate timer")
+
                 timer.invalidate()
                 self.logoutTimer = nil
             }
             self.unloadPassword()
         });
         
+        println("applicationDidEnterBackground, start timer")
+
         logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*60, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
     }
     
     func unloadPassword() {
+        println("unloadPassword set timer to nil")
+
         self.logoutTimer = nil
         (UIApplication.sharedApplication()).endBackgroundTask(self.bgTask)
         self.bgTask = UIBackgroundTaskInvalid;
@@ -71,7 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
+        println("applicationWillEnterForeground")
+
         if let timer = self.logoutTimer {
+            println("applicationWillEnterForeground, invalidate timer")
             timer.invalidate()
             self.logoutTimer = nil
         }

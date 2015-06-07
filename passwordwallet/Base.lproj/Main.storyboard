@@ -309,6 +309,12 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qz-i2-uIb">
                                 <rect key="frame" x="0.0" y="512" width="600" height="44"/>
                                 <items>
+                                    <barButtonItem title="Logout" id="1Jz-hb-PgZ">
+                                        <connections>
+                                            <action selector="onLogout:" destination="Qbn-3P-5M1" id="fbP-Gc-iPn"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="ejW-th-Jas"/>
                                     <barButtonItem title="Passcode" id="atM-cM-P8U">
                                         <connections>
                                             <action selector="onChangePasscode:" destination="Qbn-3P-5M1" id="zaW-G5-LGS"/>
@@ -359,11 +365,6 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Password Booklet" id="DSk-Ul-7bE">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="hXR-mw-Ocd">
-                            <connections>
-                                <action selector="onLogout:" destination="Qbn-3P-5M1" id="0AF-7d-dwT"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="1ra-NO-zuP">
                             <connections>
                                 <segue destination="Id5-Gg-DlD" kind="show" identifier="newPassword" id="lbg-75-33n"/>

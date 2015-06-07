@@ -298,18 +298,21 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         let alertController = UIAlertController(title: "Category", message: "Select the category for the password item", preferredStyle: .Alert)
         
         let personalAction = UIAlertAction(title: "Personal", style: .Default) { (action) in
+            self.onPasswordItemEditChanged(action);
             self.passwordItem?.category="Personal"
             self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
         }
         alertController.addAction(personalAction)
         
         let workAction = UIAlertAction(title: "Work", style: .Default) { (action) in
+            self.onPasswordItemEditChanged(action);
             self.passwordItem?.category="Work"
             self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
         }
         alertController.addAction(workAction)
         
         let financialAction = UIAlertAction(title: "Financial", style: .Default) { (action) in
+            self.onPasswordItemEditChanged(action);
             self.passwordItem?.category = "Financial"
             self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
         }
@@ -322,6 +325,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         alertController.addAction(schoolAction)
         */
         let otherAction = UIAlertAction(title: "Others", style: .Default) { (action) in
+            self.onPasswordItemEditChanged(action);
             self.passwordItem?.category = "Others"
             self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
         }

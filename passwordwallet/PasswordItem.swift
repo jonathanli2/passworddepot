@@ -182,6 +182,7 @@ class PasswordManager{
     }
     
     func unloadPasswordFile() {
+        println("PasswordItems UnloadPasswordFile")
         encryptionKey = nil
         passwordList = nil
     }
@@ -190,6 +191,7 @@ class PasswordManager{
     }
     
     func savePasswordFile(){
+        println("PasswordItem savePasswordFile");
 
         let dicArray = convertToDictionaryArray();
         let data : NSData? = NSJSONSerialization.dataWithJSONObject(dicArray, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
@@ -214,6 +216,7 @@ class PasswordManager{
     }
 
     func changePassword(passcode: String){
+        println("PasswordItem changePassword");
         let saltStr : String = "salt"
         let salt = saltStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         encryptionKey = getKeyFromPassword(passcode, salt: salt!)

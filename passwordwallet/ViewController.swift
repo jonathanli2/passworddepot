@@ -267,7 +267,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //  NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: Selector("timerExpired:"), userInfo: statusAlert, repeats: true)
     }
     
-    func timerExpired(timer : NSTimer){
+  /*  func timerExpired(timer : NSTimer){
         
         var statusAlert = timer.userInfo as! UIAlertView
         
@@ -277,7 +277,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             timer.invalidate()
         });
     }
-    
+    */
     
     @IBAction func unwindToMainMenu(sender: UIStoryboardSegue)
     {
@@ -299,6 +299,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Pull any data from the view controller which initiated the unwind segue.
     }
     @IBAction func onLogout(sender: AnyObject) {
+        println("viewcontroller onlogout")
         (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.unloadPasswordFile()
         self.passwordTableView!.reloadData()
         self.showEnterPasscodeAlert()
