@@ -73,9 +73,13 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             self.title = passwordItem?.id
             // Do any additional setup after loading the view.
             var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
+            leftButton.tintColor = UIColor.whiteColor()
+
             self.navigationItem.leftBarButtonItem = leftButton
             
             var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.Plain, target: self, action:"deleteItem:");
+            rightButton.tintColor = UIColor.whiteColor()
+
             self.navigationItem.rightBarButtonItem = rightButton
         }
         

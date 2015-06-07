@@ -308,6 +308,7 @@
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qz-i2-uIb">
                                 <rect key="frame" x="0.0" y="512" width="600" height="44"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem title="Logout" id="1Jz-hb-PgZ">
                                         <connections>
@@ -327,10 +328,11 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="barTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
                             <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="E3k-mV-EqU">
-                                <rect key="frame" x="5" y="65" width="590" height="29"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="64" width="600" height="29"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <segments>
                                     <segment title="All"/>
                                     <segment title="Personal"/>
@@ -347,13 +349,13 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="5Qz-i2-uIb" secondAttribute="trailing" id="AZn-Zd-551"/>
                             <constraint firstAttribute="trailing" secondItem="lcl-o7-jaZ" secondAttribute="trailing" id="Bwu-4P-3ww"/>
-                            <constraint firstAttribute="trailing" secondItem="E3k-mV-EqU" secondAttribute="trailing" constant="5" id="Cjs-ce-kP0"/>
-                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="-63" id="LDE-kR-bSy"/>
+                            <constraint firstAttribute="trailing" secondItem="E3k-mV-EqU" secondAttribute="trailing" id="Cjs-ce-kP0"/>
+                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="-62" id="LDE-kR-bSy"/>
                             <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="5Qz-i2-uIb" secondAttribute="bottom" id="PCQ-Ri-iT1"/>
                             <constraint firstItem="E3k-mV-EqU" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" id="cYi-Lb-nVo"/>
                             <constraint firstItem="lcl-o7-jaZ" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="gQU-Iv-tro"/>
                             <constraint firstItem="5Qz-i2-uIb" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="ofG-sw-XOt"/>
-                            <constraint firstItem="E3k-mV-EqU" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" constant="5" id="v96-hM-XLU"/>
+                            <constraint firstItem="E3k-mV-EqU" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="v96-hM-XLU"/>
                             <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="lcl-o7-jaZ" secondAttribute="bottom" constant="-30" id="wr1-F6-Wff"/>
                             <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" constant="30" id="yeY-QP-WRo"/>
                         </constraints>
