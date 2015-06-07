@@ -13,6 +13,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var passwordTableView: UITableView!
     
+    @IBOutlet weak var categorySelector: UISegmentedControl!
     var currentCategory : String?
     
     func showAlert(title: String, message: String, buttonTitle: String, handler:((UIAlertAction!) -> Void )!){
@@ -290,10 +291,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.passwordTableView!.reloadData()
         }
         else if ( sourceViewController.bUpdate){
-                    (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
+           updateCategoryByName(sourceViewController.passwordItem!.category!)
+            
+            (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
         }
         else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.addPasswordItem(sourceViewController.passwordItem!)
+            updateCategoryByName(sourceViewController.passwordItem!.category!)
             self.passwordTableView!.reloadData()
         }
         
@@ -395,8 +399,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)
         self.passwordTableView.reloadData()
-        
     }
+    
+    func updateCategoryByName(categoryName: String) {
+        var categoryIndex = 1;
+        
+        switch (categoryName){
+            
+        case "Personal":
+            categoryIndex = 1;
+            break
+        case "Work":
+            categoryIndex = 2;
+            break
+        case "Financial":
+            categoryIndex = 3;
+            break
+        case "Others":
+            categoryIndex = 4;
+            break
+        default:
+            categoryIndex = 1
+            break
+        }
+        self.categorySelector.selectedSegmentIndex = categoryIndex
+        self.currentCategory = categoryName
+    }
+
     
 }
 

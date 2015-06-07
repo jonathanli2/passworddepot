@@ -233,6 +233,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func save(sender: UIBarButtonItem) {
+        println("PasswordDetailsViewController save")
         var cell : EditItemCell?
         var categorycell : CategoryCell?
         
