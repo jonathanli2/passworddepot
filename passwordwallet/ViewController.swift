@@ -298,13 +298,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.passwordTableView!.reloadData()
         }
         else if ( sourceViewController.bUpdate){
-           updateCategoryByName(sourceViewController.passwordItem!.category!)
-            
+            if (currentCategory != "All" && currentCategory != nil){
+                updateCategoryByName(sourceViewController.passwordItem!.category!)
+            }
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
         }
         else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.addPasswordItem(sourceViewController.passwordItem!)
-            updateCategoryByName(sourceViewController.passwordItem!.category!)
+            
+            if (currentCategory != "All" && currentCategory != nil){
+                updateCategoryByName(sourceViewController.passwordItem!.category!)
+            }
             self.passwordTableView!.reloadData()
         }
         
