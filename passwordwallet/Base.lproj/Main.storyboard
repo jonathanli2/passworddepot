@@ -2,8 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KRV-bs-crL">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -200,8 +198,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p53-4M-HIR" id="8jA-rR-RiJ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTy-Pz-BYi">
-                                                    <rect key="frame" x="108" y="38" width="111" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTy-Pz-BYi">
+                                                    <rect key="frame" x="90.5" y="38" width="468.5" height="33"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="bt9-v3-d2C"/>
                                                     </constraints>
@@ -209,19 +207,30 @@
                                                     <state key="normal" title="Copy Username">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="bt9-v3-d2C"/>
+                                                        </mask>
+                                                    </variation>
                                                     <connections>
                                                         <action selector="onCopyUserIDClicked:" destination="Qbn-3P-5M1" eventType="touchUpInside" id="oaz-XZ-76W"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZpC-Vf-ouX">
-                                                    <rect key="frame" x="17" y="69" width="81" height="21"/>
+                                                    <rect key="frame" x="17" y="68" width="58.5" height="21"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" constant="58.5" id="HKf-sW-j1O"/>
                                                         <constraint firstAttribute="width" constant="81" id="JBB-fH-9e2"/>
                                                         <constraint firstAttribute="height" constant="21" id="OPI-37-TeH"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="JBB-fH-9e2"/>
+                                                        </mask>
+                                                    </variation>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Sgi-SN-Csw">
                                                     <rect key="frame" x="27" y="14" width="23" height="23"/>
@@ -231,37 +240,28 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tEM-U9-ske">
-                                                    <rect key="frame" x="17" y="48" width="81" height="15"/>
+                                                    <rect key="frame" x="17" y="48" width="58.5" height="14.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="58.5" id="z2V-Ag-9LR"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLj-G6-XIl">
-                                                    <rect key="frame" x="529" y="10" width="30" height="30"/>
+                                                    <rect key="frame" x="151" y="10" width="407.5" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" title="Link"/>
                                                     <connections>
                                                         <action selector="onOpenLink:" destination="Qbn-3P-5M1" eventType="touchUpInside" id="lkm-8Q-vH4"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" misplaced="YES" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vI-3L-4kP">
-                                                    <rect key="frame" x="108" y="65" width="108" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="zur-87-pIE"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <state key="normal" title="Copy password">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="onCopyPasswordClicked:" destination="Qbn-3P-5M1" eventType="touchUpInside" id="dFI-cj-6j3"/>
-                                                    </connections>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Em6-kC-xQq">
-                                                    <rect key="frame" x="108" y="14" width="160" height="21"/>
+                                                    <rect key="frame" x="90.5" y="14" width="45.5" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="Tf5-q2-YWq"/>
+                                                        <constraint firstAttribute="height" constant="21" id="H2T-Mp-grh"/>
                                                         <constraint firstAttribute="width" constant="160" id="fmk-e4-JrQ"/>
+                                                        <constraint firstAttribute="width" constant="386" id="vMc-0z-889"/>
                                                     </constraints>
                                                     <attributedString key="attributedText">
                                                         <fragment content="Name">
@@ -273,25 +273,60 @@
                                                         </fragment>
                                                     </attributedString>
                                                     <nil key="highlightedColor"/>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="fmk-e4-JrQ"/>
+                                                            <exclude reference="vMc-0z-889"/>
+                                                        </mask>
+                                                    </variation>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vI-3L-4kP">
+                                                    <rect key="frame" x="90.5" y="62" width="468.5" height="33"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="zur-87-pIE"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <state key="normal" title="Copy password">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="zur-87-pIE"/>
+                                                        </mask>
+                                                    </variation>
+                                                    <connections>
+                                                        <action selector="onCopyPasswordClicked:" destination="Qbn-3P-5M1" eventType="touchUpInside" id="dFI-cj-6j3"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="top" secondItem="8jA-rR-RiJ" secondAttribute="topMargin" constant="6" id="4Eq-tB-CSU"/>
                                                 <constraint firstItem="sLj-G6-XIl" firstAttribute="trailing" secondItem="8jA-rR-RiJ" secondAttribute="trailingMargin" id="5Qn-xc-z9a"/>
+                                                <constraint firstItem="1vI-3L-4kP" firstAttribute="leading" secondItem="ZpC-Vf-ouX" secondAttribute="trailing" constant="15" id="8tP-EP-dsa"/>
+                                                <constraint firstItem="Em6-kC-xQq" firstAttribute="top" secondItem="Sgi-SN-Csw" secondAttribute="top" id="9xE-Sf-tt2"/>
                                                 <constraint firstItem="tEM-U9-ske" firstAttribute="top" secondItem="Sgi-SN-Csw" secondAttribute="bottom" constant="11" id="H8R-9S-Hgp"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="sTy-Pz-BYi" secondAttribute="trailing" id="L0H-bH-TLq"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="leading" secondItem="ZpC-Vf-ouX" secondAttribute="leading" constant="10" id="Ls6-EW-ALa"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="top" secondItem="sLj-G6-XIl" secondAttribute="top" constant="4" id="NyF-dm-5Zt"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="leading" secondItem="tEM-U9-ske" secondAttribute="leading" constant="10" id="PPz-fl-P4A"/>
-                                                <constraint firstItem="sTy-Pz-BYi" firstAttribute="top" secondItem="Em6-kC-xQq" secondAttribute="bottom" constant="3" id="W4q-yf-wKx"/>
-                                                <constraint firstItem="Em6-kC-xQq" firstAttribute="firstBaseline" secondItem="sLj-G6-XIl" secondAttribute="baseline" id="WBd-wY-0FG"/>
-                                                <constraint firstItem="Em6-kC-xQq" firstAttribute="leading" secondItem="Sgi-SN-Csw" secondAttribute="trailing" constant="58" id="e8E-na-2A7"/>
+                                                <constraint firstItem="1vI-3L-4kP" firstAttribute="leading" secondItem="ZpC-Vf-ouX" secondAttribute="trailing" constant="-206" id="RyH-YJ-Vor"/>
+                                                <constraint firstItem="sLj-G6-XIl" firstAttribute="leading" secondItem="Em6-kC-xQq" secondAttribute="trailing" constant="15" id="UKc-XH-70R"/>
+                                                <constraint firstItem="sTy-Pz-BYi" firstAttribute="top" secondItem="Em6-kC-xQq" secondAttribute="bottom" constant="3" id="YTv-Iy-Yxc"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="1vI-3L-4kP" secondAttribute="trailing" id="cic-hu-jlw"/>
+                                                <constraint firstItem="Em6-kC-xQq" firstAttribute="leading" secondItem="sTy-Pz-BYi" secondAttribute="leading" id="cwp-a6-Lj6"/>
                                                 <constraint firstItem="1vI-3L-4kP" firstAttribute="leading" secondItem="ZpC-Vf-ouX" secondAttribute="trailing" constant="10" id="hlk-p4-5gV"/>
                                                 <constraint firstItem="ZpC-Vf-ouX" firstAttribute="trailing" secondItem="tEM-U9-ske" secondAttribute="trailing" id="jbe-J1-NCi"/>
                                                 <constraint firstItem="Sgi-SN-Csw" firstAttribute="leading" secondItem="8jA-rR-RiJ" secondAttribute="leadingMargin" constant="19" id="o3O-ZK-8xf"/>
                                                 <constraint firstItem="ZpC-Vf-ouX" firstAttribute="centerY" secondItem="1vI-3L-4kP" secondAttribute="centerY" id="oum-x9-7Sc"/>
-                                                <constraint firstItem="sTy-Pz-BYi" firstAttribute="leading" secondItem="8jA-rR-RiJ" secondAttribute="leadingMargin" constant="100" id="pwj-l4-MQZ"/>
                                                 <constraint firstItem="ZpC-Vf-ouX" firstAttribute="top" secondItem="tEM-U9-ske" secondAttribute="bottom" constant="6" id="q95-ez-lK0"/>
+                                                <constraint firstItem="sTy-Pz-BYi" firstAttribute="leading" secondItem="tEM-U9-ske" secondAttribute="trailing" constant="15" id="r3T-8L-deA"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="RyH-YJ-Vor"/>
+                                                    <exclude reference="hlk-p4-5gV"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="itemImage" destination="Sgi-SN-Csw" id="Gvw-ln-AqX"/>

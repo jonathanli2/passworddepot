@@ -189,16 +189,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as? PasswordListItemCell
         
-        
         if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].category == "Financial"){
             cell!.itemImage?.image = imageForFinancial;
         }
         else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].category == "Personal") {
             cell!.itemImage?.image = imageForPersonal;
         }
-            /*  else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].category == "School") {
-            cell!.itemImage?.image = imageForSchool;
-            }*/
         else if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].category == "Work") {
             cell!.itemImage?.image = imageForWork;
         }
@@ -207,10 +203,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell!.name?.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].id
+        println( cell!.name?.text )
+ 
         cell!.userName.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].userName, forState: .Normal)
         cell!.password.setTitle( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].password, forState:.Normal)
         
-        // cell!.link.setTitle((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList()![indexPath.row].link, forState: .Normal)
         var linkUrl = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].link
         
         if ( linkUrl == nil ){
@@ -219,13 +216,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         else{
             var nsurl : NSURL? = NSURL(string: linkUrl!)
-            if (nsurl?.host == nil || nsurl?.scheme == nil || nsurl?.path == nil){
+            if (nsurl?.host == nil || nsurl?.scheme == nil ){
                 cell!.link.hidden = true
-                cell!.textLabel?.text = nil
             }
             else{
                 cell!.link.hidden = false;
-             //   cell!.link.setTitle(<#title: String?#>, forState: <#UIControlState#>)!.text = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![indexPath.row].link
             }
         }
         return cell!
