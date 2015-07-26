@@ -53,11 +53,10 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         self.canDisplayBannerAds = true
         
         NSNotificationCenter.defaultCenter().addObserver(
-                self,
-                selector: "cancel:",
-                name: "UIApplicationDidEnterBackgroundNotification",
-                object: nil)
-
+            self,
+            selector: "cancel:",
+            name: "passwordFileUnloaded",
+            object: nil)
         
         //if passwordItem is null, then it is for adding new password, otherwise it is for updating existing item
         if ( bNewPassword == true){

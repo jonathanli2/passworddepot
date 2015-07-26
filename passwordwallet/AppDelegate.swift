@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             println("applicationDidEnterBackground, start timer")
 
-            logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*10, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
+            logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*60, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
         }
       }
     
