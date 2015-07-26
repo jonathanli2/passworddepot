@@ -48,22 +48,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(application: UIApplication) {
-        //after device enters background, after waiting for 3 min, logout automatically
-        bgTask = application.beginBackgroundTaskWithName("logout", expirationHandler: { () in
-            //logout before expiration
-            if let timer = self.logoutTimer {
-                println("applicationDidEnterBackground, expirationHandler: invalidate timer")
+  
+    
+        if ( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileUnlocked()){
 
-                timer.invalidate()
-                self.logoutTimer = nil
-            }
-            self.unloadPassword()
-        });
-        
-        println("applicationDidEnterBackground, start timer")
+            //after device enters background, after waiting for 3 min, logout automatically
+            bgTask = application.beginBackgroundTaskWithName("logout", expirationHandler: { () in
+                //logout before expiration
+                if let timer = self.logoutTimer {
+                    println("applicationDidEnterBackground, expirationHandler: invalidate timer")
 
-        logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*60, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
-    }
+                    timer.invalidate()
+                    self.logoutTimer = nil
+                }
+                self.unloadPassword()
+            });
+            
+            println("applicationDidEnterBackground, start timer")
+
+            logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*10, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
+        }
+      }
     
     func unloadPassword() {
         println("unloadPassword set timer to nil")
@@ -73,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.bgTask = UIBackgroundTaskInvalid;
         
         (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.unloadPasswordFile()
-        NSNotificationCenter.defaultCenter().postNotificationName("passwordFileChanged", object: nil)
+        NSNotificationCenter.defaultCenter().postNotificationName("passwordFileUnloaded", object: nil)
         
     }
     

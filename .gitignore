@@ -9,3 +9,7 @@
 *.pbxuser
 *.xcworkspace
 xcuserdata
+
+# Eclipse
+.project
+.settings

@@ -52,7 +52,15 @@ class PasswordItem {
 
 class PasswordManager{
      private var passwordList : [PasswordItem]?
+    
+     //if encrytionKey is nil, it means password file is locked
      private var encryptionKey : NSData?
+     //un order to support touch id, the last used encryption key is saved in memory, and it is not unloaded when
+     //encryption key is unloaded. Once the touch id is authenticated, then set lastUsedEncrytionKey to cryptionKey and continue.
+     //in any operation than may change the password, the lastUsedEncrytionKey should be reset
+     //if lastUsedEncrytionKey is null, then do not enable touch id login
+     private var lastUsedEncrytionKey : NSData?
+    
     
      private func getMatchedItemByCategory( categoryFilter : String) -> [PasswordItem] {
         var filteredPasswordList = [PasswordItem]()
@@ -138,6 +146,17 @@ class PasswordManager{
             return false
         }
     }
+
+    
+    func isPasswordFileUnlocked() -> Bool{
+        if (self.encryptionKey == nil){
+            return false
+        }
+        else{
+            return true
+        }
+    }
+
     
     func copyPasswordFile(sourcePath : String, err: NSErrorPointer){
         var fileManager = NSFileManager.defaultManager()
@@ -167,14 +186,33 @@ class PasswordManager{
         self.passwordList = arr as [PasswordItem]?
     }
     
+    func hasLastUsedEncrytionKey() -> Bool {
+        if (self.lastUsedEncrytionKey == nil ){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
+    func loadPasswordFileWithLastUsedEncryptionKey() -> Bool {
+         if let savedKey = self.lastUsedEncrytionKey {
+             encryptionKey = savedKey;
+             return loadPasswordFileWithEncryptionKey();
+         }
+         return false;
+    }
     
     func loadPasswordFile(passcode : String) -> Bool{
            
         let saltStr : String = "salt"
         let salt = saltStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         encryptionKey = getKeyFromPassword(passcode, salt: salt!)
-        
-        //load data from file
+        return loadPasswordFileWithEncryptionKey();
+     }
+    
+    private func loadPasswordFileWithEncryptionKey() -> Bool{
+           //load data from file
         var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         var path = paths.stringByAppendingPathComponent("passwords.dat")
         var data = NSData(contentsOfFile: path)
@@ -183,9 +221,11 @@ class PasswordManager{
         var list: AnyObject? = NSJSONSerialization.JSONObjectWithData(decryptedData!, options: NSJSONReadingOptions.MutableContainers, error: nil)
         if let passwords: AnyObject = list {
             convertToPasswordItemArray(passwords as! NSMutableArray)
+            self.lastUsedEncrytionKey = encryptionKey;
             return true
         }
         else{
+            encryptionKey = nil;
             return false
         }
     }

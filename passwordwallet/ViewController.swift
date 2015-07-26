@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import LocalAuthentication
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
     
@@ -105,6 +106,62 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
+    func authenticateUserToLoadPasswordList(){
+     //if touch id is enabled
+        var authError : NSError?;
+        var authContext = LAContext();
+        if((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.hasLastUsedEncrytionKey() &&
+                     (authContext.canEvaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, error: &authError))) {
+                     authContext.localizedFallbackTitle = "Enter Passcode";
+                authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Log in with your touch ID",
+                          reply: {(success: Bool, error: NSError!) -> Void in
+                    if success {
+                            var loaded = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.loadPasswordFileWithLastUsedEncryptionKey();
+                            if (loaded){
+                                dispatch_async(dispatch_get_main_queue()) {
+                                    self.passwordTableView.reloadData();
+                                }
+                            }
+                            else{
+                                self.showAlert("Warning", message: "Fail to get passcode based on your Touch ID, please input the passcode", buttonTitle: "OK", handler: {(alert) in
+                    
+                                        self.authenticateUserToLoadPasswordList();
+                                    }
+                                );
+                            }
+                    } else {
+                            var message : String?;
+                            switch error!.code {
+                            case LAError.AuthenticationFailed.rawValue:
+                              
+                                self.showAlert("Warning", message: "Touch ID authentication failed, please enter passcode to log in.", buttonTitle: "OK", handler: {(alert) in
+                    
+                                        self.showEnterPasscodeAlert();
+                                    }
+                                    );
+
+                            case LAError.UserCancel.rawValue:
+                               // message = nil;
+                                self.showEnterPasscodeAlert();
+                            case LAError.SystemCancel.rawValue:
+                               // message = "Touch ID authentication failed, please enter passcode to log in."
+                                self.authenticateUserToLoadPasswordList();
+                            case LAError.UserFallback.rawValue:
+                                //message = "User request to enter passcode"
+                                self.showEnterPasscodeAlert();
+                            default:
+                                message = "Touch ID authentication failed, please enter passcode to log in.";
+                                self.showEnterPasscodeAlert();
+                            
+                        }
+                   }
+                });
+        }
+        else{
+            showEnterPasscodeAlert();
+        }
+    }
+    
     func showEnterPasscodeAlert(){//ask user to enter the passcode
         var enterPasscodeDlg : UIAlertController = UIAlertController(title: "Enter Passcode", message: "Pleaes enter passcode to log on", preferredStyle: UIAlertControllerStyle.Alert)
         var passwcodeField : UITextField?
@@ -122,10 +179,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.passwordTableView.reloadData()
             }
             else{
-                
                 self.showAlert("Warning", message: "The entered passcode is invalid, please try again", buttonTitle: "OK", handler: {(alert) in
                     println("ok pressed")
-                    self.showEnterPasscodeAlert()}
+                    self.authenticateUserToLoadPasswordList()}
                 )
             }
         }
@@ -134,36 +190,64 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.presentViewController(enterPasscodeDlg, animated: false, completion: nil)
     }
     
+    var initialized  : Bool = false;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.canDisplayBannerAds = true
 
+        initialized = true;
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: "passwordFileChanged:",
             name: "passwordFileChanged",
             object: nil)
-        
-        if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileExisting()){
-            //ask user to input passcode to load the password file
-            self.showEnterPasscodeAlert()
-        }
-        else{
-            //ask user to create the password file
-            self.showCreatePasscodeAlert(true)
-            
-        }
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "passwordFileUnloaded:",
+            name: "passwordFileUnloaded",
+            object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "appWillEnterForeground:",
+            name: "UIApplicationWillEnterForegroundNotification",
+            object: nil)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.InitializeViewBasedOnPasswordFileStatus()
     }
     
     @objc func passwordFileChanged(notification: NSNotification){
         self.passwordTableView.reloadData()
         self.viewDidLoad()
     }
-    
-    override func viewDidAppear(animated: Bool) {
+
+    @objc func passwordFileUnloaded(notification: NSNotification){
         self.passwordTableView.reloadData()
     }
     
+    @objc func appWillEnterForeground(notification: NSNotification){
+        InitializeViewBasedOnPasswordFileStatus();
+    }
+    
+    func InitializeViewBasedOnPasswordFileStatus() {
+        if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileExisting()){
+            if (!(UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileUnlocked()){
+         
+                //ask user to input passcode to load the password file
+                self.authenticateUserToLoadPasswordList()
+            }
+        }
+        else{
+            //ask user to create the password file
+            self.showCreatePasscodeAlert(true)
+            
+        }
+
+     //   self.passwordTableView.reloadData()
+    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -313,7 +397,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         println("viewcontroller onlogout")
         (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.unloadPasswordFile()
         self.passwordTableView!.reloadData()
-        self.showEnterPasscodeAlert()
+//        self.authenticateUserToLoadPasswordList()
+        UIControl().sendAction(Selector("suspend"), to: UIApplication.sharedApplication(), forEvent: nil)
+
     }
     
     
