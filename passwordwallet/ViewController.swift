@@ -226,8 +226,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             object: nil)
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "appDidBecomeActive:",
-            name: "UIApplicationDidBecomeActiveNotification",
+            selector: "appWilEnterForeground:",
+            name: "UIApplicationWillEnterForegroundNotification",
             object: nil)
     }
     
@@ -244,7 +244,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.passwordTableView.reloadData()
     }
     
-    @objc func appDidBecomeActive(notification: NSNotification){
+    @objc func appWilEnterForeground(notification: NSNotification){
         InitializeViewBasedOnPasswordFileStatus();
     }
     
