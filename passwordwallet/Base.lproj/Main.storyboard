@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KRV-bs-crL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="KRV-bs-crL">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -188,8 +188,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="E3k-mV-EqU">
+                                <rect key="frame" x="9" y="64" width="582" height="29"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                                <segments>
+                                    <segment title="All"/>
+                                    <segment title="Personal"/>
+                                    <segment title="Work"/>
+                                    <segment title="Financial"/>
+                                    <segment title="Others"/>
+                                </segments>
+                                <connections>
+                                    <action selector="onCategorySelected:" destination="Qbn-3P-5M1" eventType="valueChanged" id="9Ey-7C-eLI"/>
+                                </connections>
+                            </segmentedControl>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="1" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="lcl-o7-jaZ">
-                                <rect key="frame" x="0.0" y="30" width="600" height="556"/>
+                                <rect key="frame" x="0.0" y="94" width="600" height="457"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="password" rowHeight="100" id="p53-4M-HIR" customClass="PasswordListItemCell" customModule="passwordwallet" customModuleProvider="target">
@@ -199,7 +213,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sTy-Pz-BYi">
-                                                    <rect key="frame" x="90.5" y="38" width="468.5" height="33"/>
+                                                    <rect key="frame" x="91" y="38" width="468" height="33"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="bt9-v3-d2C"/>
                                                     </constraints>
@@ -217,7 +231,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZpC-Vf-ouX">
-                                                    <rect key="frame" x="17" y="68" width="58.5" height="21"/>
+                                                    <rect key="frame" x="17" y="69" width="59" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="58.5" id="HKf-sW-j1O"/>
                                                         <constraint firstAttribute="width" constant="81" id="JBB-fH-9e2"/>
@@ -240,7 +254,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserID:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tEM-U9-ske">
-                                                    <rect key="frame" x="17" y="48" width="58.5" height="14.5"/>
+                                                    <rect key="frame" x="17" y="48" width="59" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="58.5" id="z2V-Ag-9LR"/>
                                                     </constraints>
@@ -249,7 +263,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sLj-G6-XIl">
-                                                    <rect key="frame" x="151" y="10" width="407.5" height="30"/>
+                                                    <rect key="frame" x="152" y="10" width="407" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <state key="normal" title="Link"/>
                                                     <connections>
@@ -257,7 +271,7 @@
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Em6-kC-xQq">
-                                                    <rect key="frame" x="90.5" y="14" width="45.5" height="21"/>
+                                                    <rect key="frame" x="91" y="14" width="46" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="H2T-Mp-grh"/>
                                                         <constraint firstAttribute="width" constant="160" id="fmk-e4-JrQ"/>
@@ -281,7 +295,7 @@
                                                     </variation>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1vI-3L-4kP">
-                                                    <rect key="frame" x="90.5" y="62" width="468.5" height="33"/>
+                                                    <rect key="frame" x="91" y="63" width="468" height="33"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="zur-87-pIE"/>
                                                     </constraints>
@@ -344,7 +358,7 @@
                                 </connections>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Qz-i2-uIb">
-                                <rect key="frame" x="0.0" y="512" width="600" height="44"/>
+                                <rect key="frame" x="9" y="512" width="582" height="44"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem title="Logout" id="1Jz-hb-PgZ">
@@ -366,38 +380,26 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="E3k-mV-EqU">
-                                <rect key="frame" x="0.0" y="64" width="600" height="29"/>
-                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
-                                <segments>
-                                    <segment title="All"/>
-                                    <segment title="Personal"/>
-                                    <segment title="Work"/>
-                                    <segment title="Financial"/>
-                                    <segment title="Others"/>
-                                </segments>
-                                <connections>
-                                    <action selector="onCategorySelected:" destination="Qbn-3P-5M1" eventType="valueChanged" id="9Ey-7C-eLI"/>
-                                </connections>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="5Qz-i2-uIb" secondAttribute="trailing" id="AZn-Zd-551"/>
+                            <constraint firstItem="YsF-cF-dkk" firstAttribute="leading" secondItem="E3k-mV-EqU" secondAttribute="trailing" constant="-600" id="5xv-Qq-3Xh"/>
                             <constraint firstAttribute="trailing" secondItem="lcl-o7-jaZ" secondAttribute="trailing" id="Bwu-4P-3ww"/>
-                            <constraint firstAttribute="trailing" secondItem="E3k-mV-EqU" secondAttribute="trailing" id="Cjs-ce-kP0"/>
-                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="-62" id="LDE-kR-bSy"/>
-                            <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="5Qz-i2-uIb" secondAttribute="bottom" id="PCQ-Ri-iT1"/>
-                            <constraint firstItem="E3k-mV-EqU" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" id="cYi-Lb-nVo"/>
+                            <constraint firstItem="5Qz-i2-uIb" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leadingMargin" constant="-7" id="E78-KP-60l"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="E3k-mV-EqU" secondAttribute="trailing" constant="-7" id="Frp-Da-QfK"/>
+                            <constraint firstItem="5Qz-i2-uIb" firstAttribute="bottom" secondItem="lcl-o7-jaZ" secondAttribute="bottom" constant="5" id="Vaq-Z3-zAk"/>
+                            <constraint firstItem="E3k-mV-EqU" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leadingMargin" constant="-7" id="WF9-Cf-NyN"/>
+                            <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="5Qz-i2-uIb" secondAttribute="bottom" id="Ykc-xj-zX4"/>
                             <constraint firstItem="lcl-o7-jaZ" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="gQU-Iv-tro"/>
-                            <constraint firstItem="5Qz-i2-uIb" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="ofG-sw-XOt"/>
-                            <constraint firstItem="E3k-mV-EqU" firstAttribute="leading" secondItem="m1k-ly-neV" secondAttribute="leading" id="v96-hM-XLU"/>
-                            <constraint firstItem="ksK-rE-3vc" firstAttribute="top" secondItem="lcl-o7-jaZ" secondAttribute="bottom" constant="-30" id="wr1-F6-Wff"/>
-                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="m1k-ly-neV" secondAttribute="top" constant="30" id="yeY-QP-WRo"/>
+                            <constraint firstItem="E3k-mV-EqU" firstAttribute="top" secondItem="YsF-cF-dkk" secondAttribute="bottom" id="mTl-1F-6MB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5Qz-i2-uIb" secondAttribute="trailing" constant="-7" id="oP3-ci-qUI"/>
+                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="E3k-mV-EqU" secondAttribute="bottom" constant="2" id="qss-XP-zE9"/>
+                            <constraint firstItem="lcl-o7-jaZ" firstAttribute="top" secondItem="5Qz-i2-uIb" secondAttribute="bottom" constant="-216" id="t2v-av-ZNo"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="cYi-Lb-nVo"/>
+                                <exclude reference="5xv-Qq-3Xh"/>
+                                <exclude reference="t2v-av-ZNo"/>
                             </mask>
                         </variation>
                     </view>

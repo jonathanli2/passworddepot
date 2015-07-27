@@ -159,16 +159,31 @@ class PasswordManager{
 
     
     func copyPasswordFile(sourcePath : String, err: NSErrorPointer){
+        var error : NSError?
         var fileManager = NSFileManager.defaultManager()
         var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
         var path = paths.stringByAppendingPathComponent("passwords.dat")
         if (isPasswordFileExisting()){
-            fileManager.removeItemAtPath(path, error:err)
+            fileManager.removeItemAtPath(path, error:&error)
         }
-        
-        //copy the file
-        fileManager.moveItemAtPath(sourcePath, toPath: path, error: nil)
-        NSNotificationCenter.defaultCenter().postNotificationName("passwordFileChanged", object: nil)
+        if let e = error {
+            err.memory = e
+        }
+        else{
+            //copy the file
+            fileManager.moveItemAtPath(sourcePath, toPath: path, error: &error)
+            fileManager.removeItemAtPath(sourcePath, error: nil)
+      
+            if let e = error {
+                err.memory = e
+               
+            }
+            else{
+                self.encryptionKey = nil
+                self.lastUsedEncrytionKey = nil
+                NSNotificationCenter.defaultCenter().postNotificationName("passwordFileChanged", object: nil)
+            }
+        }
 
     }
 
@@ -269,7 +284,7 @@ class PasswordManager{
         let saltStr : String = "salt"
         let salt = saltStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         encryptionKey = getKeyFromPassword(passcode, salt: salt!)
-      
+        self.lastUsedEncrytionKey  = encryptionKey;
         savePasswordFile()
         
     }
@@ -279,7 +294,7 @@ class PasswordManager{
         let saltStr : String = "salt"
         let salt = saltStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         encryptionKey = getKeyFromPassword(passcode, salt: salt!)
-      
+        lastUsedEncrytionKey = encryptionKey;
         savePasswordFile()
     }
 

@@ -107,7 +107,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func authenticateUserToLoadPasswordList(){
-     //if touch id is enabled
+    
+        println("authenticateUserToLoadPasswordList")
+        
+        //if touch id is enabled
         var authError : NSError?;
         var authContext = LAContext();
         if((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.hasLastUsedEncrytionKey() &&
@@ -115,7 +118,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                      authContext.localizedFallbackTitle = "Enter Passcode";
                 authContext.evaluatePolicy(LAPolicy.DeviceOwnerAuthenticationWithBiometrics, localizedReason: "Log in with your touch ID",
                           reply: {(success: Bool, error: NSError!) -> Void in
+                          
+                         println("authenticateUserToLoadPasswordList callback called")
+      
                     if success {
+                               println("authenticateUserToLoadPasswordList callback success")
+      
                             var loaded = (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.loadPasswordFileWithLastUsedEncryptionKey();
                             if (loaded){
                                 dispatch_async(dispatch_get_main_queue()) {
@@ -124,7 +132,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             }
                             else{
                                 self.showAlert("Warning", message: "Fail to get passcode based on your Touch ID, please input the passcode", buttonTitle: "OK", handler: {(alert) in
-                    
+                                        println("authenticateUserToLoadPasswordList callback success fail to load")
+    
                                         self.authenticateUserToLoadPasswordList();
                                     }
                                 );
@@ -142,14 +151,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
                             case LAError.UserCancel.rawValue:
                                // message = nil;
+                                        println("authenticateUserToLoadPasswordList callback error: user cancel")
+    
+
                                 self.showEnterPasscodeAlert();
                             case LAError.SystemCancel.rawValue:
                                // message = "Touch ID authentication failed, please enter passcode to log in."
-                                self.authenticateUserToLoadPasswordList();
+                                println("authenticateUserToLoadPasswordList callback error: system cancel")
+                                //self.authenticateUserToLoadPasswordList();
                             case LAError.UserFallback.rawValue:
                                 //message = "User request to enter passcode"
+                                 println("authenticateUserToLoadPasswordList callback error: user fallback")
+                           
                                 self.showEnterPasscodeAlert();
                             default:
+                                   println("authenticateUserToLoadPasswordList callback error: default")
+                     
                                 message = "Touch ID authentication failed, please enter passcode to log in.";
                                 self.showEnterPasscodeAlert();
                             
@@ -209,8 +226,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             object: nil)
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "appWillEnterForeground:",
-            name: "UIApplicationWillEnterForegroundNotification",
+            selector: "appDidBecomeActive:",
+            name: "UIApplicationDidBecomeActiveNotification",
             object: nil)
     }
     
@@ -227,7 +244,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.passwordTableView.reloadData()
     }
     
-    @objc func appWillEnterForeground(notification: NSNotification){
+    @objc func appDidBecomeActive(notification: NSNotification){
         InitializeViewBasedOnPasswordFileStatus();
     }
     

@@ -49,8 +49,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(application: UIApplication) {
   
-    
+        println("applicationDidEnterBackground")
+
         if ( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileUnlocked()){
+
+            println("applicationDidEnterBackground settimer")
 
             //after device enters background, after waiting for 3 min, logout automatically
             bgTask = application.beginBackgroundTaskWithName("logout", expirationHandler: { () in
@@ -73,7 +76,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func unloadPassword() {
         println("unloadPassword set timer to nil")
 
+        self.logoutTimer?.invalidate()
         self.logoutTimer = nil
+        
         (UIApplication.sharedApplication()).endBackgroundTask(self.bgTask)
         self.bgTask = UIBackgroundTaskInvalid;
         
@@ -93,6 +98,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
+        println("applicationDidBecomeActive")
+
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
     
