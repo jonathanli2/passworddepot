@@ -16,6 +16,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBOutlet weak var categorySelector: UISegmentedControl!
     var currentCategory : String?
+    var isViewComeFromBackground : Bool = false
     
     func showAlert(title: String, message: String, buttonTitle: String, handler:((UIAlertAction!) -> Void )!){
         //first show the warning message and then show the createpasscodealert againg
@@ -198,7 +199,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             else{
                 self.showAlert("Warning", message: "The entered passcode is invalid, please try again", buttonTitle: "OK", handler: {(alert) in
                     println("ok pressed")
-                    self.authenticateUserToLoadPasswordList()}
+                    self.showEnterPasscodeAlert()}
                 )
             }
         }
@@ -226,9 +227,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             object: nil)
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "appWilEnterForeground:",
+            selector: "appWillEnterForeground:",
             name: "UIApplicationWillEnterForegroundNotification",
             object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: "appWDidBecomeActive:",
+            name: "UIApplicationDidBecomeActiveNotification",
+            object: nil)
+
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -244,9 +251,18 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.passwordTableView.reloadData()
     }
     
-    @objc func appWilEnterForeground(notification: NSNotification){
-        InitializeViewBasedOnPasswordFileStatus();
+    @objc func appWillEnterForeground(notification: NSNotification){
+        self.isViewComeFromBackground = true
     }
+  
+    @objc func appWDidBecomeActive(notification: NSNotification){
+        if (self.isViewComeFromBackground){
+             self.isViewComeFromBackground = false;
+             InitializeViewBasedOnPasswordFileStatus();
+        }
+    }
+  
+    
     
     func InitializeViewBasedOnPasswordFileStatus() {
         if ((UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileExisting()){
