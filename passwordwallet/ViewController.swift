@@ -232,7 +232,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             object: nil)
         NSNotificationCenter.defaultCenter().addObserver(
             self,
-            selector: "appWDidBecomeActive:",
+            selector: "appDidBecomeActive:",
             name: "UIApplicationDidBecomeActiveNotification",
             object: nil)
 
@@ -255,7 +255,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.isViewComeFromBackground = true
     }
   
-    @objc func appWDidBecomeActive(notification: NSNotification){
+    @objc func appDidBecomeActive(notification: NSNotification){
         if (self.isViewComeFromBackground){
              self.isViewComeFromBackground = false;
              InitializeViewBasedOnPasswordFileStatus();
@@ -414,6 +414,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 updateCategoryByName(sourceViewController.passwordItem!.category!)
             }
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.savePasswordFile()
+            
+            self.passwordTableView!.reloadData()
+ 
         }
         else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
             (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.addPasswordItem(sourceViewController.passwordItem!)
