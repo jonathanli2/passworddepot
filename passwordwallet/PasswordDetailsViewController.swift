@@ -9,7 +9,7 @@
 import UIKit
 import iAd
 
-class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate, UITableViewDelegate {
+class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     var passwordItem : PasswordItem?
@@ -40,9 +40,9 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
     func showAlert(title: String, message: String, buttonTitle: String, handler:((UIAlertAction!) -> Void )!){
         //first show the warning message and then show the createpasscodealert againg
-        var alertDlg : UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertDlg : UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
         
-        var okAction : UIAlertAction = UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.Default, handler:handler);
+        let okAction : UIAlertAction = UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.Default, handler:handler);
         
         alertDlg.addAction(okAction)
         self.presentViewController(alertDlg, animated: false, completion: nil)
@@ -62,11 +62,11 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         if ( bNewPassword == true){
             self.navigationItem.title = "New Password"
             
-            var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
+            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
             leftButton.tintColor = UIColor.whiteColor()
             self.navigationItem.leftBarButtonItem = leftButton
             
-            var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
+            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
             rightButton.tintColor = UIColor.whiteColor()
             self.navigationItem.rightBarButtonItem = rightButton
             if (defaultCategoryForNewPassword == nil){
@@ -78,12 +78,12 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         else{
             self.title = passwordItem?.id
             // Do any additional setup after loading the view.
-            var leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
+            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
             leftButton.tintColor = UIColor.whiteColor()
 
             self.navigationItem.leftBarButtonItem = leftButton
             
-            var rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.Plain, target: self, action:"deleteItem:");
+            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.Plain, target: self, action:"deleteItem:");
             rightButton.tintColor = UIColor.whiteColor()
 
             self.navigationItem.rightBarButtonItem = rightButton
@@ -96,24 +96,25 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         if (self.navigationItem.rightBarButtonItem?.title == "Save"){
             bUpdate = true;
             for (var index = 0; index < 5; index++) {
-                var indexPath = NSIndexPath(forRow: index, inSection: 0 )
-                if ( index < 4){
-                    var cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
+                let indexPath = NSIndexPath(forRow: index, inSection: 0 )
+                if ( index < 3){
+                    let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
                     if (index == 0){
-                        passwordItem?.userName = cell.txtValue!.text
+                        passwordItem?.userName = cell.txtValue!.text!
                     }
                     else if (index == 1 ){
-                        passwordItem?.password = cell.txtValue!.text
+                        passwordItem?.password = cell.txtValue!.text!
                     }
                     else if (index == 2){
                         passwordItem?.link = cell.txtValue!.text
                     }
-                    else if (index == 3) {
-                        passwordItem?.note = cell.txtValue!.text
-                    }
-                }
-                else {
-                    var categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+                 }
+                 else if (index == 3) {
+                     let note = self.tableView.cellForRowAtIndexPath(indexPath) as! EditNoteCell
+                       passwordItem?.note = note.noteValue!.text
+                  }
+                  else {
+                    let categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
                     passwordItem?.category = categorycell.categoryButton!.titleLabel?.text
                 }
             }
@@ -141,7 +142,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var editcell : EditItemCell!
-        // var notecell : EditNoteCell!
+        var notecell : EditNoteCell!
         editcell = tableView.dequeueReusableCellWithIdentifier("edititem") as? EditItemCell
         
         if (editcell == nil){
@@ -166,8 +167,13 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             editcell.txtValue?.placeholder = "https://"
         }
         else if ( (bNewPassword && indexPath.row == 4) || (!bNewPassword && indexPath.row == 3)){
-            editcell.labelName?.text = "Notes"
-            editcell.txtValue?.text = passwordItem?.note
+            notecell = tableView.dequeueReusableCellWithIdentifier("noteitem") as? EditNoteCell
+            notecell.noteValue.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.2).CGColor
+            notecell.noteValue.layer.borderWidth = 1.0;
+
+            notecell.noteName?.text = "Notes"
+            notecell.noteValue?.text = passwordItem?.note
+            return notecell;
         } else {
             var categorycell : CategoryCell!
             categorycell = tableView.dequeueReusableCellWithIdentifier("categoryitem") as? CategoryCell
@@ -195,7 +201,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
     
     func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
-        println(indexPath);
+        print(indexPath);
     }
     // MARK: - Navigation
     /*  //this method is called when closing the detail screen and returning to parent screen.
@@ -230,24 +236,30 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     }
     }
     */
+    
+
     //methods to handle new password
     func cancel(sender: UIBarButtonItem) {
-        println("cancel clicked")
+        print("cancel clicked")
         self.bCancelled = true
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
         
     }
     
     func save(sender: UIBarButtonItem) {
-        println("PasswordDetailsViewController save")
+        print("PasswordDetailsViewController save")
         var cell : EditItemCell?
+        var notecell : EditNoteCell?
         var categorycell : CategoryCell?
         
         for (var index = 0; index < 5; index++) {
-            var indexPath = NSIndexPath(forRow: index, inSection: 0 )
+            let indexPath = NSIndexPath(forRow: index, inSection: 0 )
             
-            if ( index <= 4){
+            if ( index < 4){
                 cell = self.tableView.cellForRowAtIndexPath(indexPath) as? EditItemCell
+            }
+            else if (index == 4){
+                notecell = self.tableView.cellForRowAtIndexPath(indexPath) as? EditNoteCell
             }
             else{
                 categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as? CategoryCell
@@ -268,25 +280,25 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     for p in list {
                         
                         if p.id == itemid {
-                            self.showAlert("Warning", message: "Password ID '"+"'" + cell!.txtValue!.text + "' already exist, please set a different ID.", buttonTitle: "OK", handler: nil)
+                            self.showAlert("Warning", message: "Password ID '"+"'" + cell!.txtValue!.text! + "' already exist, please set a different ID.", buttonTitle: "OK", handler: nil)
                             return
                         }
                     }
                 }
                 
-                passwordItem?.id = cell!.txtValue!.text
+                passwordItem?.id = cell!.txtValue!.text!
             }
             else if (index == 1){
-                passwordItem?.userName = cell!.txtValue!.text
+                passwordItem?.userName = cell!.txtValue!.text!
             }
             else if (index == 2 ){
-                passwordItem?.password = cell!.txtValue!.text
+                passwordItem?.password = cell!.txtValue!.text!
             }
             else if (index == 3){
                 passwordItem?.link = cell!.txtValue!.text
             }
             else if (index == 4){
-                passwordItem?.note = cell!.txtValue!.text
+                passwordItem?.note = notecell!.noteValue!.text
             }
             else if (index == 5){
                 passwordItem?.category = categorycell!.categoryButton.titleLabel?.text
@@ -295,6 +307,10 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         
         
         self.performSegueWithIdentifier("returnToPasswordList", sender: self)
+    }
+    
+    func textViewDidChange(textView: UITextView) {
+        onPasswordItemEditChanged(self);
     }
     
     @IBAction func onPasswordItemEditChanged(sender: AnyObject) {
@@ -359,4 +375,15 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             // ...
         }
     }
+    
+      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowNote") {
+            let destinationController : NoteEditViewController = segue.destinationViewController as! NoteEditViewController;
+            let noteCell = sender as! EditNoteCell;
+            destinationController.noteData = noteCell.noteValue.text;
+            destinationController.noteCell = noteCell;
+            destinationController.parentVC = self;
+        }
+     }
+
 }

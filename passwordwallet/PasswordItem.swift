@@ -17,7 +17,7 @@ class PasswordItem {
     var category : String? = "Personal"
     
     func toDictionary () -> NSDictionary{
-        var dic : NSMutableDictionary = ["id":self.id, "userName":self.userName, "password":self.password]
+        let dic : NSMutableDictionary = ["id":self.id, "userName":self.userName, "password":self.password]
         if ((self.link) != nil) {
             dic.setValue(self.link, forKey: "url")
         }
@@ -91,9 +91,9 @@ class PasswordManager{
     
     func getPasswordFileContent()->NSData {
             //load data from file
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        var path = paths.stringByAppendingPathComponent("passwords.dat")
-        var data = NSData(contentsOfFile: path)
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let path = (paths as NSString).stringByAppendingPathComponent("passwords.dat")
+        let data = NSData(contentsOfFile: path)
         return data!
    
     }
@@ -135,9 +135,9 @@ class PasswordManager{
     }
     
     func isPasswordFileExisting() -> Bool{
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        var path = paths.stringByAppendingPathComponent("passwords.dat")
-        var checkValidation = NSFileManager.defaultManager()
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let path = (paths as NSString).stringByAppendingPathComponent("passwords.dat")
+        let checkValidation = NSFileManager.defaultManager()
 
         if (checkValidation.fileExistsAtPath(path)){
             return true
@@ -160,19 +160,30 @@ class PasswordManager{
     
     func copyPasswordFile(sourcePath : String, err: NSErrorPointer){
         var error : NSError?
-        var fileManager = NSFileManager.defaultManager()
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        var path = paths.stringByAppendingPathComponent("passwords.dat")
+        let fileManager = NSFileManager.defaultManager()
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let path = (paths as NSString).stringByAppendingPathComponent("passwords.dat")
         if (isPasswordFileExisting()){
-            fileManager.removeItemAtPath(path, error:&error)
+            do {
+                try fileManager.removeItemAtPath(path)
+            } catch let error1 as NSError {
+                error = error1
+            }
         }
         if let e = error {
             err.memory = e
         }
         else{
-            //copy the file
-            fileManager.moveItemAtPath(sourcePath, toPath: path, error: &error)
-            fileManager.removeItemAtPath(sourcePath, error: nil)
+            do {
+                //copy the file
+                try fileManager.moveItemAtPath(sourcePath, toPath: path)
+            } catch let error1 as NSError {
+                error = error1
+            }
+            do {
+                try fileManager.removeItemAtPath(sourcePath)
+            } catch _ {
+            }
       
             if let e = error {
                 err.memory = e
@@ -190,8 +201,8 @@ class PasswordManager{
     private func convertToPasswordItemArray( passwords : NSMutableArray){
         var arr :[PasswordItem]? = [];
         for (var index : Int = 0; index < passwords.count; index++){
-            var dic = passwords[index] as! NSDictionary
-            var pass = PasswordItem(id: dic.valueForKey("id") as! String, userName: dic.valueForKey("userName") as! String, password: dic.valueForKey("password") as! String)
+            let dic = passwords[index] as! NSDictionary
+            let pass = PasswordItem(id: dic.valueForKey("id") as! String, userName: dic.valueForKey("userName") as! String, password: dic.valueForKey("password") as! String)
             
             pass.link = dic.valueForKey("url") as? String
             pass.note = dic.valueForKey("note") as? String
@@ -228,12 +239,12 @@ class PasswordManager{
     
     private func loadPasswordFileWithEncryptionKey() -> Bool{
            //load data from file
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        var path = paths.stringByAppendingPathComponent("passwords.dat")
-        var data = NSData(contentsOfFile: path)
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let path = (paths as NSString).stringByAppendingPathComponent("passwords.dat")
+        let data = NSData(contentsOfFile: path)
         
         let decryptedData = decryptData(data!, key: encryptionKey!);
-        var list: AnyObject? = NSJSONSerialization.JSONObjectWithData(decryptedData!, options: NSJSONReadingOptions.MutableContainers, error: nil)
+        let list: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(decryptedData!, options: NSJSONReadingOptions.MutableContainers)
         if let passwords: AnyObject = list {
             convertToPasswordItemArray(passwords as! NSMutableArray)
             self.lastUsedEncrytionKey = encryptionKey;
@@ -246,17 +257,17 @@ class PasswordManager{
     }
     
     private func convertToDictionaryArray() ->  NSMutableArray {
-        var arr : NSMutableArray = [];
+        let arr : NSMutableArray = [];
         for (var index : Int = 0; index < passwordList?.count; index++){
-            var pass = self.passwordList![index]
-            var dic = pass.toDictionary()
+            let pass = self.passwordList![index]
+            let dic = pass.toDictionary()
             arr.addObject(dic)
         }
         return arr;
     }
     
     func unloadPasswordFile() {
-        println("PasswordItems UnloadPasswordFile")
+        print("PasswordItems UnloadPasswordFile")
         encryptionKey = nil
         passwordList = nil
     }
@@ -265,16 +276,19 @@ class PasswordManager{
     }
     
     func savePasswordFile(){
-        println("PasswordItem savePasswordFile");
+        print("PasswordItem savePasswordFile");
 
         let dicArray = convertToDictionaryArray();
-        let data : NSData? = NSJSONSerialization.dataWithJSONObject(dicArray, options: NSJSONWritingOptions.PrettyPrinted, error: nil)
+        let data : NSData? = try? NSJSONSerialization.dataWithJSONObject(dicArray, options: NSJSONWritingOptions.PrettyPrinted)
       
         let encryptedData = encryptData(data!, key: encryptionKey!);
         //save file
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        var path = paths.stringByAppendingPathComponent("passwords.dat")
-        encryptedData?.writeToFile(path, options:NSDataWritingOptions.DataWritingFileProtectionComplete, error: nil)
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] 
+        let path = (paths as NSString).stringByAppendingPathComponent("passwords.dat")
+        do {
+            try encryptedData?.writeToFile(path, options:NSDataWritingOptions.DataWritingFileProtectionComplete)
+        } catch _ {
+        }
      
     }
     
@@ -290,7 +304,7 @@ class PasswordManager{
     }
 
     func changePassword(passcode: String){
-        println("PasswordItem changePassword");
+        print("PasswordItem changePassword");
         let saltStr : String = "salt"
         let salt = saltStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
         encryptionKey = getKeyFromPassword(passcode, salt: salt!)
@@ -300,9 +314,9 @@ class PasswordManager{
 
     
     func getKeyFromPassword(password : String, salt:NSData) -> NSData{
-        var derivedKey = NSMutableData(length: kCCKeySizeAES128);
+        let derivedKey = NSMutableData(length: kCCKeySizeAES128);
         CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2), NSString(string: password).UTF8String,
-            count(password), UnsafePointer<UInt8>(salt.bytes), salt.length,
+            password.characters.count, UnsafePointer<UInt8>(salt.bytes), salt.length,
             CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA512),
             uint(100),
             UnsafeMutablePointer<UInt8>(derivedKey!.mutableBytes),
@@ -313,8 +327,8 @@ class PasswordManager{
     
     func encryptData(data : NSData, key:NSData) -> NSData?{
         var outLength : size_t = 0;
-        var cipherData : NSMutableData? = NSMutableData(length: data.length + kCCBlockSizeAES128);
-        var result = CCCrypt(            UInt32(kCCEncrypt), // operation
+        let cipherData : NSMutableData? = NSMutableData(length: data.length + kCCBlockSizeAES128);
+        let result = CCCrypt(            UInt32(kCCEncrypt), // operation
                                          UInt32(kCCAlgorithmAES128), // algorithm
                                          UInt32(kCCOptionPKCS7Padding), // options
                                          UnsafePointer<UInt8>(key.bytes), // key
@@ -338,8 +352,8 @@ class PasswordManager{
     func decryptData(data:NSData, key:NSData ) -> NSData? {
         var  outLength : size_t = 0;
         
-        var decryptedData : NSMutableData? = NSMutableData(length: data.length);
-        var result = CCCrypt(UInt32(kCCDecrypt), // operation
+        let decryptedData : NSMutableData? = NSMutableData(length: data.length);
+        let result = CCCrypt(UInt32(kCCDecrypt), // operation
                                          UInt32(kCCAlgorithmAES128), // algorithm
                                          UInt32(kCCOptionPKCS7Padding), // options
                                          UnsafePointer<UInt8>(key.bytes), // key

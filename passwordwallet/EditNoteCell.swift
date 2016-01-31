@@ -10,6 +10,6 @@ import UIKit
 
 class EditNoteCell: UITableViewCell {
     @IBOutlet weak var noteName: UITextField!
-    @IBOutlet weak var noteValue: UITextField!
+    @IBOutlet weak var noteValue: UITextView!
 
 }

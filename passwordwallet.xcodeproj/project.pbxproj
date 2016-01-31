@@ -20,6 +20,7 @@
 		9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */; };
 		9A46CD2D1B23784B001F7797 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A46CD2C1B23784B001F7797 /* iAd.framework */; };
 		9A46CD2F1B239431001F7797 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A46CD2E1B239431001F7797 /* AdSupport.framework */; };
+		9AE8BFBD1C59D8BE00228A74 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
 		9A46CD2C1B23784B001F7797 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		9A46CD2E1B239431001F7797 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				9A37EEDC1B1B884100F1C56E /* LaunchScreen.xib */,
 				9A37EED11B1B884100F1C56E /* Supporting Files */,
 				9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */,
+				9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */,
 			);
 			path = passwordwallet;
 			sourceTree = "<group>";
@@ -126,7 +129,9 @@
 		9A37EEC61B1B884100F1C56E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastSwiftMigration = 0720;
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Mobi Solution";
 				TargetAttributes = {
 					9A37EECD1B1B884100F1C56E = {
@@ -179,6 +184,7 @@
 				9A37EEF41B1B88A300F1C56E /* ViewController.swift in Sources */,
 				9A37EED41B1B884100F1C56E /* AppDelegate.swift in Sources */,
 				9A37EEFF1B1B88EB00F1C56E /* PasswordListItemCell.swift in Sources */,
+				9AE8BFBD1C59D8BE00228A74 /* NoteEditViewController.swift in Sources */,
 				9A37EEF61B1B88BA00F1C56E /* PasswordItem.swift in Sources */,
 				9A37EEFB1B1B88DC00F1C56E /* EditItemCell.swift in Sources */,
 				9A37EEF81B1B88CD00F1C56E /* CagetoryCell.swift in Sources */,
@@ -230,6 +236,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -300,6 +307,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = passwordwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobisolution.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "passwordwallet/passwordwallet-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -314,6 +322,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = passwordwallet/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "mobisolution.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "passwordwallet/passwordwallet-Bridging-Header.h";
 			};

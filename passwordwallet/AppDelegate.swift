@@ -28,8 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
-        println("application handleopenurl");
-        var data = NSData(contentsOfURL: url)
+        print("application handleopenurl");
         
         //first log out, then replace the file
         self.passwordManager.unloadPasswordFile()
@@ -37,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var error : NSError?
         passwordManager.copyPasswordFile( url.path!, err: &error)
         if  let err = error {
-            println("Error: \(err.localizedDescription)")
+            print("Error: \(err.localizedDescription)")
         }
         return true;
     }
@@ -49,17 +48,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func applicationDidEnterBackground(application: UIApplication) {
   
-        println("applicationDidEnterBackground")
+        print("applicationDidEnterBackground")
 
         if ( (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.isPasswordFileUnlocked()){
 
-            println("applicationDidEnterBackground settimer")
+            print("applicationDidEnterBackground settimer")
 
             //after device enters background, after waiting for 3 min, logout automatically
             bgTask = application.beginBackgroundTaskWithName("logout", expirationHandler: { () in
                 //logout before expiration
                 if let timer = self.logoutTimer {
-                    println("applicationDidEnterBackground, expirationHandler: invalidate timer")
+                    print("applicationDidEnterBackground, expirationHandler: invalidate timer")
 
                     timer.invalidate()
                     self.logoutTimer = nil
@@ -67,14 +66,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.unloadPassword()
             });
             
-            println("applicationDidEnterBackground, start timer")
+            print("applicationDidEnterBackground, start timer")
 
             logoutTimer = NSTimer.scheduledTimerWithTimeInterval(1*60, target: self, selector: Selector("unloadPassword"), userInfo: nil, repeats: false)
         }
       }
     
     func unloadPassword() {
-        println("unloadPassword set timer to nil")
+        print("unloadPassword set timer to nil")
 
         self.logoutTimer?.invalidate()
         self.logoutTimer = nil
@@ -88,17 +87,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillEnterForeground(application: UIApplication) {
-        println("applicationWillEnterForeground")
+        print("applicationWillEnterForeground")
 
         if let timer = self.logoutTimer {
-            println("applicationWillEnterForeground, invalidate timer")
+            print("applicationWillEnterForeground, invalidate timer")
             timer.invalidate()
             self.logoutTimer = nil
         }
     }
     
     func applicationDidBecomeActive(application: UIApplication) {
-        println("applicationDidBecomeActive")
+        print("applicationDidBecomeActive")
 
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
