@@ -24,50 +24,50 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     //   let imageForSchool = UIImage(named:"School")
     let imageForOther = UIImage(named:"Others")
     
-    func setPasswordItem(item:PasswordItem){
+    func setPasswordItem(_ item:PasswordItem){
         self.passwordItem = item ;
     }
     
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {   //delegate method
         textField.resignFirstResponder()
         return true
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.01
     }
     
-    func showAlert(title: String, message: String, buttonTitle: String, handler:((UIAlertAction!) -> Void )!){
+    func showAlert(_ title: String, message: String, buttonTitle: String, handler:((UIAlertAction?) -> Void )!){
         //first show the warning message and then show the createpasscodealert againg
-        let alertDlg : UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertDlg : UIAlertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        let okAction : UIAlertAction = UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.Default, handler:handler);
+        let okAction : UIAlertAction = UIAlertAction(title: buttonTitle, style: UIAlertActionStyle.default, handler:handler);
         
         alertDlg.addAction(okAction)
-        self.presentViewController(alertDlg, animated: false, completion: nil)
+        self.present(alertDlg, animated: false, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.canDisplayBannerAds = true
         
-        NSNotificationCenter.defaultCenter().addObserver(
+        NotificationCenter.default.addObserver(
             self,
-            selector: "cancel:",
-            name: "passwordFileUnloaded",
+            selector: #selector(PasswordDetailsViewController.cancel(_:)),
+            name: NSNotification.Name(rawValue: "passwordFileUnloaded"),
             object: nil)
         
         //if passwordItem is null, then it is for adding new password, otherwise it is for updating existing item
         if ( bNewPassword == true){
             self.navigationItem.title = "New Password"
             
-            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
-            leftButton.tintColor = UIColor.whiteColor()
+            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.cancel(_:)));
+            leftButton.tintColor = UIColor.white
             self.navigationItem.leftBarButtonItem = leftButton
             
-            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.Plain, target: self, action:"save:");
-            rightButton.tintColor = UIColor.whiteColor()
+            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.save(_:)));
+            rightButton.tintColor = UIColor.white
             self.navigationItem.rightBarButtonItem = rightButton
             if (defaultCategoryForNewPassword == nil){
                 defaultCategoryForNewPassword = "Personal"
@@ -78,13 +78,13 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         else{
             self.title = passwordItem?.id
             // Do any additional setup after loading the view.
-            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: self, action:"cancel:");
-            leftButton.tintColor = UIColor.whiteColor()
+            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.cancel(_:)));
+            leftButton.tintColor = UIColor.white
 
             self.navigationItem.leftBarButtonItem = leftButton
             
-            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.Plain, target: self, action:"deleteItem:");
-            rightButton.tintColor = UIColor.whiteColor()
+            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.deleteItem(_:)));
+            rightButton.tintColor = UIColor.white
 
             self.navigationItem.rightBarButtonItem = rightButton
         }
@@ -92,13 +92,13 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         
     }
     
-    func deleteItem(sender: UIBarButtonItem) {
+    func deleteItem(_ sender: UIBarButtonItem) {
         if (self.navigationItem.rightBarButtonItem?.title == "Save"){
             bUpdate = true;
-            for (var index = 0; index < 5; index++) {
-                let indexPath = NSIndexPath(forRow: index, inSection: 0 )
+            for index in 0 ..< 5 {
+                let indexPath = IndexPath(row: index, section: 0 )
                 if ( index < 3){
-                    let cell = self.tableView.cellForRowAtIndexPath(indexPath) as! EditItemCell
+                    let cell = self.tableView.cellForRow(at: indexPath) as! EditItemCell
                     if (index == 0){
                         passwordItem?.userName = cell.txtValue!.text!
                     }
@@ -110,11 +110,11 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     }
                  }
                  else if (index == 3) {
-                     let note = self.tableView.cellForRowAtIndexPath(indexPath) as! EditNoteCell
+                     let note = self.tableView.cellForRow(at: indexPath) as! EditNoteCell
                        passwordItem?.note = note.noteValue!.text
                   }
                   else {
-                    let categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as! CategoryCell
+                    let categorycell = self.tableView.cellForRow(at: indexPath) as! CategoryCell
                     passwordItem?.category = categorycell.categoryButton!.titleLabel?.text
                 }
             }
@@ -122,7 +122,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         else{
             bDelete = true;
         }
-        self.performSegueWithIdentifier("returnToPasswordList", sender: self)
+        self.performSegue(withIdentifier: "returnToPasswordList", sender: self)
     }
     
     override func didReceiveMemoryWarning() {
@@ -130,7 +130,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (bNewPassword){
             return 6
@@ -140,35 +140,35 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var editcell : EditItemCell!
         var notecell : EditNoteCell!
-        editcell = tableView.dequeueReusableCellWithIdentifier("edititem") as? EditItemCell
+        editcell = tableView.dequeueReusableCell(withIdentifier: "edititem") as? EditItemCell
         
         if (editcell == nil){
-            editcell = tableView.dequeueReusableCellWithIdentifier("edititem") as! EditItemCell
+            editcell = tableView.dequeueReusableCell(withIdentifier: "edititem") as! EditItemCell
         }
         
-        if ( bNewPassword && indexPath.row == 0){
+        if ( bNewPassword && (indexPath as NSIndexPath).row == 0){
             editcell.labelName?.text = "ID (required)"
             editcell.txtValue?.text = passwordItem?.id
         }
-        else if ( (bNewPassword && indexPath.row == 1) || (!bNewPassword && indexPath.row == 0)) {
+        else if ( (bNewPassword && (indexPath as NSIndexPath).row == 1) || (!bNewPassword && (indexPath as NSIndexPath).row == 0)) {
             editcell.labelName?.text = "UserID"
             editcell.txtValue?.text = passwordItem?.userName
         }
-        else if ( (bNewPassword && indexPath.row == 2) || (!bNewPassword && indexPath.row == 1)) {
+        else if ( (bNewPassword && (indexPath as NSIndexPath).row == 2) || (!bNewPassword && (indexPath as NSIndexPath).row == 1)) {
             editcell.labelName?.text = "Password"
             editcell.txtValue?.text = passwordItem?.password
         }
-        else if ( (bNewPassword && indexPath.row == 3) || (!bNewPassword && indexPath.row == 2)) {
+        else if ( (bNewPassword && (indexPath as NSIndexPath).row == 3) || (!bNewPassword && (indexPath as NSIndexPath).row == 2)) {
             editcell.labelName?.text = "URL"
             editcell.txtValue?.text = passwordItem?.link
             editcell.txtValue?.placeholder = "https://"
         }
-        else if ( (bNewPassword && indexPath.row == 4) || (!bNewPassword && indexPath.row == 3)){
-            notecell = tableView.dequeueReusableCellWithIdentifier("noteitem") as? EditNoteCell
-            notecell.noteValue.layer.borderColor = UIColor.grayColor().colorWithAlphaComponent(0.2).CGColor
+        else if ( (bNewPassword && (indexPath as NSIndexPath).row == 4) || (!bNewPassword && (indexPath as NSIndexPath).row == 3)){
+            notecell = tableView.dequeueReusableCell(withIdentifier: "noteitem") as? EditNoteCell
+            notecell.noteValue.layer.borderColor = UIColor.gray.withAlphaComponent(0.2).cgColor
             notecell.noteValue.layer.borderWidth = 1.0;
 
             notecell.noteName?.text = "Notes"
@@ -176,9 +176,9 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             return notecell;
         } else {
             var categorycell : CategoryCell!
-            categorycell = tableView.dequeueReusableCellWithIdentifier("categoryitem") as? CategoryCell
+            categorycell = tableView.dequeueReusableCell(withIdentifier: "categoryitem") as? CategoryCell
             
-            categorycell.categoryButton.setTitle(passwordItem?.category, forState: .Normal)
+            categorycell.categoryButton.setTitle(passwordItem?.category, for: UIControlState())
             if (passwordItem?.category == "Personal"){
                 categorycell.categoryImage?.image = imageForPersonal
             }
@@ -200,7 +200,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     }
     
     
-    func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         print(indexPath);
     }
     // MARK: - Navigation
@@ -239,30 +239,30 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
 
     //methods to handle new password
-    func cancel(sender: UIBarButtonItem) {
+    func cancel(_ sender: UIBarButtonItem) {
         print("cancel clicked")
         self.bCancelled = true
-        self.performSegueWithIdentifier("returnToPasswordList", sender: self)
+        self.performSegue(withIdentifier: "returnToPasswordList", sender: self)
         
     }
     
-    func save(sender: UIBarButtonItem) {
+    func save(_ sender: UIBarButtonItem) {
         print("PasswordDetailsViewController save")
         var cell : EditItemCell?
         var notecell : EditNoteCell?
         var categorycell : CategoryCell?
         
-        for (var index = 0; index < 5; index++) {
-            let indexPath = NSIndexPath(forRow: index, inSection: 0 )
+        for index in 0 ..< 5 {
+            let indexPath = IndexPath(row: index, section: 0 )
             
             if ( index < 4){
-                cell = self.tableView.cellForRowAtIndexPath(indexPath) as? EditItemCell
+                cell = self.tableView.cellForRow(at: indexPath) as? EditItemCell
             }
             else if (index == 4){
-                notecell = self.tableView.cellForRowAtIndexPath(indexPath) as? EditNoteCell
+                notecell = self.tableView.cellForRow(at: indexPath) as? EditNoteCell
             }
             else{
-                categorycell = self.tableView.cellForRowAtIndexPath(indexPath) as? CategoryCell
+                categorycell = self.tableView.cellForRow(at: indexPath) as? CategoryCell
             }
             
             if (index == 0){
@@ -276,7 +276,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                 }
                 else {
                     //validate password id to be unique
-                    let list =  (UIApplication.sharedApplication().delegate as! AppDelegate).passwordManager.getPasswordItemList(nil)!
+                    let list =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(nil)!
                     for p in list {
                         
                         if p.id == itemid {
@@ -306,48 +306,48 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         }
         
         
-        self.performSegueWithIdentifier("returnToPasswordList", sender: self)
+        self.performSegue(withIdentifier: "returnToPasswordList", sender: self)
     }
     
-    func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         onPasswordItemEditChanged(self);
     }
     
-    @IBAction func onPasswordItemEditChanged(sender: AnyObject) {
+    @IBAction func onPasswordItemEditChanged(_ sender: AnyObject) {
         //in update password mode, if user makes any change, then change the top menu from back to cancel, delete to save
         self.navigationItem.leftBarButtonItem?.title = "Cancel"
         self.navigationItem.rightBarButtonItem?.title = "Save"
     }
     
     
-    @IBAction func onClickCategory(sender: AnyObject) {
+    @IBAction func onClickCategory(_ sender: AnyObject) {
         var rowId = 4;
         if (bNewPassword ){
             rowId = 5
         }
-        let rows = [NSIndexPath(forRow: rowId, inSection: 0)]
+        let rows = [IndexPath(row: rowId, section: 0)]
         
         //show actionsheet to let user select the category
-        let alertController = UIAlertController(title: "Category", message: "Select the category for the password item", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Category", message: "Select the category for the password item", preferredStyle: .alert)
         
-        let personalAction = UIAlertAction(title: "Personal", style: .Default) { (action) in
+        let personalAction = UIAlertAction(title: "Personal", style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category="Personal"
-            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+            self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
         }
         alertController.addAction(personalAction)
         
-        let workAction = UIAlertAction(title: "Work", style: .Default) { (action) in
+        let workAction = UIAlertAction(title: "Work", style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category="Work"
-            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+            self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
         }
         alertController.addAction(workAction)
         
-        let financialAction = UIAlertAction(title: "Financial", style: .Default) { (action) in
+        let financialAction = UIAlertAction(title: "Financial", style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category = "Financial"
-            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+            self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
         }
         alertController.addAction(financialAction)
         
@@ -357,28 +357,28 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         }
         alertController.addAction(schoolAction)
         */
-        let otherAction = UIAlertAction(title: "Others", style: .Default) { (action) in
+        let otherAction = UIAlertAction(title: "Others", style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category = "Others"
-            self.tableView.reloadRowsAtIndexPaths(rows, withRowAnimation: UITableViewRowAnimation.None)
+            self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
         }
         alertController.addAction(otherAction)
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
         }
         alertController.addAction(cancelAction)
         
         
         
-        self.presentViewController(alertController, animated: true) {
+        self.present(alertController, animated: true) {
             // ...
         }
     }
     
-      override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "ShowNote") {
-            let destinationController : NoteEditViewController = segue.destinationViewController as! NoteEditViewController;
+            let destinationController : NoteEditViewController = segue.destination as! NoteEditViewController;
             let noteCell = sender as! EditNoteCell;
             destinationController.noteData = noteCell.noteValue.text;
             destinationController.noteCell = noteCell;

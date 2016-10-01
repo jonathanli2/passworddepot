@@ -19,11 +19,11 @@ class NoteEditViewController: UIViewController {
         super.viewDidLoad()
          self.canDisplayBannerAds = true
         self.NoteText.text = noteData;
-       self.navigationController!.navigationBar.tintColor = UIColor.whiteColor()
+       self.navigationController!.navigationBar.tintColor = UIColor.white
  
     }
     
-   override func willMoveToParentViewController(parent: UIViewController?) {
+   override func willMove(toParentViewController parent: UIViewController?) {
         if (parent == nil){
         
            if ( noteCell.noteValue.text != self.NoteText.text){
