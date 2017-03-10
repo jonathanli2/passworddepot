@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import iAd
 
 class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate {
     
@@ -50,7 +49,6 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.canDisplayBannerAds = true
         
         NotificationCenter.default.addObserver(
             self,

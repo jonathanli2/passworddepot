@@ -212,7 +212,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.canDisplayBannerAds = true
 
         initialized = true;
         NotificationCenter.default.addObserver(
@@ -320,8 +319,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell!.name?.text = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].id
-        print( cell!.name?.text )
- 
+       
         cell!.userName.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].userName, for: UIControlState())
         cell!.password.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].password, for:UIControlState())
         

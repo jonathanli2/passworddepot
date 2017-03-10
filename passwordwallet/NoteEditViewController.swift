@@ -17,7 +17,6 @@ class NoteEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.canDisplayBannerAds = true
         self.NoteText.text = noteData;
        self.navigationController!.navigationBar.tintColor = UIColor.white
  
