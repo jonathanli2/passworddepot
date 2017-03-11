@@ -9,11 +9,14 @@
 import UIKit
 import MessageUI
 import LocalAuthentication
+import Firebase
+import GoogleMobileAds
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
     
     @IBOutlet weak var passwordTableView: UITableView!
-    
+    @IBOutlet weak var bannerView: GADBannerView!
+  
     @IBOutlet weak var categorySelector: UISegmentedControl!
     var currentCategory : String?
     var isViewComeFromBackground : Bool = false
@@ -213,6 +216,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+  
+  
         initialized = true;
         NotificationCenter.default.addObserver(
             self,

@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Firebase
+import GoogleMobileAds
 
 class NoteEditViewController: UIViewController {
 
+    @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var NoteText: UITextView!
     var noteData : String?
     var noteCell : EditNoteCell!
@@ -17,6 +20,13 @@ class NoteEditViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+
+
         self.NoteText.text = noteData;
        self.navigationController!.navigationBar.tintColor = UIColor.white
  

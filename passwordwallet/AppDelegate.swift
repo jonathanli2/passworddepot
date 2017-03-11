@@ -12,6 +12,8 @@
 //if password file already exists,  first time starts the app will ask user to create the passcode
 
 import UIKit
+import GoogleMobileAds
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         passwordManager = PasswordManager();
+        
+        FIRApp.configure()
+        GADMobileAds.configure(withApplicationID: "ca-app-pub-4348078921501765~4283309938")
         
         return true
     }

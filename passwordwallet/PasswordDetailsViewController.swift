@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import Firebase
+import GoogleMobileAds
 
 class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate {
     
+    @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var tableView: UITableView!
     var passwordItem : PasswordItem?
     var bDelete: Bool = false
@@ -50,6 +53,11 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
+        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(PasswordDetailsViewController.cancel(_:)),
