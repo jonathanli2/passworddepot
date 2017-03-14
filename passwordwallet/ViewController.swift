@@ -217,7 +217,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
 
         print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = "ca-app-pub-4348078921501765/4004108337"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
   

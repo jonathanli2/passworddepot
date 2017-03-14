@@ -40,6 +40,7 @@
 		9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordListItemCell.swift; sourceTree = "<group>"; };
 		9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "passwordwallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
+		9A6085AD1E74B9E500976A21 /* passwordwallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = passwordwallet.entitlements; sourceTree = "<group>"; };
 		9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 		E9C999B646C9F7FF035385D3 /* Pods-passwordwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-passwordwallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-passwordwallet/Pods-passwordwallet.release.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +96,7 @@
 		9A37EED01B1B884100F1C56E /* passwordwallet */ = {
 			isa = PBXGroup;
 			children = (
+				9A6085AD1E74B9E500976A21 /* passwordwallet.entitlements */,
 				9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */,
 				9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */,
 				9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */,
@@ -162,6 +164,9 @@
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.DataProtection = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
@@ -382,6 +387,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = passwordwallet/passwordwallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = passwordwallet/Info.plist;
 				INSTALL_OWNER = "";
@@ -401,6 +407,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = passwordwallet/passwordwallet.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = passwordwallet/Info.plist;
 				INSTALL_OWNER = "";
