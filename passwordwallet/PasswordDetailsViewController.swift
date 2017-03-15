@@ -5,10 +5,9 @@
 //  Created by Li, Jonathan on 4/15/15.
 //  Copyright (c) 2015 It21Learning. All rights reserved.
 //
-
-import UIKit
-import Firebase
 import GoogleMobileAds
+import UIKit
+
 
 class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UITextFieldDelegate, UITextViewDelegate, UITableViewDelegate {
     

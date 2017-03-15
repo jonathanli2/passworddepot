@@ -6,9 +6,8 @@
 //  Copyright © 2016 Mobi Solution. All rights reserved.
 //
 
-import UIKit
-import Firebase
 import GoogleMobileAds
+import UIKit
 
 class NoteEditViewController: UIViewController {
 

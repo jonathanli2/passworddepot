@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8286448CDB8AD4D47795B7B1 /* Pods_passwordwallet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C559E445F5B19243BBD74715 /* Pods_passwordwallet.framework */; };
 		9A37EED41B1B884100F1C56E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EED31B1B884100F1C56E /* AppDelegate.swift */; };
 		9A37EED91B1B884100F1C56E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EED71B1B884100F1C56E /* Main.storyboard */; };
 		9A37EEDB1B1B884100F1C56E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A37EEDA1B1B884100F1C56E /* Images.xcassets */; };
@@ -20,12 +21,10 @@
 		9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */; };
 		9AAC81771E73A8F200A17448 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */; };
 		9AE8BFBD1C59D8BE00228A74 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */; };
-		DADA3CD63F7599797EB52C0D /* libPods-passwordwallet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FEA38A248E1ABA62B86E7F3 /* libPods-passwordwallet.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0DF68867356C5FECD28D4604 /* Pods-passwordwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-passwordwallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-passwordwallet/Pods-passwordwallet.debug.xcconfig"; sourceTree = "<group>"; };
-		2FEA38A248E1ABA62B86E7F3 /* libPods-passwordwallet.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-passwordwallet.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A37EECE1B1B884100F1C56E /* passwordwallet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = passwordwallet.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A37EED21B1B884100F1C56E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A37EED31B1B884100F1C56E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +42,7 @@
 		9A6085AD1E74B9E500976A21 /* passwordwallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = passwordwallet.entitlements; sourceTree = "<group>"; };
 		9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
+		C559E445F5B19243BBD74715 /* Pods_passwordwallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_passwordwallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C999B646C9F7FF035385D3 /* Pods-passwordwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-passwordwallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-passwordwallet/Pods-passwordwallet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DADA3CD63F7599797EB52C0D /* libPods-passwordwallet.a in Frameworks */,
+				8286448CDB8AD4D47795B7B1 /* Pods_passwordwallet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,7 +70,7 @@
 		28B34571B52FDA8C78D73300 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2FEA38A248E1ABA62B86E7F3 /* libPods-passwordwallet.a */,
+				C559E445F5B19243BBD74715 /* Pods_passwordwallet.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

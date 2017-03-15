@@ -10,10 +10,8 @@
 //when the app starts, it check whether password file exists, if not, prompt user to set passcode and
 //then create the empty password list
 //if password file already exists,  first time starts the app will ask user to create the passcode
-
-import UIKit
-import GoogleMobileAds
 import Firebase
+import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

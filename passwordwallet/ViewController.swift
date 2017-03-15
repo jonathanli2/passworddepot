@@ -6,11 +6,11 @@
 //  Copyright (c) 2015 It21Learning. All rights reserved.
 //
 
+import GoogleMobileAds
 import UIKit
 import MessageUI
 import LocalAuthentication
-import Firebase
-import GoogleMobileAds
+
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
     
