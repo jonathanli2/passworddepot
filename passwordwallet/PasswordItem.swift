@@ -86,17 +86,26 @@ class PasswordManager{
     
      //return nil if list does not exist.
      func getPasswordItemList(_ categoryFilter: String?) -> [PasswordItem]? {
+        var result : [PasswordItem]? = nil
         if let list = passwordList {
             if ( categoryFilter == nil || categoryFilter == ""){
-                return list
+                result = list
             }
             else{ //apply filter
-                return getMatchedItemByCategory(categoryFilter!)
+                result = getMatchedItemByCategory(categoryFilter!)
             }
         }
         else{
-            return nil;
+            result = nil;
         }
+        
+        //sort result
+        if (result != nil){
+            result = result?.sorted(by: { (a, b) -> Bool in
+                b.id.lowercased() > a.id.lowercased()
+            })
+        }
+        return result
      }
     
     
