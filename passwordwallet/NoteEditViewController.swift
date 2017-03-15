@@ -15,8 +15,8 @@ class NoteEditViewController: UIViewController {
     @IBOutlet weak var bannerView: GADBannerView!
     @IBOutlet weak var NoteText: UITextView!
     var noteData : String?
-    var noteCell : EditNoteCell!
-    var parentVC : PasswordDetailsViewController!
+    var noteCell : EditNoteCell?
+    var parentVC : PasswordDetailsViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,9 +35,9 @@ class NoteEditViewController: UIViewController {
    override func willMove(toParentViewController parent: UIViewController?) {
         if (parent == nil){
         
-           if ( noteCell.noteValue.text != self.NoteText.text){
-             noteCell.noteValue.text = self.NoteText.text;
-             parentVC.onPasswordItemEditChanged(self);
+           if ( noteCell?.noteValue.text != self.NoteText.text){
+             noteCell?.noteValue.text = self.NoteText.text;
+             parentVC?.onPasswordItemEditChanged(self);
             }
         }
     }

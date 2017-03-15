@@ -340,7 +340,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         else{
             let nsurl : URL? = URL(string: linkUrl!)
-            if (nsurl?.host == nil || nsurl?.scheme == nil ){
+            if (nsurl!.host == nil || nsurl!.scheme == nil ){
                 cell!.link.isHidden = true
             }
             else{
