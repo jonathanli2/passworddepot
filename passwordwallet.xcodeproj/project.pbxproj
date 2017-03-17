@@ -21,6 +21,7 @@
 		9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */; };
 		9AAC81771E73A8F200A17448 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */; };
 		9AE8BFBD1C59D8BE00228A74 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */; };
+		9AF7F7021E7CA09100489AA6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9AF7F7041E7CA09100489AA6 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,8 @@
 		9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 		9AF7F6FE1E7C9A4C00489AA6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		9AF7F6FF1E7C9A4C00489AA6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		9AF7F7031E7CA09100489AA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9AF7F7061E7CA0A300489AA6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		C559E445F5B19243BBD74715 /* Pods_passwordwallet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_passwordwallet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C999B646C9F7FF035385D3 /* Pods-passwordwallet.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-passwordwallet.release.xcconfig"; path = "Pods/Target Support Files/Pods-passwordwallet/Pods-passwordwallet.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +101,7 @@
 		9A37EED01B1B884100F1C56E /* passwordwallet */ = {
 			isa = PBXGroup;
 			children = (
+				9AF7F7041E7CA09100489AA6 /* InfoPlist.strings */,
 				9A6085AD1E74B9E500976A21 /* passwordwallet.entitlements */,
 				9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */,
 				9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */,
@@ -182,6 +186,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 9A37EEC51B1B884100F1C56E;
 			productRefGroup = 9A37EECF1B1B884100F1C56E /* Products */;
@@ -202,6 +207,7 @@
 				9AAC81771E73A8F200A17448 /* GoogleService-Info.plist in Resources */,
 				9A37EEDE1B1B884100F1C56E /* LaunchScreen.xib in Resources */,
 				9A37EEDB1B1B884100F1C56E /* Images.xcassets in Resources */,
+				9AF7F7021E7CA09100489AA6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +297,15 @@
 				9AF7F6FF1E7C9A4C00489AA6 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		9AF7F7041E7CA09100489AA6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9AF7F7031E7CA09100489AA6 /* Base */,
+				9AF7F7061E7CA0A300489AA6 /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
