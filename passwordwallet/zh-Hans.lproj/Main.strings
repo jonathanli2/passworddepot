@@ -1,0 +1,60 @@
+
+/* Class = "UIBarButtonItem"; title = "Logout"; ObjectID = "1Jz-hb-PgZ"; */
+"1Jz-hb-PgZ.title" = "退出";
+
+/* Class = "UINavigationItem"; title = "Password Booklet"; ObjectID = "DSk-Ul-7bE"; */
+"DSk-Ul-7bE.title" = "密码助手";
+
+/* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[0] = "All"; ObjectID = "E3k-mV-EqU"; */
+"E3k-mV-EqU.segmentTitles[0]" = "全部";
+
+/* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[1] = "Personal"; ObjectID = "E3k-mV-EqU"; */
+"E3k-mV-EqU.segmentTitles[1]" = "个人";
+
+/* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[2] = "Work"; ObjectID = "E3k-mV-EqU"; */
+"E3k-mV-EqU.segmentTitles[2]" = "工作";
+
+/* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[3] = "Financial"; ObjectID = "E3k-mV-EqU"; */
+"E3k-mV-EqU.segmentTitles[3]" = "银行金融";
+
+/* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[4] = "Others"; ObjectID = "E3k-mV-EqU"; */
+"E3k-mV-EqU.segmentTitles[4]" = "其他";
+
+/* Class = "UIViewController"; title = "Details"; ObjectID = "Id5-Gg-DlD"; */
+"Id5-Gg-DlD.title" = "详细内容";
+
+/* Class = "UIViewController"; title = "Note"; ObjectID = "Kzg-4M-c4T"; */
+"Kzg-4M-c4T.title" = "备注";
+
+/* Class = "UIBarButtonItem"; title = "Backup"; ObjectID = "L9h-5P-fm5"; */
+"L9h-5P-fm5.title" = "备份";
+
+/* Class = "UIViewController"; title = "Password"; ObjectID = "Qbn-3P-5M1"; */
+"Qbn-3P-5M1.title" = "密码";
+
+/* Class = "UILabel"; text = "Password:"; ObjectID = "ZpC-Vf-ouX"; */
+"ZpC-Vf-ouX.text" = "密码:";
+
+/* Class = "UIBarButtonItem"; title = "Passcode"; ObjectID = "atM-cM-P8U"; */
+"atM-cM-P8U.title" = "设置主密码";
+
+/* Class = "UIButton"; normalTitle = "General"; ObjectID = "eG8-U1-FYx"; */
+"eG8-U1-FYx.normalTitle" = "通用";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "kmd-wQ-IJb"; */
+"kmd-wQ-IJb.title" = "返回";
+
+/* Class = "UILabel"; text = "UserID"; ObjectID = "p5x-CI-ylN"; */
+"p5x-CI-ylN.text" = "用户名";
+
+/* Class = "UILabel"; text = "Category"; ObjectID = "pi8-sf-FmE"; */
+"pi8-sf-FmE.text" = "类别";
+
+/* Class = "UIButton"; normalTitle = "Link"; ObjectID = "sLj-G6-XIl"; */
+"sLj-G6-XIl.normalTitle" = "链接";
+
+/* Class = "UILabel"; text = "UserID:"; ObjectID = "tEM-U9-ske"; */
+"tEM-U9-ske.text" = "用户名:";
+
+/* Class = "UINavigationItem"; title = "NOTE"; ObjectID = "y3E-Pm-khm"; */
+"y3E-Pm-khm.title" = "备注";
