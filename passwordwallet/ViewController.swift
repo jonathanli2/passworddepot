@@ -12,11 +12,11 @@ import MessageUI
 import LocalAuthentication
 
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
     
     @IBOutlet weak var passwordTableView: UITableView!
     @IBOutlet weak var bannerView: GADBannerView!
-  
+    var searchResultController : UISearchController!
     @IBOutlet weak var categorySelector: UISegmentedControl!
     var currentCategory : String?
     var isViewComeFromBackground : Bool = false
@@ -122,7 +122,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                      (authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError))) {
                      authContext.localizedFallbackTitle = "Enter Passcode";
                 authContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Log in with your touch ID",
-                          reply: {(success: Bool, error: NSError?) -> Void in
+                          reply: {(success: Bool, error: Error?) -> Void in
                           
                          print("authenticateUserToLoadPasswordList callback called")
       
@@ -144,7 +144,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 );
                             }
                     } else {
-                            switch error!.code {
+                            switch error!._code {
                             case LAError.Code.authenticationFailed.rawValue:
                               
                                 self.showAlert("Warning", message: "Touch ID authentication failed, please enter passcode to log in.", buttonTitle: "OK", handler: {(alert) in
@@ -176,7 +176,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             
                         }
                    }
-                } as! (Bool, Error?) -> Void);
+                } );
         }
         else{
             showEnterPasscodeAlert();
@@ -221,6 +221,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
   
+        searchResultController = UISearchController(searchResultsController: nil)
+        searchResultController.searchResultsUpdater = self
+        searchResultController.searchBar.sizeToFit()
+        self.passwordTableView.tableHeaderView = self.searchResultController.searchBar
+        searchResultController.searchBar.delegate = self
+        searchResultController.hidesNavigationBarDuringPresentation = false
+        searchResultController.dimsBackgroundDuringPresentation = false // default is YES
+        
+        definesPresentationContext = true
+
   
         initialized = true;
         NotificationCenter.default.addObserver(
@@ -303,7 +313,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if let list =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory){
+        if let list =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text){
             return list.count;
         }
         else{
@@ -314,25 +324,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? PasswordListItemCell
         
-        if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].category == "Financial"){
+        if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].category == "Financial"){
             cell!.itemImage?.image = imageForFinancial;
         }
-        else if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].category == "Personal") {
+        else if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].category == "Personal") {
             cell!.itemImage?.image = imageForPersonal;
         }
-        else if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].category == "Work") {
+        else if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].category == "Work") {
             cell!.itemImage?.image = imageForWork;
         }
         else{
             cell!.itemImage?.image = imageForOther;
         }
         
-        cell!.name?.text = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].id
+        cell!.name?.text = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].id
        
-        cell!.userName.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].userName, for: UIControlState())
-        cell!.password.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].password, for:UIControlState())
+        cell!.userName.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].userName, for: UIControlState())
+        cell!.password.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].password, for:UIControlState())
         
-        let linkUrl = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(indexPath as NSIndexPath).row].link
+        let linkUrl = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].link
         
         if ( linkUrl == nil ){
             cell!.link.isHidden = true
@@ -357,7 +367,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "showDetailSegue") {
             let destinationController : PasswordDetailsViewController = segue.destination as! PasswordDetailsViewController;
-            let passwordItem = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)![(self.passwordTableView.indexPathForSelectedRow! as NSIndexPath).row];
+            let passwordItem = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(self.passwordTableView.indexPathForSelectedRow! as NSIndexPath).row];
             destinationController.setPasswordItem(passwordItem);
         }
         else if (segue.identifier == "newPassword"){
@@ -390,8 +400,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func showStatus(_ message : NSString, timeout: Double){
-        let statusAlert = UIAlertView(title: nil, message: message as String, delegate: nil, cancelButtonTitle: "OK")
-        statusAlert.show();
+        let alertController = UIAlertController(title: nil, message: message as String, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            print("The user is okay.")
+        }
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
+//        let statusAlert = UIAlertView(title: nil, message: message as String, delegate: nil, cancelButtonTitle: "OK")
+  //      statusAlert.show();
         //  NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: Selector("timerExpired:"), userInfo: statusAlert, repeats: true)
     }
     
@@ -507,9 +523,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let url : URL? = URL(string: item!.link!)
         let bOK = UIApplication.shared.openURL(url!)
         if (!bOK){
-            let alert: UIAlertView  = UIAlertView (title: "Error", message: "Unable to open the URL of '" + item!.link! + "', please check the URL is value.", delegate: nil, cancelButtonTitle:"OK" )
-            
-            alert.show()
+             let alertController = UIAlertController(title: "Error", message: "Unable to open the URL of '" + item!.link! + "', please check the URL is value.", preferredStyle: .alert)
+             let okAction = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+                print("The user is okay.")
+             }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
     
@@ -534,8 +553,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             currentCategory = ""
             break
         }
-        
-        _ = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory)
+    
         self.passwordTableView.reloadData()
     }
     
@@ -564,7 +582,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.currentCategory = categoryName
     }
 
-    
+    func updateSearchResults(for searchController: UISearchController) {
+        _ = searchController.searchBar.text;
+        self.passwordTableView.reloadData()
+     
+    }
 }
 
 

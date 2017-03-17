@@ -281,7 +281,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                 }
                 else {
                     //validate password id to be unique
-                    let list =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(nil)!
+                    let list =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(nil, nil)!
                     for p in list {
                         
                         if p.id == itemid {
