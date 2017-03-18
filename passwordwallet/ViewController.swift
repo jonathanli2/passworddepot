@@ -33,35 +33,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func showCreatePasscodeAlert(_ bForCreatePasscode : Bool){//ask user to create the password file
         
-        var createPasscodeDlg : UIAlertController = UIAlertController(title: "Create Passcode", message: "Pleaes create your logon passcode before using the application", preferredStyle: UIAlertControllerStyle.alert)
+        var createPasscodeDlg : UIAlertController = UIAlertController(title: NSLocalizedString("Create Passcode", comment:""), message: NSLocalizedString("Pleaes create your logon passcode before using the application", comment:""), preferredStyle: UIAlertControllerStyle.alert)
         
         if (!bForCreatePasscode){
-            createPasscodeDlg = UIAlertController(title: "Change Passcode", message: "Pleaes enter your old and new passcode", preferredStyle: UIAlertControllerStyle.alert)
+            createPasscodeDlg = UIAlertController(title: NSLocalizedString("Change Passcode", comment:""), message: NSLocalizedString("Pleaes enter your old and new passcode", comment:""), preferredStyle: UIAlertControllerStyle.alert)
         }
         var oldPasscodeField : UITextField?
         var passwcodeField : UITextField?
         var confirmPasscodeField: UITextField?
         if (!bForCreatePasscode){
             createPasscodeDlg.addTextField(configurationHandler: {(textField: UITextField) in
-                textField.placeholder = "Old passcode"
+                textField.placeholder = NSLocalizedString("Old passcode", comment:"")
                 textField.isSecureTextEntry = true
                 oldPasscodeField = textField
             })
         }
         
         createPasscodeDlg.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "New passcode"
+            textField.placeholder = NSLocalizedString("New passcode", comment:"")
             textField.isSecureTextEntry = true
             passwcodeField = textField
         })
         
         createPasscodeDlg.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "Confirm new passcode"
+            textField.placeholder = NSLocalizedString("Confirm new passcode", comment:"")
             textField.isSecureTextEntry = true
             confirmPasscodeField = textField
         })
         
-        let okAction : UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){  (alert) in
+        let okAction : UIAlertAction = UIAlertAction(title: NSLocalizedString("OK", comment:""), style: UIAlertActionStyle.default){  (alert) in
             let passcode = passwcodeField!.text
             let confirmPassCode = confirmPasscodeField!.text
             
@@ -72,7 +72,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(oldPasscode!)
                 if (!loaded){
                     //first show the warning message and then show the createpasscodealert againg
-                    self.showAlert("Warning", message:"Invalid old passcode entered. Please try again.", buttonTitle: "OK", handler: {  (alert) in
+                    self.showAlert(NSLocalizedString("Warning", comment:""), message:NSLocalizedString("Invalid old passcode entered. Please try again.", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: {  (alert) in
                         self.showCreatePasscodeAlert(bForCreatePasscode)
                     })
                     return;
@@ -82,7 +82,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             if (passcode != confirmPassCode){
                 //first show the warning message and then show the createpasscodealert againg
-                self.showAlert("warning", message: "Passcode and confirm Passcode have different value. Please try again.", buttonTitle: "OK",handler: {  (alert) in
+                self.showAlert(NSLocalizedString("warning", comment:""), message: NSLocalizedString("Passcode and confirm Passcode have different value. Please try again.", comment:""), buttonTitle: NSLocalizedString("OK", comment:""),handler: {  (alert) in
                     self.showCreatePasscodeAlert(bForCreatePasscode)
                 })
             }
@@ -101,7 +101,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //change passcode is cancellable
         if (!bForCreatePasscode){
-            let cancelAction : UIAlertAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default){ (alert) in}
+            let cancelAction : UIAlertAction = UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: UIAlertActionStyle.default){ (alert) in}
             
             createPasscodeDlg.addAction(cancelAction)
         }
@@ -120,8 +120,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
    
         if((UIApplication.shared.delegate as! AppDelegate).passwordManager.hasLastUsedEncrytionKey() &&
                      (authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError))) {
-                     authContext.localizedFallbackTitle = "Enter Passcode";
-                authContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Log in with your touch ID",
+                authContext.localizedFallbackTitle = NSLocalizedString("Enter Passcode", comment:"");
+                authContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("Log in with your touch ID", comment:""),
                           reply: {(success: Bool, error: Error?) -> Void in
                           
                          print("authenticateUserToLoadPasswordList callback called")
@@ -136,7 +136,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                                 }
                             }
                             else{
-                                self.showAlert("Warning", message: "Fail to get passcode based on your Touch ID, please input the passcode", buttonTitle: "OK", handler: {(alert) in
+                                self.showAlert(NSLocalizedString("Warning", comment:""), message: NSLocalizedString("Fail to get passcode based on your Touch ID, please input the passcode", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: {(alert) in
                                         print("authenticateUserToLoadPasswordList callback success fail to load")
     
                                         self.authenticateUserToLoadPasswordList();
@@ -147,7 +147,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                             switch error!._code {
                             case LAError.Code.authenticationFailed.rawValue:
                               
-                                self.showAlert("Warning", message: "Touch ID authentication failed, please enter passcode to log in.", buttonTitle: "OK", handler: {(alert) in
+                                self.showAlert(NSLocalizedString("Warning",comment:""), message: NSLocalizedString("Touch ID authentication failed, please enter passcode to log in.", comment:""), buttonTitle: NSLocalizedString("OK",comment:""), handler: {(alert) in
                     
                                         self.showEnterPasscodeAlert();
                                     }
@@ -184,15 +184,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func showEnterPasscodeAlert(){//ask user to enter the passcode
-        let enterPasscodeDlg : UIAlertController = UIAlertController(title: "Enter Passcode", message: "Pleaes enter passcode to log on", preferredStyle: UIAlertControllerStyle.alert)
+        let enterPasscodeDlg : UIAlertController = UIAlertController(title: NSLocalizedString("Enter Passcode", comment:""), message: NSLocalizedString("Pleaes enter passcode to log on", comment:""), preferredStyle: UIAlertControllerStyle.alert)
         var passwcodeField : UITextField?
         enterPasscodeDlg.addTextField(configurationHandler: {(textField: UITextField) in
-            textField.placeholder = "passcode"
+            textField.placeholder = NSLocalizedString("passcode", comment:"")
             textField.isSecureTextEntry = true
             passwcodeField = textField
         })
         
-        let okAction : UIAlertAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default){  (alert) in
+        let okAction : UIAlertAction = UIAlertAction(title: NSLocalizedString("OK",comment:""), style: UIAlertActionStyle.default){  (alert) in
             let passcode = passwcodeField!.text
             
             let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(passcode!)
@@ -200,7 +200,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.passwordTableView.reloadData()
             }
             else{
-                self.showAlert("Warning", message: "The entered passcode is invalid, please try again", buttonTitle: "OK", handler: {(alert) in
+                self.showAlert(NSLocalizedString("Warning", comment:""), message: NSLocalizedString("The entered passcode is invalid, please try again",comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: {(alert) in
                     print("ok pressed")
                     self.showEnterPasscodeAlert()}
                 )
@@ -350,7 +350,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         else{
             let nsurl : URL? = URL(string: linkUrl!)
-            if (nsurl!.host == nil || nsurl!.scheme == nil ){
+            if (nsurl != nil && (nsurl!.host == nil || nsurl!.scheme == nil) ){
                 cell!.link.isHidden = true
             }
             else{
@@ -401,7 +401,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func showStatus(_ message : NSString, timeout: Double){
         let alertController = UIAlertController(title: nil, message: message as String, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:""), style: .default) { (action) -> Void in
             print("The user is okay.")
         }
         alertController.addAction(okAction)
@@ -471,8 +471,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
         
         //mailComposerVC.setToRecipients([receipt])
-        mailComposerVC.setSubject("Data backup email from Password Booklet application")
-        mailComposerVC.setMessageBody("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", isHTML: false)
+        mailComposerVC.setSubject(NSLocalizedString("Data backup email from Password Booklet application", comment:""))
+        mailComposerVC.setMessageBody(NSLocalizedString("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", comment:""), isHTML: false)
         
         //load the password file data before decryption
         
@@ -523,8 +523,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let url : URL? = URL(string: item!.link!)
         let bOK = UIApplication.shared.openURL(url!)
         if (!bOK){
-             let alertController = UIAlertController(title: "Error", message: "Unable to open the URL of '" + item!.link! + "', please check the URL is value.", preferredStyle: .alert)
-             let okAction = UIAlertAction(title: "OK", style: .default) { (action) -> Void in
+            let titleStr = NSLocalizedString("Error",comment:"")
+            let msg1 = NSLocalizedString("Unable to open the URL of '",comment:"")
+            let msg2 = NSLocalizedString("', please check the URL is value.", comment:"")
+            let alertController = UIAlertController(title: titleStr, message: msg1 + item!.link! + msg2, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:""), style: .default) { (action) -> Void in
                 print("The user is okay.")
              }
             alertController.addAction(okAction)

@@ -15,7 +15,7 @@
 "E3k-mV-EqU.segmentTitles[2]" = "工作";
 
 /* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[3] = "Financial"; ObjectID = "E3k-mV-EqU"; */
-"E3k-mV-EqU.segmentTitles[3]" = "银行金融";
+"E3k-mV-EqU.segmentTitles[3]" = "财务";
 
 /* Class = "UISegmentedControl"; E3k-mV-EqU.segmentTitles[4] = "Others"; ObjectID = "E3k-mV-EqU"; */
 "E3k-mV-EqU.segmentTitles[4]" = "其他";
@@ -57,4 +57,4 @@
 "tEM-U9-ske.text" = "用户名:";
 
 /* Class = "UINavigationItem"; title = "NOTE"; ObjectID = "y3E-Pm-khm"; */
-"y3E-Pm-khm.title" = "备注";
+"y3E-Pm-khm.title" = "输入备注";

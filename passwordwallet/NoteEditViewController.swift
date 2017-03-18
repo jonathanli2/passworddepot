@@ -27,8 +27,8 @@ class NoteEditViewController: UIViewController {
 
 
         self.NoteText.text = noteData;
-       self.navigationController!.navigationBar.tintColor = UIColor.white
- 
+        self.navigationController!.navigationBar.tintColor = UIColor.white
+        self.NoteText.becomeFirstResponder()
     }
     
    override func willMove(toParentViewController parent: UIViewController?) {

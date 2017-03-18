@@ -65,13 +65,13 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         
         //if passwordItem is null, then it is for adding new password, otherwise it is for updating existing item
         if ( bNewPassword == true){
-            self.navigationItem.title = "New Password"
+            self.navigationItem.title = NSLocalizedString("New Password", comment: "")
             
-            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.cancel(_:)));
+            let leftButton : UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Cancel", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.cancel(_:)));
             leftButton.tintColor = UIColor.white
             self.navigationItem.leftBarButtonItem = leftButton
             
-            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Save", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.save(_:)));
+            let rightButton : UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Save", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.save(_:)));
             rightButton.tintColor = UIColor.white
             self.navigationItem.rightBarButtonItem = rightButton
             if (defaultCategoryForNewPassword == nil){
@@ -83,12 +83,12 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         else{
             self.title = passwordItem?.id
             // Do any additional setup after loading the view.
-            let leftButton : UIBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.cancel(_:)));
+            let leftButton : UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Back", comment: ""), style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.cancel(_:)));
             leftButton.tintColor = UIColor.white
 
             self.navigationItem.leftBarButtonItem = leftButton
             
-            let rightButton : UIBarButtonItem = UIBarButtonItem(title: "Delete", style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.deleteItem(_:)));
+            let rightButton : UIBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Delete", comment:""), style: UIBarButtonItemStyle.plain, target: self, action:#selector(PasswordDetailsViewController.deleteItem(_:)));
             rightButton.tintColor = UIColor.white
 
             self.navigationItem.rightBarButtonItem = rightButton
@@ -98,7 +98,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func deleteItem(_ sender: UIBarButtonItem) {
-        if (self.navigationItem.rightBarButtonItem?.title == "Save"){
+        if (self.navigationItem.rightBarButtonItem?.title == NSLocalizedString("Save", comment: "")){
             bUpdate = true;
             for index in 0 ..< 5 {
                 let indexPath = IndexPath(row: index, section: 0 )
@@ -155,19 +155,19 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         }
         
         if ( bNewPassword && (indexPath as NSIndexPath).row == 0){
-            editcell.labelName?.text = "ID (required)"
+            editcell.labelName?.text = NSLocalizedString("ID (required)", comment:"")
             editcell.txtValue?.text = passwordItem?.id
         }
         else if ( (bNewPassword && (indexPath as NSIndexPath).row == 1) || (!bNewPassword && (indexPath as NSIndexPath).row == 0)) {
-            editcell.labelName?.text = "UserID"
+            editcell.labelName?.text = NSLocalizedString("UserID", comment:"")
             editcell.txtValue?.text = passwordItem?.userName
         }
         else if ( (bNewPassword && (indexPath as NSIndexPath).row == 2) || (!bNewPassword && (indexPath as NSIndexPath).row == 1)) {
-            editcell.labelName?.text = "Password"
+            editcell.labelName?.text = NSLocalizedString("Password", comment:"")
             editcell.txtValue?.text = passwordItem?.password
         }
         else if ( (bNewPassword && (indexPath as NSIndexPath).row == 3) || (!bNewPassword && (indexPath as NSIndexPath).row == 2)) {
-            editcell.labelName?.text = "URL"
+            editcell.labelName?.text = NSLocalizedString("URL", comment: "")
             editcell.txtValue?.text = passwordItem?.link
             editcell.txtValue?.placeholder = "https://"
         }
@@ -176,14 +176,14 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
             notecell.noteValue.layer.borderColor = UIColor.gray.withAlphaComponent(0.2).cgColor
             notecell.noteValue.layer.borderWidth = 1.0;
 
-            notecell.noteName?.text = "Notes"
+            notecell.noteName?.text = NSLocalizedString("Notes", comment:"")
             notecell.noteValue?.text = passwordItem?.note
             return notecell;
         } else {
             var categorycell : CategoryCell!
             categorycell = tableView.dequeueReusableCell(withIdentifier: "categoryitem") as? CategoryCell
             
-            categorycell.categoryButton.setTitle(passwordItem?.category, for: UIControlState())
+            categorycell.categoryButton.setTitle(getLocalizedCategoryName(category: passwordItem?.category), for: UIControlState())
             if (passwordItem?.category == "Personal"){
                 categorycell.categoryImage?.image = imageForPersonal
             }
@@ -276,7 +276,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                 
                 if (itemid == ""){
                     
-                    self.showAlert("Warning", message: "Password ID cannot be empty, please set a valid ID.", buttonTitle: "OK", handler: nil)
+                    self.showAlert(NSLocalizedString("Warning", comment:""), message: NSLocalizedString("Password ID cannot be empty, please set a valid ID.", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: nil)
                     return
                 }
                 else {
@@ -285,7 +285,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
                     for p in list {
                         
                         if p.id == itemid {
-                            self.showAlert("Warning", message: "Password ID '"+"'" + cell!.txtValue!.text! + "' already exist, please set a different ID.", buttonTitle: "OK", handler: nil)
+                            self.showAlert(NSLocalizedString("Warning",comment:""), message: NSLocalizedString("Password ID '", comment:"") + "'" + cell!.txtValue!.text! + NSLocalizedString("' already exist, please set a different ID.", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: nil)
                             return
                         }
                     }
@@ -320,8 +320,8 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
     
     @IBAction func onPasswordItemEditChanged(_ sender: AnyObject) {
         //in update password mode, if user makes any change, then change the top menu from back to cancel, delete to save
-        self.navigationItem.leftBarButtonItem?.title = "Cancel"
-        self.navigationItem.rightBarButtonItem?.title = "Save"
+        self.navigationItem.leftBarButtonItem?.title = NSLocalizedString("Cancel", comment:"")
+        self.navigationItem.rightBarButtonItem?.title = NSLocalizedString("Save",comment:"")
     }
     
     
@@ -333,23 +333,23 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         let rows = [IndexPath(row: rowId, section: 0)]
         
         //show actionsheet to let user select the category
-        let alertController = UIAlertController(title: "Category", message: "Select the category for the password item", preferredStyle: .alert)
+        let alertController = UIAlertController(title: NSLocalizedString("Category", comment:""), message: NSLocalizedString("Select the category for the password item", comment:""), preferredStyle: .alert)
         
-        let personalAction = UIAlertAction(title: "Personal", style: .default) { (action) in
+        let personalAction = UIAlertAction(title: NSLocalizedString("Personal", comment:""), style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category="Personal"
             self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
         }
         alertController.addAction(personalAction)
         
-        let workAction = UIAlertAction(title: "Work", style: .default) { (action) in
+        let workAction = UIAlertAction(title: NSLocalizedString("Work", comment:""), style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category="Work"
             self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
         }
         alertController.addAction(workAction)
         
-        let financialAction = UIAlertAction(title: "Financial", style: .default) { (action) in
+        let financialAction = UIAlertAction(title: NSLocalizedString("Financial", comment:""), style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category = "Financial"
             self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
@@ -362,7 +362,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         }
         alertController.addAction(schoolAction)
         */
-        let otherAction = UIAlertAction(title: "Others", style: .default) { (action) in
+        let otherAction = UIAlertAction(title: NSLocalizedString("Others", comment:""), style: .default) { (action) in
             self.onPasswordItemEditChanged(action);
             self.passwordItem?.category = "Others"
             self.tableView.reloadRows(at: rows, with: UITableViewRowAnimation.none)
@@ -370,7 +370,7 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         alertController.addAction(otherAction)
         
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment:""), style: .cancel) { (action) in
         }
         alertController.addAction(cancelAction)
         
@@ -379,6 +379,26 @@ class PasswordDetailsViewController: UIViewController, UITableViewDataSource, UI
         self.present(alertController, animated: true) {
             // ...
         }
+    }
+    
+    private func getLocalizedCategoryName(category: String?) -> String{
+        var result :String? = nil
+        let categoryName = category ?? "Personal"
+        
+        switch categoryName {
+            case "Work":
+                result = NSLocalizedString("Work", comment:"")
+                break
+            case "Financial":
+                result = NSLocalizedString("Financial", comment:"")
+                break
+            case "Others":
+                result = NSLocalizedString("Others", comment:"")
+                break
+            default:
+                result = NSLocalizedString("Personal", comment: "")
+        }
+        return result!
     }
     
       override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
