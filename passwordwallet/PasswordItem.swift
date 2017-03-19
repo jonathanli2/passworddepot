@@ -126,7 +126,11 @@ class PasswordManager{
         let path = (paths as NSString).appendingPathComponent("passwords.dat")
         let data = try? Data(contentsOf: URL(fileURLWithPath: path))
         
-        let decryptedData = decryptData(data!, key: encryptionKey!);
+        let decryptedData = decryptData(data!, key: encryptionKey!)
+        
+        let str = String(data: decryptedData!, encoding: .utf8)
+        print (str ?? "error: empty data")
+
         let list: AnyObject? = try! JSONSerialization.jsonObject(with: decryptedData!, options: [JSONSerialization.ReadingOptions.allowFragments, JSONSerialization.ReadingOptions.mutableContainers]) as AnyObject?
         if let passwords: AnyObject = list {
             convertToPasswordItemArray(passwords as! NSMutableArray)
