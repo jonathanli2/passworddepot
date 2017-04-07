@@ -466,21 +466,34 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     //send the encrypted file to email
     @IBAction func onExport(_ sender: AnyObject) {
         
-        
-        let mailComposerVC = MFMailComposeViewController()
-        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
-        
-        //mailComposerVC.setToRecipients([receipt])
-        mailComposerVC.setSubject(NSLocalizedString("Data backup email from Password Booklet application", comment:""))
-        mailComposerVC.setMessageBody(NSLocalizedString("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", comment:""), isHTML: false)
-        
-        //load the password file data before decryption
-        
-        let data =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordFileContent()
-        mailComposerVC.addAttachmentData(data as Data, mimeType: "passwordbooklet", fileName: "data.passwordbooklet")
-        
-        // Fill out the email body text
-        self.present(mailComposerVC, animated: true, completion:nil)
+        if (MFMailComposeViewController.canSendMail()){
+            let mailComposerVC = MFMailComposeViewController()
+            
+            
+            mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+            
+            //mailComposerVC.setToRecipients([receipt])
+            mailComposerVC.setSubject(NSLocalizedString("Data backup email from Password Booklet application", comment:""))
+            mailComposerVC.setMessageBody(NSLocalizedString("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", comment:""), isHTML: false)
+            
+            //load the password file data before decryption
+            
+            let data =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordFileContent()
+            mailComposerVC.addAttachmentData(data as Data, mimeType: "passwordbooklet", fileName: "data.passwordbooklet")
+            
+            // Fill out the email body text
+            self.present(mailComposerVC, animated: true, completion:nil)
+        }
+        else{
+            let titleStr = NSLocalizedString("Error",comment:"")
+            let msg1 = NSLocalizedString("Please first configure your email account",comment:"")
+            let alertController = UIAlertController(title: titleStr, message: msg1, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:""), style: .default) { (action) -> Void in
+                print("The user is okay.")
+             }
+            alertController.addAction(okAction)
+            self.present(alertController, animated: true, completion: nil)
+        }
         
     }
     
