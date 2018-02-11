@@ -130,17 +130,22 @@ class PasswordManager{
         
     //  let str = String(data: decryptedData!, encoding: .utf8)
     //  print (str ?? "error: empty data")
-
-        let list: AnyObject? = try! JSONSerialization.jsonObject(with: decryptedData!, options: [JSONSerialization.ReadingOptions.allowFragments, JSONSerialization.ReadingOptions.mutableContainers]) as AnyObject?
-        if let passwords: AnyObject = list {
-            convertToPasswordItemArray(passwords as! NSMutableArray)
-            self.lastUsedEncrytionKey = encryptionKey;
-            return true
+        do {
+            let list = try JSONSerialization.jsonObject(with: decryptedData!, options: [JSONSerialization.ReadingOptions.allowFragments, JSONSerialization.ReadingOptions.mutableContainers])
+            if let passwords: NSMutableArray = list as? NSMutableArray {
+                convertToPasswordItemArray(passwords)
+                self.lastUsedEncrytionKey = encryptionKey;
+                return true
+            }
+            else{
+                encryptionKey = nil;
+                return false
+            }
         }
-        else{
-            encryptionKey = nil;
+        catch{
             return false
         }
+        
     }
     
     private func convertToDictionaryArray() ->  NSMutableArray {
