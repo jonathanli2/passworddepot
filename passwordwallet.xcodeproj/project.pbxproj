@@ -19,11 +19,22 @@
 		9A37EEFD1B1B88E300F1C56E /* EditNoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFC1B1B88E300F1C56E /* EditNoteCell.swift */; };
 		9A37EEFF1B1B88EB00F1C56E /* PasswordListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EEFE1B1B88EB00F1C56E /* PasswordListItemCell.swift */; };
 		9A37EF031B1B89BA00F1C56E /* PasswordDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */; };
+		9A988E4120B0C46E00C51F24 /* passwordwalletTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A988E4020B0C46E00C51F24 /* passwordwalletTests.swift */; };
 		9AAC81771E73A8F200A17448 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */; };
 		9AE8BFBD1C59D8BE00228A74 /* NoteEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */; };
 		9AF7F7021E7CA09100489AA6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9AF7F7041E7CA09100489AA6 /* InfoPlist.strings */; };
 		9AF7F70F1E7CD5DF00489AA6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9AF7F7111E7CD5DF00489AA6 /* Localizable.strings */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9A988E4320B0C46E00C51F24 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A37EEC61B1B884100F1C56E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A37EECD1B1B884100F1C56E;
+			remoteInfo = passwordwallet;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		0DF68867356C5FECD28D4604 /* Pods-passwordwallet.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-passwordwallet.debug.xcconfig"; path = "Pods/Target Support Files/Pods-passwordwallet/Pods-passwordwallet.debug.xcconfig"; sourceTree = "<group>"; };
@@ -42,6 +53,9 @@
 		9A37EF001B1B898100F1C56E /* passwordwallet-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "passwordwallet-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A37EF021B1B89BA00F1C56E /* PasswordDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasswordDetailsViewController.swift; sourceTree = "<group>"; };
 		9A6085AD1E74B9E500976A21 /* passwordwallet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = passwordwallet.entitlements; sourceTree = "<group>"; };
+		9A988E3E20B0C46E00C51F24 /* passwordwalletTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = passwordwalletTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A988E4020B0C46E00C51F24 /* passwordwalletTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = passwordwalletTests.swift; sourceTree = "<group>"; };
+		9A988E4220B0C46E00C51F24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AAC81761E73A8F200A17448 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9AE8BFBC1C59D8BE00228A74 /* NoteEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteEditViewController.swift; sourceTree = "<group>"; };
 		9AF7F6FE1E7C9A4C00489AA6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -60,6 +74,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8286448CDB8AD4D47795B7B1 /* Pods_passwordwallet.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A988E3B20B0C46E00C51F24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				9A37EED01B1B884100F1C56E /* passwordwallet */,
+				9A988E3F20B0C46E00C51F24 /* passwordwalletTests */,
 				9A37EECF1B1B884100F1C56E /* Products */,
 				0D092D7B4CE33659722CB09C /* Pods */,
 				28B34571B52FDA8C78D73300 /* Frameworks */,
@@ -97,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				9A37EECE1B1B884100F1C56E /* passwordwallet.app */,
+				9A988E3E20B0C46E00C51F24 /* passwordwalletTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -134,6 +157,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		9A988E3F20B0C46E00C51F24 /* passwordwalletTests */ = {
+			isa = PBXGroup;
+			children = (
+				9A988E4020B0C46E00C51F24 /* passwordwalletTests.swift */,
+				9A988E4220B0C46E00C51F24 /* Info.plist */,
+			);
+			path = passwordwalletTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,7 +178,6 @@
 				9A37EECB1B1B884100F1C56E /* Frameworks */,
 				9A37EECC1B1B884100F1C56E /* Resources */,
 				5EE75908834CEAD32A8203D0 /* [CP] Embed Pods Frameworks */,
-				FF519474731A857EE3F12F32 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,6 +188,24 @@
 			productReference = 9A37EECE1B1B884100F1C56E /* passwordwallet.app */;
 			productType = "com.apple.product-type.application";
 		};
+		9A988E3D20B0C46E00C51F24 /* passwordwalletTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9A988E4720B0C46E00C51F24 /* Build configuration list for PBXNativeTarget "passwordwalletTests" */;
+			buildPhases = (
+				9A988E3A20B0C46E00C51F24 /* Sources */,
+				9A988E3B20B0C46E00C51F24 /* Frameworks */,
+				9A988E3C20B0C46E00C51F24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9A988E4420B0C46E00C51F24 /* PBXTargetDependency */,
+			);
+			name = passwordwalletTests;
+			productName = passwordwalletTests;
+			productReference = 9A988E3E20B0C46E00C51F24 /* passwordwalletTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -164,7 +213,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0720;
-				LastSwiftUpdateCheck = 0720;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Mobi Solution";
 				TargetAttributes = {
@@ -180,6 +229,12 @@
 								enabled = 1;
 							};
 						};
+					};
+					9A988E3D20B0C46E00C51F24 = {
+						CreatedOnToolsVersion = 9.3.1;
+						DevelopmentTeam = TP4S3WKBFP;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 9A37EECD1B1B884100F1C56E;
 					};
 				};
 			};
@@ -198,6 +253,7 @@
 			projectRoot = "";
 			targets = (
 				9A37EECD1B1B884100F1C56E /* passwordwallet */,
+				9A988E3D20B0C46E00C51F24 /* passwordwalletTests */,
 			);
 		};
 /* End PBXProject section */
@@ -213,6 +269,13 @@
 				9A37EEDE1B1B884100F1C56E /* LaunchScreen.xib in Resources */,
 				9A37EEDB1B1B884100F1C56E /* Images.xcassets in Resources */,
 				9AF7F7021E7CA09100489AA6 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9A988E3C20B0C46E00C51F24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,21 +320,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		FF519474731A857EE3F12F32 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-passwordwallet/Pods-passwordwallet-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -291,7 +339,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9A988E3A20B0C46E00C51F24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9A988E4120B0C46E00C51F24 /* passwordwalletTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9A988E4420B0C46E00C51F24 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9A37EECD1B1B884100F1C56E /* passwordwallet */;
+			targetProxy = 9A988E4320B0C46E00C51F24 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9A37EED71B1B884100F1C56E /* Main.storyboard */ = {
@@ -463,6 +527,76 @@
 			};
 			name = Release;
 		};
+		9A988E4520B0C46E00C51F24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = TP4S3WKBFP;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = passwordwalletTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobisolution.keyboard.passwordwalletTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "passwordwallet/passwordwallet-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/passwordwallet.app/passwordwallet";
+			};
+			name = Debug;
+		};
+		9A988E4620B0C46E00C51F24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = TP4S3WKBFP;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = passwordwalletTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobisolution.keyboard.passwordwalletTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "passwordwallet/passwordwallet-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/passwordwallet.app/passwordwallet";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -480,6 +614,15 @@
 			buildConfigurations = (
 				9A37EEEE1B1B884100F1C56E /* Debug */,
 				9A37EEEF1B1B884100F1C56E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9A988E4720B0C46E00C51F24 /* Build configuration list for PBXNativeTarget "passwordwalletTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A988E4520B0C46E00C51F24 /* Debug */,
+				9A988E4620B0C46E00C51F24 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
