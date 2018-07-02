@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if (!bForCreatePasscode){
                 let oldPasscode = oldPasscodeField!.text
                 
-                let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(oldPasscode!)
+                let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(oldPasscode!, fileEncrypted: true)
                 if (!loaded){
                     //first show the warning message and then show the createpasscodealert againg
                     self.showAlert(NSLocalizedString("Warning", comment:""), message:NSLocalizedString("Invalid old passcode entered. Please try again.", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: {  (alert) in
@@ -88,8 +88,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
             else{
                 if (bForCreatePasscode){
-                    //create password file
-                    (UIApplication.shared.delegate as! AppDelegate).passwordManager.createPasswordFile(passcode!)
+                    //check whether unencrypted password file exists, if so, just encrypt it with new password
+                    if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.isFileExisting("text.passwordbooklet")){
+                        //load data from file
+                        let bLoaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(passcode!, fileEncrypted: false)
+                        
+                        if (!bLoaded){
+                            //TODO: prompt user the imported text file in invalid, then create a default password file
+                            (UIApplication.shared.delegate as! AppDelegate).passwordManager.createPasswordFile(passcode!)
+                        }
+                        else{
+                            (UIApplication.shared.delegate as! AppDelegate).passwordManager.savePasswordFile()
+                        }
+                        //delete plain text file
+                         _ = (UIApplication.shared.delegate as! AppDelegate).passwordManager.deletePasswordFile("text.passwordbooklet")
+                    }
+                    else{
+                        //create password file
+                        (UIApplication.shared.delegate as! AppDelegate).passwordManager.createPasswordFile(passcode!)
+                    }
                     self.passwordTableView.reloadData()
                 }
                 else{
@@ -111,72 +128,72 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func authenticateUserToLoadPasswordList(){
-    
+        
         print("authenticateUserToLoadPasswordList")
         
         //if touch id is enabled
         var authError : NSError?;
         let authContext = LAContext();
-   
+        
         if((UIApplication.shared.delegate as! AppDelegate).passwordManager.hasLastUsedEncrytionKey() &&
-                     (authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError))) {
-                authContext.localizedFallbackTitle = NSLocalizedString("Enter Passcode", comment:"");
-                authContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("Log in with your touch ID", comment:""),
-                          reply: {(success: Bool, error: Error?) -> Void in
-                          
-                         print("authenticateUserToLoadPasswordList callback called")
-      
-                    if success {
-                               print("authenticateUserToLoadPasswordList callback success")
-      
-                            let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFileWithLastUsedEncryptionKey();
-                            if (loaded){
-                                DispatchQueue.main.async {
-                                    self.passwordTableView.reloadData();
-                                }
-                            }
-                            else{
-                                self.showAlert(NSLocalizedString("Warning", comment:""), message: NSLocalizedString("Fail to get passcode based on your Touch ID, please input the passcode", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: {(alert) in
-                                        print("authenticateUserToLoadPasswordList callback success fail to load")
-    
-                                        self.authenticateUserToLoadPasswordList();
-                                    }
-                                );
-                            }
-                    } else {
-                            switch error!._code {
-                            case LAError.Code.authenticationFailed.rawValue:
-                              
-                                self.showAlert(NSLocalizedString("Warning",comment:""), message: NSLocalizedString("Touch ID authentication failed, please enter passcode to log in.", comment:""), buttonTitle: NSLocalizedString("OK",comment:""), handler: {(alert) in
-                    
-                                        self.showEnterPasscodeAlert();
-                                    }
-                                    );
-
-                            case LAError.Code.userCancel.rawValue:
-                               // message = nil;
-                                        print("authenticateUserToLoadPasswordList callback error: user cancel")
-    
-
-                                self.showEnterPasscodeAlert();
-                            case LAError.Code.systemCancel.rawValue:
-                               // message = "Touch ID authentication failed, please enter passcode to log in."
-                                print("authenticateUserToLoadPasswordList callback error: system cancel")
-                                //self.authenticateUserToLoadPasswordList();
-                            case LAError.Code.userFallback.rawValue:
-                                //message = "User request to enter passcode"
-                                 print("authenticateUserToLoadPasswordList callback error: user fallback")
-                           
-                                self.showEnterPasscodeAlert();
-                            default:
-                                   print("authenticateUserToLoadPasswordList callback error: default")
-                     
-                           //     message = "Touch ID authentication failed, please enter passcode to log in.";
-                                self.showEnterPasscodeAlert();
-                            
-                        }
-                   }
-                } );
+            (authContext.canEvaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, error: &authError))) {
+            authContext.localizedFallbackTitle = NSLocalizedString("Enter Passcode", comment:"");
+            authContext.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: NSLocalizedString("Log in with your touch ID", comment:""),
+                                       reply: {(success: Bool, error: Error?) -> Void in
+                                        
+                                        print("authenticateUserToLoadPasswordList callback called")
+                                        
+                                        if success {
+                                            print("authenticateUserToLoadPasswordList callback success")
+                                            
+                                            let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFileWithLastUsedEncryptionKey();
+                                            if (loaded){
+                                                DispatchQueue.main.async {
+                                                    self.passwordTableView.reloadData();
+                                                }
+                                            }
+                                            else{
+                                                self.showAlert(NSLocalizedString("Warning", comment:""), message: NSLocalizedString("Fail to get passcode based on your Touch ID, please input the passcode", comment:""), buttonTitle: NSLocalizedString("OK", comment:""), handler: {(alert) in
+                                                    print("authenticateUserToLoadPasswordList callback success fail to load")
+                                                    
+                                                    self.authenticateUserToLoadPasswordList();
+                                                }
+                                                );
+                                            }
+                                        } else {
+                                            switch error!._code {
+                                            case LAError.Code.authenticationFailed.rawValue:
+                                                
+                                                self.showAlert(NSLocalizedString("Warning",comment:""), message: NSLocalizedString("Touch ID authentication failed, please enter passcode to log in.", comment:""), buttonTitle: NSLocalizedString("OK",comment:""), handler: {(alert) in
+                                                    
+                                                    self.showEnterPasscodeAlert();
+                                                }
+                                                );
+                                                
+                                            case LAError.Code.userCancel.rawValue:
+                                                // message = nil;
+                                                print("authenticateUserToLoadPasswordList callback error: user cancel")
+                                                
+                                                
+                                                self.showEnterPasscodeAlert();
+                                            case LAError.Code.systemCancel.rawValue:
+                                                // message = "Touch ID authentication failed, please enter passcode to log in."
+                                                print("authenticateUserToLoadPasswordList callback error: system cancel")
+                                            //self.authenticateUserToLoadPasswordList();
+                                            case LAError.Code.userFallback.rawValue:
+                                                //message = "User request to enter passcode"
+                                                print("authenticateUserToLoadPasswordList callback error: user fallback")
+                                                
+                                                self.showEnterPasscodeAlert();
+                                            default:
+                                                print("authenticateUserToLoadPasswordList callback error: default")
+                                                
+                                                //     message = "Touch ID authentication failed, please enter passcode to log in.";
+                                                self.showEnterPasscodeAlert();
+                                                
+                                            }
+                                        }
+            } );
         }
         else{
             showEnterPasscodeAlert();
@@ -195,7 +212,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let okAction : UIAlertAction = UIAlertAction(title: NSLocalizedString("OK",comment:""), style: UIAlertActionStyle.default){  (alert) in
             let passcode = passwcodeField!.text
             
-            let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(passcode!)
+            let loaded = (UIApplication.shared.delegate as! AppDelegate).passwordManager.loadPasswordFile(passcode!, fileEncrypted: true)
             if (loaded){
                 self.passwordTableView.reloadData()
             }
@@ -215,12 +232,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         print("Google Mobile Ads SDK version: \(GADRequest.sdkVersion())")
         bannerView.adUnitID = "ca-app-pub-4348078921501765/4004108337"
         bannerView.rootViewController = self
         bannerView.load(GADRequest())
-  
+        
         searchResultController = UISearchController(searchResultsController: nil)
         searchResultController.searchResultsUpdater = self
         searchResultController.searchBar.sizeToFit()
@@ -230,8 +247,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         searchResultController.dimsBackgroundDuringPresentation = false // default is YES
         
         definesPresentationContext = true
-
-  
+        
+        
         initialized = true;
         NotificationCenter.default.addObserver(
             self,
@@ -253,7 +270,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             selector: #selector(ViewController.appDidBecomeActive(_:)),
             name: NSNotification.Name(rawValue: "UIApplicationDidBecomeActiveNotification"),
             object: nil)
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -264,7 +281,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.passwordTableView.reloadData()
         self.viewDidLoad()
     }
-
+    
     @objc func passwordFileUnloaded(_ notification: Notification){
         self.passwordTableView.reloadData()
     }
@@ -272,20 +289,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @objc func appWillEnterForeground(_ notification: Notification){
         self.isViewComeFromBackground = true
     }
-  
+    
     @objc func appDidBecomeActive(_ notification: Notification){
         if (self.isViewComeFromBackground){
-             self.isViewComeFromBackground = false;
-             InitializeViewBasedOnPasswordFileStatus();
+            self.isViewComeFromBackground = false;
+            InitializeViewBasedOnPasswordFileStatus();
         }
     }
-  
+    
     
     
     func InitializeViewBasedOnPasswordFileStatus() {
         if ((UIApplication.shared.delegate as! AppDelegate).passwordManager.isPasswordFileExisting()){
             if (!(UIApplication.shared.delegate as! AppDelegate).passwordManager.isPasswordFileUnlocked()){
-         
+                
                 //ask user to input passcode to load the password file
                 self.authenticateUserToLoadPasswordList()
             }
@@ -295,10 +312,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             self.showCreatePasscodeAlert(true)
             
         }
-
-     //   self.passwordTableView.reloadData()
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -338,7 +354,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         
         cell!.name?.text = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].id
-       
+        
         cell!.userName.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].userName, for: UIControlState())
         cell!.password.setTitle( (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemList(currentCategory, searchResultController.searchBar.text)![(indexPath as NSIndexPath).row].password, for:UIControlState())
         
@@ -406,22 +422,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
-//        let statusAlert = UIAlertView(title: nil, message: message as String, delegate: nil, cancelButtonTitle: "OK")
-  //      statusAlert.show();
+        //        let statusAlert = UIAlertView(title: nil, message: message as String, delegate: nil, cancelButtonTitle: "OK")
+        //      statusAlert.show();
         //  NSTimer.scheduledTimerWithTimeInterval(timeout, target: self, selector: Selector("timerExpired:"), userInfo: statusAlert, repeats: true)
     }
     
-  /*  func timerExpired(timer : NSTimer){
-        
-        var statusAlert = timer.userInfo as! UIAlertView
-        
-        dispatch_async(dispatch_get_main_queue(),{
-            println("dismissed")
-            statusAlert.dismissWithClickedButtonIndex(0, animated: false)
-            timer.invalidate()
-        });
-    }
-    */
+    /*  func timerExpired(timer : NSTimer){
+     
+     var statusAlert = timer.userInfo as! UIAlertView
+     
+     dispatch_async(dispatch_get_main_queue(),{
+     println("dismissed")
+     statusAlert.dismissWithClickedButtonIndex(0, animated: false)
+     timer.invalidate()
+     });
+     }
+     */
     
     @IBAction func unwindToMainMenu(_ sender: UIStoryboardSegue)
     {
@@ -439,7 +455,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             (UIApplication.shared.delegate as! AppDelegate).passwordManager.savePasswordFile()
             
             self.passwordTableView!.reloadData()
- 
+            
         }
         else if(sourceViewController.bNewPassword && !sourceViewController.bCancelled){
             _ = (UIApplication.shared.delegate as! AppDelegate).passwordManager.addPasswordItem(sourceViewController.passwordItem!)
@@ -456,33 +472,60 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         print("viewcontroller onlogout")
         (UIApplication.shared.delegate as! AppDelegate).passwordManager.unloadPasswordFile()
         self.passwordTableView!.reloadData()
-//        self.authenticateUserToLoadPasswordList()
+        //        self.authenticateUserToLoadPasswordList()
         UIControl().sendAction(#selector(URLSessionTask.suspend), to: UIApplication.shared, for: nil)
-
+        
     }
     
     
     
     //send the encrypted file to email
+    fileprivate func sendBackupDataEmail(_ encryption: Bool) {
+        let mailComposerVC = MFMailComposeViewController()
+        
+        mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+        
+        //mailComposerVC.setToRecipients([receipt])
+        mailComposerVC.setSubject(NSLocalizedString("Data backup email from Password Booklet application", comment:""))
+        mailComposerVC.setMessageBody(NSLocalizedString("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", comment:""), isHTML: false)
+        
+        //load the password file data before decryption
+        let data =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordFileContent(encryption)
+        
+        var filename : String?;
+        if (encryption){
+            filename = "data.passwordbooklet"
+        }
+        else{
+            filename = "text.passwordbooklet"
+        }
+        mailComposerVC.addAttachmentData(data as Data, mimeType: "passwordbooklet", fileName: filename!)
+        
+        // Fill out the email body text
+        self.present(mailComposerVC, animated: true, completion:nil)
+    }
+    
     @IBAction func onExport(_ sender: AnyObject) {
         
         if (MFMailComposeViewController.canSendMail()){
-            let mailComposerVC = MFMailComposeViewController()
             
+            //allow user to select whether backup as encrypted data or plain text
+            let alertController = UIAlertController(title: "Select backup Mode", message: "Warning: Select 'No Encryption' mode will export the password items as plain text.", preferredStyle: .actionSheet)
             
-            mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            alertController.addAction(cancelAction)
             
-            //mailComposerVC.setToRecipients([receipt])
-            mailComposerVC.setSubject(NSLocalizedString("Data backup email from Password Booklet application", comment:""))
-            mailComposerVC.setMessageBody(NSLocalizedString("To restore the backup file, click on the attachement and select Password Booklet application. WARNING: all existing data will be overwritten.", comment:""), isHTML: false)
+            let encryptionAction = UIAlertAction(title: "Default (With Encryption)", style: .default) { action in
+                self.sendBackupDataEmail(true)
+            }
+            alertController.addAction(encryptionAction)
             
-            //load the password file data before decryption
+            let noEncryptionAction = UIAlertAction(title: "No Encryption", style: .destructive) { action in
+                self.sendBackupDataEmail(false)
+            }
+            alertController.addAction(noEncryptionAction)
             
-            let data =  (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordFileContent()
-            mailComposerVC.addAttachmentData(data as Data, mimeType: "passwordbooklet", fileName: "data.passwordbooklet")
-            
-            // Fill out the email body text
-            self.present(mailComposerVC, animated: true, completion:nil)
+            self.present(alertController, animated: true)
         }
         else{
             let titleStr = NSLocalizedString("Error",comment:"")
@@ -490,11 +533,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let alertController = UIAlertController(title: titleStr, message: msg1, preferredStyle: .alert)
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:""), style: .default) { (action) -> Void in
                 print("The user is okay.")
-             }
+            }
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
-        
     }
     
     func mailComposeController(_ controller:MFMailComposeViewController, didFinishWith result:MFMailComposeResult, error:Error?) {
@@ -532,7 +574,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         //get password item based on id
         let item = (UIApplication.shared.delegate as! AppDelegate).passwordManager.getPasswordItemByID(passwordID!)
-    
+        
         let url : URL? = URL(string: item!.link!)
         let bOK = UIApplication.shared.openURL(url!)
         if (!bOK){
@@ -542,7 +584,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let alertController = UIAlertController(title: titleStr, message: msg1 + item!.link! + msg2, preferredStyle: .alert)
             let okAction = UIAlertAction(title: NSLocalizedString("OK", comment:""), style: .default) { (action) -> Void in
                 print("The user is okay.")
-             }
+            }
             alertController.addAction(okAction)
             self.present(alertController, animated: true, completion: nil)
         }
@@ -552,24 +594,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let seg : UISegmentedControl = sender as! UISegmentedControl
         let index = seg.selectedSegmentIndex
         switch (index){
-
-            case 1:
+            
+        case 1:
             currentCategory = "Personal"
             break
-            case 2:
+        case 2:
             currentCategory = "Work"
             break
-            case 3:
+        case 3:
             currentCategory = "Financial"
             break
-            case 4:
+        case 4:
             currentCategory = "Others"
             break
-            default:
+        default:
             currentCategory = ""
             break
         }
-    
+        
         self.passwordTableView.reloadData()
     }
     
@@ -597,11 +639,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.categorySelector.selectedSegmentIndex = categoryIndex
         self.currentCategory = categoryName
     }
-
+    
     func updateSearchResults(for searchController: UISearchController) {
         _ = searchController.searchBar.text;
         self.passwordTableView.reloadData()
-     
+        
     }
 }
 

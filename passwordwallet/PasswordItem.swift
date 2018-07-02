@@ -120,13 +120,22 @@ class PasswordManager{
         self.passwordList = arr as [PasswordItem]?
     }
     
-    private func loadPasswordFileWithEncryptionKey() -> Bool{
-           //load data from file
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] 
-        let path = (paths as NSString).appendingPathComponent("passwords.dat")
+    private func loadPasswordFileWithEncryptionKey(_ fileEncrypted : Bool) -> Bool{
+        //load data from file
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        var passwordFileName = "passwords.dat"
+        if (!fileEncrypted){
+            passwordFileName = "text.passwordbooklet"
+        }
+        let path = (paths as NSString).appendingPathComponent(passwordFileName)
         let data = try? Data(contentsOf: URL(fileURLWithPath: path))
-        
-        let decryptedData = decryptData(data!, key: encryptionKey!)
+        var decryptedData : Data? = nil
+        if (fileEncrypted){
+             decryptedData = decryptData(data!, key: encryptionKey!)
+        }
+        else{
+            decryptedData = data
+        }
         
     //  let str = String(data: decryptedData!, encoding: .utf8)
     //  print (str ?? "error: empty data")
@@ -290,20 +299,29 @@ class PasswordManager{
     }
 
     
-    public func getPasswordFileContent()->Data {
+    public func getPasswordFileContent(_ encryption: Bool)->Data {
+        if (encryption){
             //load data from file
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] 
-        let path = (paths as NSString).appendingPathComponent("passwords.dat")
-        let data = try? Data(contentsOf: URL(fileURLWithPath: path))
-        return data!
+            let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+            let path = (paths as NSString).appendingPathComponent("passwords.dat")
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path))
+            return data!
+        }
+        else{
+            return getPasswordJSONString()!
+        }
    
     }
     
     public func isPasswordFileExisting() -> Bool{
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] 
-        let path = (paths as NSString).appendingPathComponent("passwords.dat")
+        return isFileExisting("passwords.dat")
+    }
+    
+    public func isFileExisting(_ fileName: String) -> Bool{
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let path = (paths as NSString).appendingPathComponent(fileName)
         let checkValidation = FileManager.default
-
+        
         if (checkValidation.fileExists(atPath: path)){
             return true
         }
@@ -330,6 +348,16 @@ class PasswordManager{
         }
     }
 
+    //this method is used to export password list as json string
+    public func getPasswordJSONString() -> Data? {
+        print("PasswordItem savePasswordFile");
+        
+        let dicArray = convertToDictionaryArray();
+        let data : Data? = try? JSONSerialization.data(withJSONObject: dicArray, options: JSONSerialization.WritingOptions.prettyPrinted)
+        
+        return data;
+    }
+    
     public func savePasswordFile(){
         print("PasswordItem savePasswordFile");
 
@@ -355,11 +383,26 @@ class PasswordManager{
         lastUsedEncrytionKey = encryptionKey;
         savePasswordFile()
     }
+    
+    public func deletePasswordFile(_ fileName : String) -> Bool {
+        let fileManager = FileManager.default
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+        let path = (paths as NSString).appendingPathComponent(fileName)
+        if (isFileExisting(fileName)){
+            do {
+                try fileManager.removeItem(atPath: path)
+            } catch let error1 as NSError {
+                print(error1)
+                return false
+            }
+        }
+        return true
+    }
  
     func copyPasswordFile(_ sourcePath : String, err: NSErrorPointer){
         var error : NSError?
         let fileManager = FileManager.default
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] 
+        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let path = (paths as NSString).appendingPathComponent("passwords.dat")
         if (isPasswordFileExisting()){
             do {
@@ -373,8 +416,26 @@ class PasswordManager{
         }
         else{
             do {
-                //copy the file
-                try fileManager.moveItem(atPath: sourcePath, toPath: path)
+                //copy the file, the file may be encrypted passwords.dat or unencrypted passwords.txt which is indicated by source file name of text.passwordbooklet
+                let sourceFileName = NSURL(fileURLWithPath: sourcePath).lastPathComponent
+                if (sourceFileName?.lowercased().contains("text"))!{
+                    //the previous file moved may still exist, delete it first before moving
+                    let targetPath = (paths as NSString).appendingPathComponent("text.passwordbooklet")
+
+                    if (isFileExisting("text.passwordbooklet")){
+                        do {
+                            try fileManager.removeItem(atPath: targetPath)
+                        } catch let error1 as NSError {
+                            error = error1
+                        }
+                    }
+                    //for security reason, the target file is alwasy text.passwordbooklet and it will be deleted after app starts and encrpyted with the passcode
+                    //created by user. The file name is used to indicate a plain text file exists
+                    try fileManager.moveItem(atPath: sourcePath, toPath: targetPath)
+                }
+                else{
+                    try fileManager.moveItem(atPath: sourcePath, toPath: path)
+                }
             } catch let error1 as NSError {
                 error = error1
             }
@@ -418,17 +479,17 @@ class PasswordManager{
         resetCachedFilterResult()
          if let savedKey = self.lastUsedEncrytionKey {
              encryptionKey = savedKey;
-             return loadPasswordFileWithEncryptionKey();
+            return loadPasswordFileWithEncryptionKey(true);
          }
          return false;
     }
     
-    public func loadPasswordFile(_ passcode : String) -> Bool{
+    public func loadPasswordFile(_ passcode : String, fileEncrypted : Bool) -> Bool{
         resetCachedFilterResult()
         let saltStr : String = "salt"
         let salt = saltStr.data(using: String.Encoding.utf8, allowLossyConversion: false)
         encryptionKey = getKeyFromPassword(passcode, salt: salt!)
-        return loadPasswordFileWithEncryptionKey();
+        return loadPasswordFileWithEncryptionKey(fileEncrypted);
     }
     
     public func unloadPasswordFile() {
