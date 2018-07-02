@@ -169,7 +169,7 @@ class PasswordManager{
     private func getKeyFromPassword(_ password : String, salt:Data) -> Data{
         let derivedKey = NSMutableData(length: kCCKeySizeAES128);
         CCKeyDerivationPBKDF(CCPBKDFAlgorithm(kCCPBKDF2), NSString(string: password).utf8String,
-            password.characters.count, (salt as NSData).bytes.bindMemory(to: UInt8.self, capacity: salt.count), salt.count,
+            password.count, (salt as NSData).bytes.bindMemory(to: UInt8.self, capacity: salt.count), salt.count,
             CCPseudoRandomAlgorithm(kCCPRFHmacAlgSHA512),
             uint(100),
             UnsafeMutablePointer<UInt8>(derivedKey!.mutableBytes.assumingMemoryBound(to:UInt8.self)),
