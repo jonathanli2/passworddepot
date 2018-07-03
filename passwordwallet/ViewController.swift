@@ -508,19 +508,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func onExport(_ sender: AnyObject) {
         
         if (MFMailComposeViewController.canSendMail()){
-            
+            let backupMode = NSLocalizedString("Select backup Mode",comment:"")
+            let backupMesssage = NSLocalizedString("Backup Message",comment:"")
             //allow user to select whether backup as encrypted data or plain text
-            let alertController = UIAlertController(title: "Select backup Mode", message: "Warning: Select 'No Encryption' mode will export the password items as plain text.", preferredStyle: .actionSheet)
+            let alertController = UIAlertController(title: backupMode, message: backupMesssage, preferredStyle: .actionSheet)
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            
+            let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel",comment:""), style: .cancel)
             alertController.addAction(cancelAction)
             
-            let encryptionAction = UIAlertAction(title: "Default (With Encryption)", style: .default) { action in
+            let defaultMode = NSLocalizedString("Default (With Encryption)",comment:"")
+            let encryptionAction = UIAlertAction(title: defaultMode, style: .default) { action in
                 self.sendBackupDataEmail(true)
             }
             alertController.addAction(encryptionAction)
             
-            let noEncryptionAction = UIAlertAction(title: "No Encryption", style: .destructive) { action in
+            let noEncryptionMode = NSLocalizedString("No Encryption",comment:"")
+            let noEncryptionAction = UIAlertAction(title: noEncryptionMode, style: .destructive) { action in
                 self.sendBackupDataEmail(false)
             }
             alertController.addAction(noEncryptionAction)
