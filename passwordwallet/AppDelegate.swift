@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Password Depot
+//  Password Depot.
 //
 //  Created by Li, Jonathan on 4/22/19.
 //  Copyright (c) 2015 It21Learning. All rights reserved.
